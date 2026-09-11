@@ -130,18 +130,18 @@ else:
                 for i, jogo in enumerate(jogos_atuais):
                     id_container = f"iframe_container_{i}"
                     
-                    # O código HTML completo do iframe
+                    # O código HTML completo do iframe ajustado automaticamente para height: 2000px
                     codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
-    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"></div>
+    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 2000px"></div>
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
 </div>"""
 
-                    # Escapamos o código para ser guardado com segurança no atributo do botão
+                    # Escapamos o código para segurança na exibição e cópia
                     codigo_escapado_exibicao = html.escape(codigo_iframe_puro)
                     codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
 
-                    # Card com altura de 183px e atributo data-code contendo o código exato
+                    # Card com altura de 183px na caixa de código e botão logo abaixo
                     card_html = f"""
     <div class="match-card">
         <div class="code-box-wrapper">
@@ -293,12 +293,10 @@ else:
         function copiarTexto(botao) {{
             const codigoCodificado = botao.getAttribute('data-code');
             
-            // Decodifica as entidades HTML para recuperar o texto puro original
             const textareaTemp = document.createElement('textarea');
             textareaTemp.innerHTML = codigoCodificado;
             const textoParaCopiar = textareaTemp.value;
             
-            // Método clássico de cópia (funciona em qualquer servidor HTTP ou HTTPS)
             const inputInvisivel = document.createElement('textarea');
             inputInvisivel.value = textoParaCopiar;
             document.body.appendChild(inputInvisivel);
