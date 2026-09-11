@@ -103,8 +103,8 @@ else:
                         nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
                         
                         novo_item = {"nome": nome_jogo, "key": c_key, "comentario_original": c_comentario.strip()}
-                        if novo_item not in st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
-                            st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome].append(novo_item)
+                        if novo_item not in str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
+                            str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome].append(novo_item)
                     
                     str_lit.success(f"{len(keys)} jogos importados com sucesso do arquivo .txt!")
                 else:
