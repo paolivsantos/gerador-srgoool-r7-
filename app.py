@@ -58,14 +58,13 @@ st.divider()
 # --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS ---
 st.subheader("🏆 Gerenciar Campeonatos")
 
-# Função de callback para adicionar o campeonato e limpar o input sem conflito de widget
 def adicionar_campeonato_callback():
     valor_digitado = st.session_state.get("input_camp_val", "").strip()
     if valor_digitado:
         if valor_digitado not in st.session_state["campeonatos_dados"]:
             st.session_state["campeonatos_dados"][valor_digitado] = {}
             st.session_state["campeonatos_visibilidade"][valor_digitado] = True
-            st.session_state["input_camp_val"] = ""  # Limpa limpa a chave corretamente via callback
+            st.session_state["input_camp_val"] = ""
             st.success(f"Campeonato '{valor_digitado}' criado com sucesso!")
         else:
             st.warning("Este campeonato já existe.")
@@ -113,33 +112,42 @@ else:
     # --- 2. CADA CAMPEONATO CRIADO GERA UMA ABA ---
     abas_campeonatos = st.tabs(campeonatos_cadastrados)
 
-    html_todos_campeonatos = ""
+    botoes_abas_html = ""
+    conteudo_abas_html = ""
 
     for idx_camp, camp_nome in enumerate(campeonatos_cadastrados):
         with abas_campeonatos[idx_camp]:
             st.markdown(f"### Competição: **{camp_nome}**")
             st.markdown("#### Gerenciar Rodadas / Fases")
 
-            # --- 3. CRIAR RODADA/FASE DE FORMA DINÂMICA (ALINHADO) ---
+            def criar_callback_rodada(c_nome):
+                key_input = f"input_rodada_{c_nome}"
+                valor_rodada = st.session_state.get(key_input, "").strip()
+                if valor_rodada:
+                    if valor_rodada not in st.session_state["campeonatos_dados"][c_nome]:
+                        st.session_state["campeonatos_dados"][c_nome][valor_rodada] = []
+                        st.session_state[key_input] = ""
+                        st.success(f"Rodada '{valor_rodada}' adicionada!")
+                    else:
+                        st.warning("Esta rodada já existe neste campeonato.")
+                else:
+                    st.error("Digite um nome válido para a rodada.")
+
             col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
             with col_r1:
-                nova_rodada = st.text_input(
+                st.text_input(
                     f"Nome da rodada/fase para {camp_nome}:",
                     placeholder="",
                     key=f"input_rodada_{camp_nome}"
                 )
             with col_r2:
-                if st.button("➕ Adicionar Rodada", key=f"btn_add_rodada_{camp_nome}", use_container_width=True):
-                    if nova_rodada:
-                        rodada_limpa = nova_rodada.strip()
-                        if rodada_limpa not in st.session_state["campeonatos_dados"][camp_nome]:
-                            st.session_state["campeonatos_dados"][camp_nome][rodada_limpa] = []
-                            st.success(f"Rodada '{rodada_limpa}' adicionada!")
-                            st.rerun()
-                        else:
-                            st.warning("Esta rodada já existe neste campeonato.")
-                    else:
-                        st.error("Digite um nome válido para a rodada.")
+                st.button(
+                    "➕ Adicionar Rodada", 
+                    key=f"btn_add_rodada_{camp_nome}", 
+                    on_click=criar_callback_rodada, 
+                    args=(camp_nome,), 
+                    use_container_width=True
+                )
 
             rodadas_existentes = list(st.session_state["campeonatos_dados"][camp_nome].keys())
 
@@ -157,7 +165,6 @@ else:
                             del st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
                             st.rerun()
 
-                        # --- 4. UPLOAD PARA O .TXT COM OS IFRAMES ---
                         uploaded_file = st.file_uploader(
                             f"Envie o arquivo .txt para {camp_nome} - {rodada_nome}",
                             type=["txt"],
@@ -224,17 +231,24 @@ else:
         {cards_html_rodada}
     </div>\n"""
 
-            # --- 5. GERAÇÃO DO HTML COMPLETO ---
+            # --- CONSTRUÇÃO DAS ABAS NO FRONTEND HTML ---
             if cards_html_campeonato and st.session_state["campeonatos_visibilidade"].get(camp_nome, True):
-                html_todos_campeonatos += f"""
-<div class="championship-section" data-championship="{camp_nome}">
-    <h1 class="page-title">{camp_nome}</h1>
-    {cards_html_campeonato}
-</div>\n"""
+                safe_id = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
+                is_first = (botoes_abas_html == "")
+                active_class_btn = "active" if is_first else ""
+                active_class_content = "active" if is_first else ""
+
+                botoes_abas_html += f"""
+        <button class="tab-btn {active_class_btn}" onclick="mudarAba(event, '{safe_id}')">{camp_nome}</button>"""
+
+                conteudo_abas_html += f"""
+    <div id="{safe_id}" class="tab-content {active_class_content}">
+        {cards_html_campeonato}
+    </div>\n"""
 
     st.divider()
     st.subheader("📋 Código HTML Completo da Página para o Servidor")
-    st.markdown("O código abaixo consolida apenas os campeonatos que estão marcados para exibição:")
+    st.markdown("O código abaixo consolida os campeonatos organizados em abas para facilitar a navegação no portal:")
 
     html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -283,21 +297,56 @@ else:
             margin: 0 auto;
             padding: 20px;
         }}
-        .page-title {{
-            text-align: center;
-            color: #137d00;
-            font-size: 2rem;
-            margin: 35px 0 20px 0;
+        /* Estilos das Abas de Campeonatos */
+        .tabs-header {{
+            display: flex;
+            background-color: #141414;
+            border-bottom: 2px solid #222;
+            overflow-x: auto;
+            margin-top: 25px;
+            border-radius: 6px 6px 0 0;
+        }}
+        .tab-btn {{
+            background-color: transparent;
+            color: #888;
+            border: none;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid #137d00;
-            padding-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }}
+        .tab-btn:hover {{
+            color: #ffffff;
+            background-color: rgba(19, 125, 0, 0.05);
+        }}
+        .tab-btn.active {{
+            color: #ffffff;
+            border-bottom: 3px solid #137d00;
+            background-color: rgba(19, 125, 0, 0.1);
+        }}
+        .tab-content {{
+            display: none;
+            padding: 20px 0;
+            animation: fadeIn 0.3s ease;
+        }}
+        .tab-content.active {{
+            display: block;
+        }}
+        @keyframes fadeIn {{
+            from {{ opacity: 0; }}
+            to {{ opacity: 1; }}
         }}
         .round-title {{
             color: #ffffff;
             font-size: 1.4rem;
             margin: 25px 0 15px 0;
             text-transform: uppercase;
+            border-left: 4px solid #137d00;
+            padding-left: 10px;
         }}
         .match-card {{
             background: #141414;
@@ -365,7 +414,13 @@ else:
     </header>
 
     <div class="container">
-{html_todos_campeonatos}
+        <!-- Navegação por Abas -->
+        <div class="tabs-header">
+{botoes_abas_html}
+        </div>
+
+        <!-- Conteúdo das Abas -->
+{conteudo_abas_html}
     </div>
 
     <footer>
@@ -373,6 +428,21 @@ else:
     </footer>
 
     <script>
+        function mudarAba(evt, tabId) {{
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {{
+                contents[i].classList.remove("active");
+            }}
+            
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {{
+                buttons[i].classList.remove("active");
+            }}
+            
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }}
+
         function copiarTexto(botao) {{
             const codigoCodificado = botao.getAttribute('data-code');
             
