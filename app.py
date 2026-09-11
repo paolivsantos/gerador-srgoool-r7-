@@ -10,7 +10,7 @@ str_lit.set_page_config(
 
 str_lit.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
 str_lit.markdown(
-    "Faça o upload do arquivo de texto para extrair os códigos e disponibilizar a cópia rápida para a redação."
+    "Faça o upload do arquivo de texto para estruturar a página com os blocos de código e botões de cópia para a redação."
 )
 
 # Categorias principais
@@ -117,32 +117,204 @@ else:
                     str_lit.rerun()
 
             str_lit.markdown("---")
-            str_lit.markdown("#### Códigos dos Jogos para Cópia Individual:")
+            str_lit.markdown("#### Validação na Administração (Visualização rápida):")
             
             jogos_atuais = str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]
             
             if not jogos_atuais:
                 str_lit.info("Nenhum jogo cadastrado nesta sub-aba ainda. Faça o upload de um arquivo .txt acima.")
             else:
-                html_gerado_completo = ""
+                cards_html_gerador = ""
                 
                 for i, jogo in enumerate(jogos_atuais):
                     id_container = f"iframe_container_{i}"
                     
-                    # Bloco limpo idêntico ao formato padrão que a redação insere nos artigos
-                    bloco_html = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
+                    # O código HTML limpo do iframe que o redator precisa
+                    codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
     <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"> </div>
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
-</div>\n\n"""
-                    
-                    html_gerado_completo += bloco_html
+</div>"""
 
-                    # Exibe o título do jogo e o bloco de código com o botão de cópia nativo do Streamlit
-                    str_lit.markdown(f"**⚽ {jogo['nome']}**")
-                    str_lit.code(bloco_html, language="html")
+                    # Estrutura do card visual para a página final do servidor (exibe o código com <pre> e botão de copiar)
+                    card_html = f"""
+    <div class="match-card">
+        <div class="match-title">⚽ {jogo['nome']}</div>
+        <div class="code-box-wrapper">
+            <pre><code id="code_{i}">{codigo_iframe_puro}</code></pre>
+            <button class="copy-btn" onclick="copiarCodigo('code_{i}', this)">Copiar Código do Iframe</button>
+        </div>
+    </div>\n\n"""
+                    
+                    cards_html_gerador += card_html
+
+                    # Na interface do Streamlit, apenas mostramos o código formatado para conferência
+                    with str_lit.expander(f"⚽ {jogo['nome']}"):
+                        str_lit.code(codigo_iframe_puro, language="html")
+
+                # Montagem do Template HTML Completo para o Servidor (Com os códigos visíveis e botões de cópia)
+                html_pagina_completa = f"""<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lance a Lance - {categoria_selecionada} ({sub_aba_nome})</title>
+    
+    <!-- Meta tags Open Graph -->
+    <meta property="og:title" content="Lance a Lance: {categoria_selecionada} - {sub_aba_nome}">
+    <meta property="og:description" content="Central de cópias de iframes para os artigos de {categoria_selecionada}.">
+    <meta property="og:image" content="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg">
+    <meta property="og:type" content="website">
+
+    <style>
+        * {{ box-sizing: border-box; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b0b0b;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }}
+        .header-container {{
+            width: 100%;
+            background-color: #000;
+            text-align: center;
+            border-bottom: 4px solid #137d00;
+        }}
+        .header-desktop {{
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            display: block;
+        }}
+        .header-mobile {{
+            display: none;
+            width: 100%;
+            object-fit: cover;
+        }}
+        @media (max-width: 768px) {{
+            .header-desktop {{ display: none; }}
+            .header-mobile {{ display: block; }}
+        }}
+        .container {{
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        .page-title {{
+            text-align: center;
+            color: #137d00;
+            font-size: 1.8rem;
+            margin: 25px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }}
+        .match-card {{
+            background: #141414;
+            border: 1px solid #222;
+            border-left: 5px solid #137d00;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }}
+        .match-title {{
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }}
+        .code-box-wrapper {{
+            background: #000;
+            border: 1px solid #262626;
+            border-radius: 4px;
+            padding: 10px;
+            position: relative;
+        }}
+        pre {{
+            margin: 0;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }}
+        code {{
+            font-family: Consolas, Monaco, "Andale Mono", monospace;
+            color: #4af626;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }}
+        .copy-btn {{
+            background-color: #137d00;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }}
+        .copy-btn:hover {{
+            background-color: #0f6600;
+        }}
+        .copy-btn.copied {{
+            background-color: #ffffff;
+            color: #000000;
+        }}
+        footer {{
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 40px;
+        }}
+    </style>
+</head>
+<body>
+
+    <!-- Header Responsivo -->
+    <header class="header-container">
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7" class="header-desktop">
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">{categoria_selecionada} — {sub_aba_nome}</h1>
+
+        <!-- Cards de Códigos por Jogo -->
+{cards_html_gerador}
+    </div>
+
+    <footer>
+        <p>R7 Esportes • Sistema de Cobertura Lance a Lance</p>
+    </footer>
+
+    <script>
+        function copiarCodigo(idElemento, botao) {{
+            const elementoCodigo = document.getElementById(idElemento);
+            const texto = elementoCodigo.innerText;
+            
+            navigator.clipboard.writeText(texto).then(() => {{
+                const textoOriginal = botao.innerText;
+                botao.innerText = "Copiado com sucesso! ✔️";
+                botao.classList.add("copied");
+                
+                setTimeout(() => {{
+                    botao.innerText = textoOriginal;
+                    botao.classList.remove("copied");
+                }}, 2000);
+            }}).catch(err => {{
+                console.error('Erro ao tentar copiar: ', err);
+            }});
+        }}
+    </script>
+</body>
+</html>"""
 
                 str_lit.divider()
-                str_lit.subheader("📋 Copiar Todos os Jogos da Sub-Aba")
-                str_lit.markdown("Caso queira copiar a rodada inteira de uma só vez:")
-                str_lit.code(html_gerado_completo, language="html")
+                str_lit.subheader("📋 Código HTML Completo da Página para o Servidor")
+                str_lit.markdown("Copie o código completo abaixo, salve como arquivo `.html` e faça o upload para o servidor:")
+                str_lit.code(html_pagina_completa, language="html")
