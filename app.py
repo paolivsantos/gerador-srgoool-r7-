@@ -130,18 +130,18 @@ else:
                 for i, jogo in enumerate(jogos_atuais):
                     id_container = f"iframe_container_{i}"
                     
-                    # O código HTML completo do iframe exato conforme o padrão solicitado
+                    # O código HTML completo do iframe
                     codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
     <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"></div>
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
 </div>"""
 
-                    # Escapamos o código para ser injetado com segurança no atributo HTML do botão e exibido na caixa de 183px
+                    # Escapamos o código para ser guardado com segurança no atributo do botão
                     codigo_escapado_exibicao = html.escape(codigo_iframe_puro)
                     codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
 
-                    # Card com altura de 183px na caixa de código e botão logo abaixo
+                    # Card com altura de 183px e atributo data-code contendo o código exato
                     card_html = f"""
     <div class="match-card">
         <div class="code-box-wrapper">
@@ -155,7 +155,7 @@ else:
                     with str_lit.expander(f"⚽ {jogo['nome']}"):
                         str_lit.code(codigo_iframe_puro, language="html")
 
-                # Template HTML final limpo para o servidor
+                # Template HTML final para o servidor
                 html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -291,13 +291,21 @@ else:
 
     <script>
         function copiarTexto(botao) {{
-            const textoCodigo = botao.getAttribute('data-code');
+            const codigoCodificado = botao.getAttribute('data-code');
             
-            // Decodifica entidades HTML básicas caso necessário para cópia exata
-            const parser = new DOMParser();
-            const textoDecodificado = parser.parseFromString('<!doctype html><body>' + textoCodigo, 'text/html').body.textContent;
+            // Decodifica as entidades HTML para recuperar o texto puro original
+            const textareaTemp = document.createElement('textarea');
+            textareaTemp.innerHTML = codigoCodificado;
+            const textoParaCopiar = textareaTemp.value;
             
-            navigator.clipboard.writeText(textoDecodificado).then(() => {{
+            // Método clássico de cópia (funciona em qualquer servidor HTTP ou HTTPS)
+            const inputInvisivel = document.createElement('textarea');
+            inputInvisivel.value = textoParaCopiar;
+            document.body.appendChild(inputInvisivel);
+            inputInvisivel.select();
+            
+            try {{
+                document.execCommand('copy');
                 const textoOriginal = botao.innerText;
                 botao.innerText = "Copiado! ✔️";
                 botao.classList.add("copied");
@@ -306,9 +314,12 @@ else:
                     botao.innerText = textoOriginal;
                     botao.classList.remove("copied");
                 }}, 2000);
-            }}).catch(err => {{
-                console.error('Erro ao tentar copiar: ', err);
-            }});
+            }} catch (err) {{
+                console.error('Erro ao copiar: ', err);
+                alert('Erro ao tentar copiar o código.');
+            }}
+            
+            document.body.removeChild(inputInvisivel);
         }}
     </script>
 </body>
