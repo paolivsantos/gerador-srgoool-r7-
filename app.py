@@ -22,6 +22,10 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
+# Garante a chave do input no session_state para poder limpá-la
+if "input_camp_val" not in st.session_state:
+    st.session_state["input_camp_val"] = ""
+
 # --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
 st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
 
@@ -43,7 +47,6 @@ if json_file is not None:
             dados_carregados = json.load(json_file)
             if isinstance(dados_carregados, dict):
                 st.session_state["campeonatos_dados"] = dados_carregados
-                # Garante visibilidade ativa para os campeonatos carregados
                 for c in dados_carregados.keys():
                     if c not in st.session_state["campeonatos_visibilidade"]:
                         st.session_state["campeonatos_visibilidade"][c] = True
@@ -56,14 +59,15 @@ if json_file is not None:
 
 st.divider()
 
-# --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS (INPUT + BOTÃO ALINHADOS) ---
+# --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS (SEM TEXTO DE EXEMPLO E COM LIMPEZA) ---
 st.subheader("🏆 Gerenciar Campeonatos")
 
 col_c1, col_c2 = st.columns([3, 1], vertical_alignment="bottom")
 with col_c1:
     novo_campeonato = st.text_input(
-        "Nome do novo campeonato (ex: Brasileirão 2026, Paulistão):",
-        placeholder="Digite o nome do campeonato...",
+        "Nome do campeonato:",
+        placeholder="",
+        key="input_camp_val"
     )
 with col_c2:
     if st.button("➕ Adicionar Campeonato", use_container_width=True):
@@ -72,6 +76,8 @@ with col_c2:
             if camp_limpo not in st.session_state["campeonatos_dados"]:
                 st.session_state["campeonatos_dados"][camp_limpo] = {}
                 st.session_state["campeonatos_visibilidade"][camp_limpo] = True
+                # Limpa o input limpando a chave do session_state antes do rerun
+                st.session_state["input_camp_val"] = ""
                 st.success(f"Campeonato '{camp_limpo}' criado com sucesso!")
                 st.rerun()
             else:
@@ -108,7 +114,6 @@ if not campeonatos_cadastrados:
 else:
     st.divider()
     # --- 2. CADA CAMPEONATO CRIADO GERA UMA ABA ---
-    # Filtra apenas os campeonatos que possuem dados
     abas_campeonatos = st.tabs(campeonatos_cadastrados)
 
     html_todos_campeonatos = ""
@@ -122,8 +127,8 @@ else:
             col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
             with col_r1:
                 nova_rodada = st.text_input(
-                    f"Nome da rodada/fase para {camp_nome} (ex: 1ª Rodada, Quartas):",
-                    placeholder="Digite a rodada...",
+                    f"Nome da rodada/fase para {camp_nome}:",
+                    placeholder="",
                     key=f"input_rodada_{camp_nome}"
                 )
             with col_r2:
@@ -151,7 +156,6 @@ else:
                     with abas_rodadas[idx_rod]:
                         st.markdown(f"##### Conteúdo da Rodada: {rodada_nome}")
 
-                        # Botão para excluir esta rodada específica se desejar
                         if st.button(f"🗑️ Excluir Rodada '{rodada_nome}'", key=f"del_rod_{camp_nome}_{rodada_nome}"):
                             del st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
                             st.rerun()
@@ -223,7 +227,7 @@ else:
         {cards_html_rodada}
     </div>\n"""
 
-            # --- 5. GERAÇÃO DO HTML COMPLETO (Considera apenas os visíveis pelo checkbox) ---
+            # --- 5. GERAÇÃO DO HTML COMPLETO ---
             if cards_html_campeonato and st.session_state["campeonatos_visibilidade"].get(camp_nome, True):
                 html_todos_campeonatos += f"""
 <div class="championship-section" data-championship="{camp_nome}">
