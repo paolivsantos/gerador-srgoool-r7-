@@ -1,4 +1,5 @@
 import re
+import html
 import streamlit as str_lit
 
 # Configuração da página
@@ -136,17 +137,17 @@ else:
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
 </div>"""
 
-                    # Card com visual escuro original (#141414), exibindo o bloco de código completo e o botão "Copiar" logo abaixo
+                    # Escapamos o código para ser injetado com segurança no atributo HTML do botão e exibido na caixa de 183px
+                    codigo_escapado_exibicao = html.escape(codigo_iframe_puro)
+                    codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
+
+                    # Card com altura de 183px na caixa de código e botão logo abaixo
                     card_html = f"""
     <div class="match-card">
         <div class="code-box-wrapper">
-            <pre><code id="code_{i}"><!-- {jogo.get('comentario_original', jogo['nome'])} -->
-<div style="display: flex">
-    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"></div>
-    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
-</div></code></pre>
+            <pre><code>{codigo_escapado_exibicao}</code></pre>
         </div>
-        <button class="copy-btn" onclick="copiarCodigo('code_{i}', this)">Copiar</button>
+        <button class="copy-btn" data-code="{codigo_escapado_copia}" onclick="copiarTexto(this)">Copiar</button>
     </div>\n\n"""
                     
                     cards_html_gerador += card_html
@@ -226,10 +227,13 @@ else:
             border-radius: 4px;
             padding: 12px;
             margin-bottom: 12px;
+            height: 183px;
+            max-height: 183px;
+            overflow-y: auto;
+            overflow-x: auto;
         }}
         pre {{
             margin: 0;
-            overflow-x: auto;
         }}
         code {{
             font-family: Consolas, Monaco, "Andale Mono", monospace;
@@ -286,11 +290,14 @@ else:
     </footer>
 
     <script>
-        function copiarCodigo(idElemento, botao) {{
-            const elementoCodigo = document.getElementById(idElemento);
-            const texto = elementoCodigo.innerText;
+        function copiarTexto(botao) {{
+            const textoCodigo = botao.getAttribute('data-code');
             
-            navigator.clipboard.writeText(texto).then(() => {{
+            // Decodifica entidades HTML básicas caso necessário para cópia exata
+            const parser = new DOMParser();
+            const textoDecodificado = parser.parseFromString('<!doctype html><body>' + textoCodigo, 'text/html').body.textContent;
+            
+            navigator.clipboard.writeText(textoDecodificado).then(() => {{
                 const textoOriginal = botao.innerText;
                 botao.innerText = "Copiado! ✔️";
                 botao.classList.add("copied");
