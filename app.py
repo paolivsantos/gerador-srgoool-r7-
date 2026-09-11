@@ -129,19 +129,22 @@ else:
                 for i, jogo in enumerate(jogos_atuais):
                     id_container = f"iframe_container_{i}"
                     
-                    # O código HTML completo do iframe exato conforme o padrão enviado
+                    # O código HTML completo do iframe exato conforme o padrão solicitado
                     codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
-    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 2000px"> </div>
+    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"></div>
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
 </div>"""
 
-                    # Card estruturado exatamente igual ao modelo da imagem fornecida
+                    # Card com visual escuro original (#141414), exibindo o bloco de código completo e o botão "Copiar" logo abaixo
                     card_html = f"""
     <div class="match-card">
-        <div class="match-comment">{jogo.get('comentario_original', jogo['nome'])}</div>
         <div class="code-box-wrapper">
-            <pre><code id="code_{i}">{codigo_iframe_puro}</code></pre>
+            <pre><code id="code_{i}"><!-- {jogo.get('comentario_original', jogo['nome'])} -->
+<div style="display: flex">
+    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"></div>
+    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
+</div></code></pre>
         </div>
         <button class="copy-btn" onclick="copiarCodigo('code_{i}', this)">Copiar</button>
     </div>\n\n"""
@@ -151,7 +154,7 @@ else:
                     with str_lit.expander(f"⚽ {jogo['nome']}"):
                         str_lit.code(codigo_iframe_puro, language="html")
 
-                # Montagem do Template HTML Completo para o Servidor com o layout idêntico à referência
+                # Template HTML final limpo para o servidor
                 html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -196,7 +199,7 @@ else:
             .header-mobile {{ display: block; }}
         }}
         .container {{
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
         }}
@@ -209,44 +212,38 @@ else:
             letter-spacing: 1px;
         }}
         .match-card {{
-            background: #f1f3f5;
-            border: 1px solid #dcdcdc;
-            border-radius: 8px;
+            background: #141414;
+            border: 1px solid #222;
+            border-left: 5px solid #137d00;
+            border-radius: 6px;
             margin-bottom: 25px;
             padding: 15px 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            color: #212529;
-        }}
-        .match-comment {{
-            font-size: 0.85rem;
-            font-style: italic;
-            color: #495057;
-            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }}
         .code-box-wrapper {{
-            background: #ffffff;
-            border: 1px solid #ced4da;
+            background: #000;
+            border: 1px solid #262626;
             border-radius: 4px;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 12px;
         }}
         pre {{
             margin: 0;
             overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
         }}
         code {{
             font-family: Consolas, Monaco, "Andale Mono", monospace;
-            color: #212529;
+            color: #4af626;
             font-size: 0.85rem;
+            white-space: pre-wrap;
+            word-break: break-all;
         }}
         .copy-btn {{
             background-color: #137d00;
             color: #ffffff;
             border: none;
-            padding: 8px 22px;
-            font-size: 0.9rem;
+            padding: 8px 20px;
+            font-size: 0.85rem;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
@@ -256,7 +253,8 @@ else:
             background-color: #0f6600;
         }}
         .copy-btn.copied {{
-            background-color: #2b8a3e;
+            background-color: #ffffff;
+            color: #000000;
         }}
         footer {{
             text-align: center;
