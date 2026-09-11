@@ -22,10 +22,6 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
-# Garante que a chave do input do campeonato existe no session_state
-if "input_camp_val" not in st.session_state:
-    st.session_state["input_camp_val"] = ""
-
 # --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
 st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
 
@@ -62,30 +58,29 @@ st.divider()
 # --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS ---
 st.subheader("🏆 Gerenciar Campeonatos")
 
+# Função de callback para adicionar o campeonato e limpar o input sem conflito de widget
+def adicionar_campeonato_callback():
+    valor_digitado = st.session_state.get("input_camp_val", "").strip()
+    if valor_digitado:
+        if valor_digitado not in st.session_state["campeonatos_dados"]:
+            st.session_state["campeonatos_dados"][valor_digitado] = {}
+            st.session_state["campeonatos_visibilidade"][valor_digitado] = True
+            st.session_state["input_camp_val"] = ""  # Limpa limpa a chave corretamente via callback
+            st.success(f"Campeonato '{valor_digitado}' criado com sucesso!")
+        else:
+            st.warning("Este campeonato já existe.")
+    else:
+        st.error("Digite um nome válido.")
+
 col_c1, col_c2 = st.columns([3, 1], vertical_alignment="bottom")
 with col_c1:
-    novo_campeonato = st.text_input(
+    st.text_input(
         "Nome do campeonato:",
         placeholder="",
         key="input_camp_val"
     )
 with col_c2:
-    if st.button("➕ Adicionar Campeonato", use_container_width=True):
-        if st.session_state["input_camp_val"]:
-            camp_limpo = st.session_state["input_camp_val"].strip()
-            if camp_limpo not in st.session_state["campeonatos_dados"]:
-                st.session_state["campeonatos_dados"][camp_limpo] = {}
-                st.session_state["campeonatos_visibilidade"][camp_limpo] = True
-                
-                # Limpa o input limpando a chave do session_state antes do rerun
-                st.session_state["input_camp_val"] = ""
-                
-                st.success(f"Campeonato '{camp_limpo}' criado com sucesso!")
-                st.rerun()
-            else:
-                st.warning("Este campeonato já existe.")
-        else:
-            st.error("Digite um nome válido.")
+    st.button("➕ Adicionar Campeonato", on_click=adicionar_campeonato_callback, use_container_width=True)
 
 campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
 
