@@ -77,8 +77,8 @@ if not sub_abas_existentes:
     )
 else:
     st.divider()
-    # Renderiza as abas dinamicamente
-     abas_interface = st.tabs(sub_abas_existentes)
+    # Renderiza as abas dinamicamente com a indentação corrigida
+    abas_interface = st.tabs(sub_abas_existentes)
 
     for idx, sub_aba_nome in enumerate(sub_abas_existentes):
         with abas_interface[idx]:
@@ -94,25 +94,14 @@ else:
             if uploaded_file is not None:
                 conteudo_txt = uploaded_file.read().decode("utf-8")
 
-                # Processamento/Parse do arquivo .txt baseado no padrão enviado
-                # Exemplo de comentário esperado: <!-- ... - Jogo 1 x Jogo 2 -->
-                # Exemplo de script: key=CHAVE
-                padrao_bloco = r"<!--\s*(.*?)\s*-->\s*<div.*?<script src=.*?key=(.*?)[\"&].*?</script>\s*</div>"
-                
-                # Regex mais tolerante para extrair blocos de comentário e a key do script
-                jogos_extraidos = []
-                
-                # Abordagem linha a linha ou por blocos
                 comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
                 keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
 
                 if comentarios and keys:
                     for c_comentario, c_key in zip(comentarios, keys):
-                        # Tenta extrair o nome do jogo do final do comentário (geralmente após o último hífen ou traço)
                         partes = c_comentario.split("-")
                         nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
                         
-                        # Evita duplicatas na importação se o botão for acionado múltiplas vezes
                         novo_item = {"nome": nome_jogo, "key": c_key, "comentario_original": c_comentario.strip()}
                         if novo_item not in st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
                             st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome].append(novo_item)
@@ -138,7 +127,6 @@ else:
                 html_gerado_completo = ""
                 
                 for i, jogo in enumerate(jogos_atuais):
-                    # Monta o iframe estruturado exatamente como o padrão da redação
                     id_container = f"iframe_container_{i}"
                     bloco_html = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
