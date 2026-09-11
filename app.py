@@ -109,11 +109,13 @@ if not campeonatos_cadastrados:
     st.info("Nenhum campeonato cadastrado ainda. Adicione um acima ou importe um JSON na barra lateral.")
 else:
     st.divider()
-    # --- 2. CADA CAMPEONATO CRIADO GERA UMA ABA NO STREAMLIT ---
     abas_campeonatos = st.tabs(campeonatos_cadastrados)
 
     menu_lateral_html = ""
     conteudo_paineis_html = ""
+    dados_controle_json = {}
+    total_geral_iframes = 0
+    LIMITE_CONTRATO = 500
 
     for idx_camp, camp_nome in enumerate(campeonatos_cadastrados):
         with abas_campeonatos[idx_camp]:
@@ -153,6 +155,7 @@ else:
 
             options_select_html = ""
             blocos_rodadas_html = ""
+            total_iframes_camp = 0
 
             if rodadas_existentes:
                 st.divider()
@@ -194,11 +197,12 @@ else:
                                 st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
 
                         if st.session_state["campeonatos_dados"][camp_nome][rodada_nome]:
-                            if st.button("🗑️ Limpar rodada", key=f"clear_{camp_nome}_{rodada_nome}"):
+                            if st.button(f"🗑️ Limpar rodada", key=f"clear_{camp_nome}_{rodada_nome}"):
                                 st.session_state["campeonatos_dados"][camp_nome][rodada_nome] = []
                                 st.rerun()
 
                         jogos_rodada = st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
+                        total_iframes_camp += len(jogos_rodada)
                         
                         if jogos_rodada:
                             st.markdown("---")
@@ -226,17 +230,14 @@ else:
                                 with st.expander(f"⚽ {jogo['nome']}"):
                                     st.code(codigo_iframe_puro, language="html")
 
-                            # ID seguro para a rodada no HTML
                             safe_rodada_id = re.sub(r'[^a-zA-Z0-9]', '_', rodada_nome).lower()
                             safe_camp_prefix = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
                             div_id = f"rodada_{safe_camp_prefix}_{safe_rodada_id}"
 
-                            # Montagem das opções para o select (a última rodada fica selecionada por padrão)
                             is_last_round = (idx_rod == len(rodadas_existentes) - 1)
                             selected_attr = "selected" if is_last_round else ""
                             options_select_html += f'<option value="{div_id}" {selected_attr}>{rodada_nome}</option>\n'
 
-                            # Display block para a última rodada por padrão, none para as outras
                             display_style = "block" if is_last_round else "none"
 
                             blocos_rodadas_html += f"""
@@ -245,7 +246,9 @@ else:
         {cards_html_rodada}
     </div>\n"""
 
-            # --- CONSTRUÇÃO DO MENU LATERAL E PAINÉIS NO FRONTEND ---
+            total_geral_iframes += total_iframes_camp
+            dados_controle_json[camp_nome] = total_iframes_camp
+
             if blocos_rodadas_html and st.session_state["campeonatos_visibilidade"].get(camp_nome, True):
                 safe_camp_id = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
                 is_first_camp = (menu_lateral_html == "")
@@ -269,9 +272,44 @@ else:
         </div>
     </div>\n"""
 
+    # --- HTML DO PAINEL DE CONTROLE ---
+    paineis_controle_linhas = ""
+    for c_nome, qtd in dados_controle_json.items():
+        porcentagem = min(round((qtd / LIMITE_CONTRATO) * 100, 1), 100) if LIMITE_CONTRATO > 0 else 0
+        paineis_controle_linhas += f"""
+        <div class="control-item">
+            <div class="control-info">
+                <span class="control-camp-name">{c_nome}</span>
+                <span class="control-camp-count">{qtd} iframes</span>
+            </div>
+            <div class="control-bar-bg">
+                <div class="control-bar-fill" style="width: {porcentagem}%;"></div>
+            </div>
+        </div>\n"""
+
+    if not paineis_controle_linhas:
+        paineis_controle_linhas = '<p style="color: #777;">Nenhum dado de campeonato cadastrado ainda.</p>'
+
+    restantes_contrato = LIMITE_CONTRATO - total_geral_iframes
+
+    conteudo_paineis_html += f"""
+    <div id="painel_controle" class="championship-panel">
+        <h1 class="page-title">Controle de Contrato (Iframes)</h1>
+        <div class="control-wrapper">
+            <p class="control-desc">Acompanhe abaixo o consumo detalhado por campeonato em relação ao limite estipulado em contrato.</p>
+            {paineis_controle_linhas}
+            <div class="control-footer-summary">
+                <span>Utilização Total do Contrato: <strong>{total_geral_iframes} / {LIMITE_CONTRATO}</strong></span>
+            </div>
+        </div>
+    </div>\n"""
+
+    menu_lateral_html += f"""
+        <button class="menu-item menu-control-btn" onclick="mudarCampeonato(event, 'painel_controle')">📊 Controle de Contrato</button>"""
+
     st.divider()
     st.subheader("📋 Código HTML Completo da Página para o Servidor")
-    st.markdown("O código abaixo utiliza o **Menu Lateral** de campeonatos e o **Seletor de Rodadas**:")
+    st.markdown("O código abaixo já contempla o **Contador no Header** e a aba de **Controle** no menu lateral:")
 
     html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -299,6 +337,7 @@ else:
             background-color: #000;
             text-align: center;
             border-bottom: 4px solid #137d00;
+            position: relative;
         }}
         .header-desktop {{
             width: 100%;
@@ -316,7 +355,26 @@ else:
             .header-mobile {{ display: block; }}
         }}
         
-        /* Layout Principal com Grid Expandido e Menu Lateral */
+        /* Contador Flutuante no Header (Canto Superior Direito) */
+        .header-counter-badge {{
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background-color: #0f1710;
+            border: 1px solid #137d00;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            z-index: 10;
+            letter-spacing: 0.3px;
+        }}
+        .header-counter-badge span {{
+            color: #4af626;
+        }}
+
         .main-wrapper {{
             max-width: 1280px;
             margin: 30px auto;
@@ -325,7 +383,6 @@ else:
             gap: 30px;
         }}
         
-        /* Sidebar de Campeonatos */
         .championship-sidebar {{
             width: 280px;
             flex-shrink: 0;
@@ -367,8 +424,19 @@ else:
             background-color: #137d00;
             color: #ffffff;
         }}
+        
+        /* Botão Controle com Destaque Visual */
+        .menu-control-btn {{
+            margin-top: 15px;
+            border-top: 1px solid #222;
+            padding-top: 15px;
+            color: #4af626;
+        }}
+        .menu-control-btn.active {{
+            background-color: #0d4205 !important;
+            color: #ffffff !important;
+        }}
 
-        /* Área de Conteúdo */
         .content-area {{
             flex-grow: 1;
             min-width: 0;
@@ -390,7 +458,6 @@ else:
             padding-bottom: 10px;
         }}
 
-        /* Seletor de Rodadas / Fases */
         .round-selector-container {{
             background: #141414;
             border: 1px solid #222;
@@ -478,6 +545,62 @@ else:
             color: #000000;
         }}
 
+        /* Estilos do Painel de Controle de Contrato */
+        .control-wrapper {{
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 25px;
+        }}
+        .control-desc {{
+            color: #aaa;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }}
+        .control-item {{
+            margin-bottom: 20px;
+        }}
+        .control-info {{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }}
+        .control-camp-name {{
+            color: #fff;
+            text-transform: uppercase;
+        }}
+        .control-camp-count {{
+            color: #4af626;
+        }}
+        .control-bar-bg {{
+            width: 100%;
+            background-color: #0b0b0b;
+            border: 1px solid #262626;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }}
+        .control-bar-fill {{
+            height: 100%;
+            background-color: #137d00;
+            border-radius: 6px;
+            transition: width 0.4s ease;
+        }}
+        .control-footer-summary {{
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            text-align: right;
+            font-size: 1.1rem;
+            color: #fff;
+        }}
+        .control-footer-summary strong {{
+            color: #4af626;
+        }}
+
         @media (max-width: 900px) {{
             .main-wrapper {{
                 flex-direction: column;
@@ -485,6 +608,12 @@ else:
             .championship-sidebar {{
                 width: 100%;
                 position: static;
+            }}
+            .header-counter-badge {{
+                top: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
             }}
         }}
 
@@ -501,12 +630,16 @@ else:
 <body>
 
     <header class="header-container">
+        <!-- Contador de Scripts/Iframes Restantes no Canto Superior Direito -->
+        <div class="header-counter-badge">
+            Scripts restantes: <span>{restantes_contrato}</span> / {LIMITE_CONTRATO}
+        </div>
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7" class="header-desktop">
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
     </header>
 
     <div class="main-wrapper">
-        <!-- Menu Lateral de Campeonatos -->
+        <!-- Menu Lateral com Campeonatos e aba de Controle -->
         <nav class="championship-sidebar">
             <div class="sidebar-title">Campeonatos</div>
             {menu_lateral_html}
