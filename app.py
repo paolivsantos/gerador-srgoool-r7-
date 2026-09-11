@@ -1,3 +1,4 @@
+import re
 import streamlit as st
 
 # Configuração da página
@@ -7,12 +8,12 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("⚽ Gerador de Iframes - Lance a Lance (R7)")
+st.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
 st.markdown(
-    "Ferramenta para a redação gerar e organizar os códigos de lance a lance para inserção nos artigos."
+    "Faça o upload do arquivo de texto da rodada para organizar e gerar os códigos limpos para a redação."
 )
 
-# Categorias principais solicitadas
+# Categorias principais
 categorias = [
     "Brasileirão",
     "Paulistão",
@@ -24,124 +25,147 @@ categorias = [
     "Outras Competições",
 ]
 
-# Seleção da categoria principal
-categoria_selecionada = st.selectbox(
-    "Selecione a Competição Principal:", categorias
-)
+col_cat1, col_cat2 = st.columns([1, 2])
+with col_cat1:
+    categoria_selecionada = st.selectbox(
+        "Competição Principal:", categorias
+    )
+
+# Inicializar o estado da sessão para armazenar as sub-abas e seus jogos
+if "sub_abas_dados" not in st.session_state:
+    st.session_state["sub_abas_dados"] = {}
+
+if categoria_selecionada not in st.session_state["sub_abas_dados"]:
+    st.session_state["sub_abas_dados"][categoria_selecionada] = {}
 
 st.divider()
 
-# Simulando a estrutura de abas/grupos (ex: Rodadas ou Fases)
-st.subheader(f"Organização: {categoria_selecionada}")
+# Gestão de Sub-Abas (Ex: Rodada 1, Rodada 2, 27ª Rodada, etc.)
+st.subheader("Gerenciar Sub-Abas (Rodadas / Fases)")
 
-# Abas de segundo nível (ex: Rodadas / Grupos / Fases)
-sub_abas = st.tabs(
-    ["Rodada 1", "Rodada 2", "Rodada 3", "Mata-Mata / Outros"]
-)
-
-# Estrutura para armazenar ou renderizar os itens por sub-aba
-# Em um cenário real, você pode persistir isso em JSON ou banco. Aqui faremos dinâmico na sessão.
-if "dados_iframes" not in st.session_state:
-    st.session_state["dados_iframes"] = {}
-
-# Exemplo interativo dentro da primeira aba (Rodada 1)
-with sub_abas[0]:
-    st.markdown("### Configurar Iframes da Rodada 1")
-
-    col1, col2 = st.columns(2)
-    with col1:
-        nome_jogo = st.text_input(
-            "Identificação do Jogo (Ex: Corinthians x Palmeiras)",
-            key=f"nome_{categoria_selecionada}_r1",
-        )
-    with col2:
-        key_srgoool = st.text_input(
-            "Chave (Key) do Sr. Goool (Ex: MC4...)",
-            key=f"key_{categoria_selecionada}_r1",
-        )
-
-    if st.button("Adicionar Jogo à Rodada 1", key=f"btn_{categoria_selecionada}_r1"):
-        if nome_jogo and key_srgoool:
-            chave_dict = f"{categoria_selecionada}_Rodada 1"
-            if chave_dict not in st.session_state["dados_iframes"]:
-                st.session_state["dados_iframes"][chave_dict] = []
-            st.session_state["dados_iframes"][chave_dict].append(
-                {"nome": nome_jogo, "key": key_srgoool}
-            )
-            st.success(f"Jogo '{nome_jogo}' adicionado com sucesso!")
+col_add1, col_add2 = st.columns([2, 1])
+with col_add1:
+    nova_sub_aba = st.text_input(
+        "Nome da nova sub-aba (ex: 27ª Rodada, Quartas de Final):",
+        placeholder="Digite o nome...",
+    )
+with col_add2:
+    st.markdown("###")  # Alinhamento visual
+    if st.button("➕ Adicionar Sub-Aba"):
+        if nova_sub_aba:
+            if (
+                nova_sub_aba
+                not in st.session_state["sub_abas_dados"][categoria_selecionada]
+            ):
+                st.session_state["sub_abas_dados"][categoria_selecionada][
+                    nova_sub_aba
+                ] = []
+                st.success(f"Sub-aba '{nova_sub_aba}' criada com sucesso!")
+            else:
+                st.warning("Esta sub-aba já existe.")
         else:
-            st.warning("Preencha o nome do jogo e a chave.")
+            st.error("Digite um nome válido para a sub-aba.")
 
-    # Exibir itens adicionados nesta seção
-    chave_dict = f"{categoria_selecionada}_Rodada 1"
-    if (
-        chave_dict in st.session_state
-        and st.session_state["dados_iframes"][chave_dict]
-    ):
-        st.markdown("#### Jogos Cadastrados nesta Seção:")
-        for i, item in enumerate(
-            st.session_state["dados_iframes"][chave_dict]
-        ):
-            # Monta o HTML padrão solicitado
-            html_gerado = f"""<div style="display: flex">
-         <div id="iframe_container_{i}" style="width: 100%; max-height: 100%; height: 2000px"> </div>
-         <script src="https://www.srgoool.com.br/iframe.js.php?id=iframe_container_{i}&key={item['key']}"></script>
-      </div>"""
-
-            with st.expander(f"📌 {item['nome']}"):
-                st.code(html_gerado, language="html")
-                st.markdown("**Pré-visualização do Código:**")
-                st.markdown(html_gerado, unsafe_allow_html=True)
-
-with sub_abas[1]:
-    st.markdown("### Configurar Iframes da Rodada 2")
-    st.info("Estrutura similar replicável para as demais rodadas/sub-abas.")
-
-with sub_abas[2]:
-    st.markdown("### Configurar Iframes da Rodada 3")
-
-with sub_abas[3]:
-    st.markdown("### Configurar Fases Finais / Mata-Mata")
-
-st.divider()
-
-# Seção de Exportação do HTML Final para o Servidor
-st.header("📤 Exportar Página HTML")
-st.markdown(
-    "Gere o arquivo HTML final consolidado para fazer o upload direto no servidor do portal."
+# Obter as sub-abas cadastradas para a categoria atual
+sub_abas_existentes = list(
+    st.session_state["sub_abas_dados"][categoria_selecionada].keys()
 )
 
-if st.button("Gerar Código HTML Final da Página"):
-    # Exemplo de HTML estruturado consolidado
-    html_final_exemplo = f"""<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lance a Lance - {categoria_selecionada}</title>
-    <style>
-        body {{ font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f4f4f4; }}
-        .match-container {{ margin-bottom: 30px; background: #fff; padding: 15px; border-radius: 8px; }}
-    </style>
-</head>
-<body>
-    <h1>Cobertura: {categoria_selecionada}</h1>
-    <!-- Os blocos gerados entram aqui -->
-    <div style="display: flex">
-         <div id="iframe_container" style="width: 100%; max-height: 100%; height: 2000px"> </div>
-         <script src="https://www.srgoool.com.br/iframe.js.php?id=iframe_container&key=SUA_CHAVE_AQUI"></script>
-    </div>
-</body>
-</html>"""
+if not sub_abas_existentes:
+    st.info(
+        "Nenhuma sub-aba criada ainda para esta categoria. Adicione uma acima para começar."
+    )
+else:
+    st.divider()
+    # Renderiza as abas dinamicamente
+     abas_interface = st.tabs(sub_abas_existentes)
 
-    st.text_area(
-        "Copie o HTML completo abaixo ou baixe o arquivo:",
-        html_final_exemplo,
-        height=250,
-    )
-    st.download_button(
-        label="Baixar index.html",
-        data=html_final_exemplo,
-        file_name="index.html",
-        mime="text/html",
-    )
+    for idx, sub_aba_nome in enumerate(sub_abas_existentes):
+        with abas_interface[idx]:
+            st.markdown(f"### Conteúdo da Sub-Aba: {sub_aba_nome}")
+
+            # Área de Upload do .txt
+            uploaded_file = st.file_uploader(
+                f"Envie o arquivo .txt para preencher '{sub_aba_nome}'",
+                type=["txt"],
+                key=f"uploader_{categoria_selecionada}_{sub_aba_nome}",
+            )
+
+            if uploaded_file is not None:
+                conteudo_txt = uploaded_file.read().decode("utf-8")
+
+                # Processamento/Parse do arquivo .txt baseado no padrão enviado
+                # Exemplo de comentário esperado: <!-- ... - Jogo 1 x Jogo 2 -->
+                # Exemplo de script: key=CHAVE
+                padrao_bloco = r"<!--\s*(.*?)\s*-->\s*<div.*?<script src=.*?key=(.*?)[\"&].*?</script>\s*</div>"
+                
+                # Regex mais tolerante para extrair blocos de comentário e a key do script
+                jogos_extraidos = []
+                
+                # Abordagem linha a linha ou por blocos
+                comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
+                keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
+
+                if comentarios and keys:
+                    for c_comentario, c_key in zip(comentarios, keys):
+                        # Tenta extrair o nome do jogo do final do comentário (geralmente após o último hífen ou traço)
+                        partes = c_comentario.split("-")
+                        nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
+                        
+                        # Evita duplicatas na importação se o botão for acionado múltiplas vezes
+                        novo_item = {"nome": nome_jogo, "key": c_key, "comentario_original": c_comentario.strip()}
+                        if novo_item not in st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
+                            st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome].append(novo_item)
+                    
+                    st.success(f"{len(keys)} jogos importados com sucesso do arquivo .txt!")
+                else:
+                    st.error("Não foi possível extrair os dados automaticamente. Verifique o formato do arquivo.")
+
+            # Botão para limpar itens desta sub-aba
+            if st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
+                if st.button("🗑️ Limpar jogos desta sub-aba", key=f"clear_{sub_aba_nome}"):
+                    st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome] = []
+                    st.rerun()
+
+            st.markdown("---")
+            st.markdown("#### Jogos / Iframes Configurados:")
+            
+            jogos_atuais = st.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]
+            
+            if not jogos_atuais:
+                st.info("Nenhum jogo cadastrado nesta sub-aba ainda. Faça o upload de um arquivo .txt acima.")
+            else:
+                html_gerado_completo = ""
+                
+                for i, jogo in enumerate(jogos_atuais):
+                    # Monta o iframe estruturado exatamente como o padrão da redação
+                    id_container = f"iframe_container_{i}"
+                    bloco_html = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
+<div style="display: flex">
+    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"> </div>
+    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
+</div>\n\n"""
+                    
+                    html_gerado_completo += bloco_html
+
+                    with st.expander(f"⚽ {jogo['nome']}"):
+                        st.code(bloco_html, language="html")
+                        st.markdown("**Visualização do Iframe:**")
+                        st.markdown(bloco_html, unsafe_allow_html=True)
+
+                st.divider()
+                st.subheader("📤 Exportar HTML da Sub-Aba")
+                st.text_area(
+                    "Código HTML consolidado desta sub-aba para inserir no artigo ou servidor:",
+                    value=html_gerado_completo,
+                    height=200,
+                    key=f"textarea_{sub_aba_nome}"
+                )
+                
+                st.download_button(
+                    label=f"Baixar HTML ({sub_aba_nome}.html)",
+                    data=html_gerado_completo,
+                    file_name=f"{categoria_selecionada.lower().replace(' ', '_')}_{sub_aba_nome.lower().replace(' ', '_')}.html",
+                    mime="text/html",
+                    key=f"download_{sub_aba_nome}"
+                )
