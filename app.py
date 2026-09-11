@@ -141,8 +141,6 @@ else:
 
                     with str_lit.expander(f"⚽ {jogo['nome']}"):
                         str_lit.code(bloco_html, language="html")
-                        str_lit.markdown("**Visualização do Iframe:**")
-                        str_lit.markdown(bloco_html, unsafe_allow_html=True)
 
                 # Montagem do Template HTML Completo com a identidade visual R7 (#137d00 + Preto)
                 html_pagina_completa = f"""<!DOCTYPE html>
@@ -234,7 +232,7 @@ else:
     <header class="header-container">
         <!-- Versão Desktop -->
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7" class="header-desktop">
-        <!-- Versão Mobile (Usa a mesma imagem ou específica caso deseje ajustar) -->
+        <!-- Versão Mobile -->
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
     </header>
 
@@ -253,20 +251,8 @@ else:
 </html>"""
 
                 str_lit.divider()
-                str_lit.subheader("📤 Exportar Página HTML Completa")
-                str_lit.markdown("Este código gera o arquivo `.html` completo pronto para ser salvo e enviado ao servidor.")
+                str_lit.subheader("📋 Copiar Código HTML Completa da Página")
+                str_lit.markdown("Utilize o bloco abaixo para copiar todo o código da página estruturado com o design R7 e pronto para o servidor:")
                 
-                str_lit.text_area(
-                    "Código HTML estruturado com design R7 (#137d00):",
-                    value=html_pagina_completa,
-                    height=250,
-                    key=f"textarea_{sub_aba_nome}"
-                )
-                
-                str_lit.download_button(
-                    label=f"Baixar Página HTML ({sub_aba_nome}.html)",
-                    data=html_pagina_completa,
-                    file_name=f"{categoria_selecionada.lower().replace(' ', '_')}_{sub_aba_nome.lower().replace(' ', '_')}.html",
-                    mime="text/html",
-                    key=f"download_{sub_aba_nome}"
-                )
+                # O componente st.code do Streamlit já possui nativamente um botão de "Copiar" (ícone de prancheta) no canto superior direito de cada bloco de código.
+                str_lit.code(html_pagina_completa, language="html")
