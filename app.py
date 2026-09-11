@@ -10,7 +10,7 @@ str_lit.set_page_config(
 
 str_lit.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
 str_lit.markdown(
-    "Faça o upload do arquivo de texto da rodada para organizar e gerar os códigos limpos com o template visual do portal."
+    "Faça o upload do arquivo de texto para extrair os códigos e disponibilizar a cópia rápida para a redação."
 )
 
 # Categorias principais
@@ -117,142 +117,32 @@ else:
                     str_lit.rerun()
 
             str_lit.markdown("---")
-            str_lit.markdown("#### Jogos / Iframes Configurados:")
+            str_lit.markdown("#### Códigos dos Jogos para Cópia Individual:")
             
             jogos_atuais = str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]
             
             if not jogos_atuais:
                 str_lit.info("Nenhum jogo cadastrado nesta sub-aba ainda. Faça o upload de um arquivo .txt acima.")
             else:
-                blocos_iframes_html = ""
+                html_gerado_completo = ""
                 
                 for i, jogo in enumerate(jogos_atuais):
                     id_container = f"iframe_container_{i}"
-                    bloco_html = f"""    <!-- {jogo.get('comentario_original', jogo['nome'])} -->
-    <div class="match-card">
-        <div class="match-title">⚽ {jogo['nome']}</div>
-        <div style="display: flex">
-            <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"> </div>
-            <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
-        </div>
-    </div>\n\n"""
                     
-                    blocos_iframes_html += bloco_html
+                    # Bloco limpo idêntico ao formato padrão que a redação insere nos artigos
+                    bloco_html = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
+<div style="display: flex">
+    <div id="{id_container}" style="width: 100%; max-height: 100%; height: 90vh"> </div>
+    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
+</div>\n\n"""
+                    
+                    html_gerado_completo += bloco_html
 
-                    with str_lit.expander(f"⚽ {jogo['nome']}"):
-                        str_lit.code(bloco_html, language="html")
-
-                # Montagem do Template HTML Completo com a identidade visual R7 (#137d00 + Preto)
-                html_pagina_completa = f"""<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lance a Lance - {categoria_selecionada} ({sub_aba_nome})</title>
-    
-    <!-- Meta tags Open Graph (OG Image) -->
-    <meta property="og:title" content="Lance a Lance: {categoria_selecionada} - {sub_aba_nome}">
-    <meta property="og:description" content="Acompanhe os lances em tempo real dos jogos de {categoria_selecionada}.">
-    <meta property="og:image" content="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg">
-    <meta property="og:type" content="website">
-
-    <style>
-        * {{ box-sizing: border-box; }}
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0b0b;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }}
-        .header-container {{
-            width: 100%;
-            background-color: #000;
-            text-align: center;
-            border-bottom: 4px solid #137d00;
-        }}
-        .header-desktop {{
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            display: block;
-        }}
-        .header-mobile {{
-            display: none;
-            width: 100%;
-            object-fit: cover;
-        }}
-        @media (max-width: 768px) {{
-            .header-desktop {{ display: none; }}
-            .header-mobile {{ display: block; }}
-        }}
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }}
-        .page-title {{
-            text-align: center;
-            color: #137d00;
-            font-size: 2rem;
-            margin: 20px 0 30px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }}
-        .match-card {{
-            background: #141414;
-            border: 1px solid #222;
-            border-left: 5px solid #137d00;
-            border-radius: 6px;
-            margin-bottom: 30px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }}
-        .match-title {{
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #e0e0e0;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #262626;
-        }}
-        footer {{
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #1a1a1a;
-            margin-top: 40px;
-        }}
-    </style>
-</head>
-<body>
-
-    <!-- Header Responsivo -->
-    <header class="header-container">
-        <!-- Versão Desktop -->
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7" class="header-desktop">
-        <!-- Versão Mobile -->
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
-    </header>
-
-    <div class="container">
-        <h1 class="page-title">{categoria_selecionada} — {sub_aba_nome}</h1>
-
-        <!-- Lista de Iframes -->
-{blocos_iframes_html}
-    </div>
-
-    <footer>
-        <p>R7 Esportes • Sistema de Cobertura Lance a Lance</p>
-    </footer>
-
-</body>
-</html>"""
+                    # Exibe o título do jogo e o bloco de código com o botão de cópia nativo do Streamlit
+                    str_lit.markdown(f"**⚽ {jogo['nome']}**")
+                    str_lit.code(bloco_html, language="html")
 
                 str_lit.divider()
-                str_lit.subheader("📋 Copiar Código HTML Completa da Página")
-                str_lit.markdown("Utilize o bloco abaixo para copiar todo o código da página estruturado com o design R7 e pronto para o servidor:")
-                
-                # O componente st.code do Streamlit já possui nativamente um botão de "Copiar" (ícone de prancheta) no canto superior direito de cada bloco de código.
-                str_lit.code(html_pagina_completa, language="html")
+                str_lit.subheader("📋 Copiar Todos os Jogos da Sub-Aba")
+                str_lit.markdown("Caso queira copiar a rodada inteira de uma só vez:")
+                str_lit.code(html_gerado_completo, language="html")
