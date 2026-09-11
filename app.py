@@ -22,7 +22,7 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
-# Garante a chave do input no session_state para poder limpá-la
+# Garante que a chave do input do campeonato existe no session_state
 if "input_camp_val" not in st.session_state:
     st.session_state["input_camp_val"] = ""
 
@@ -59,7 +59,7 @@ if json_file is not None:
 
 st.divider()
 
-# --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS (SEM TEXTO DE EXEMPLO E COM LIMPEZA) ---
+# --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS ---
 st.subheader("🏆 Gerenciar Campeonatos")
 
 col_c1, col_c2 = st.columns([3, 1], vertical_alignment="bottom")
@@ -71,13 +71,15 @@ with col_c1:
     )
 with col_c2:
     if st.button("➕ Adicionar Campeonato", use_container_width=True):
-        if novo_campeonato:
-            camp_limpo = novo_campeonato.strip()
+        if st.session_state["input_camp_val"]:
+            camp_limpo = st.session_state["input_camp_val"].strip()
             if camp_limpo not in st.session_state["campeonatos_dados"]:
                 st.session_state["campeonatos_dados"][camp_limpo] = {}
                 st.session_state["campeonatos_visibilidade"][camp_limpo] = True
+                
                 # Limpa o input limpando a chave do session_state antes do rerun
                 st.session_state["input_camp_val"] = ""
+                
                 st.success(f"Campeonato '{camp_limpo}' criado com sucesso!")
                 st.rerun()
             else:
