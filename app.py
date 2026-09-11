@@ -109,11 +109,11 @@ if not campeonatos_cadastrados:
     st.info("Nenhum campeonato cadastrado ainda. Adicione um acima ou importe um JSON na barra lateral.")
 else:
     st.divider()
-    # --- 2. CADA CAMPEONATO CRIADO GERA UMA ABA ---
+    # --- 2. CADA CAMPEONATO CRIADO GERA UMA ABA NO STREAMLIT ---
     abas_campeonatos = st.tabs(campeonatos_cadastrados)
 
-    botoes_abas_html = ""
-    conteudo_abas_html = ""
+    menu_lateral_html = ""
+    conteudo_paineis_html = ""
 
     for idx_camp, camp_nome in enumerate(campeonatos_cadastrados):
         with abas_campeonatos[idx_camp]:
@@ -151,7 +151,8 @@ else:
 
             rodadas_existentes = list(st.session_state["campeonatos_dados"][camp_nome].keys())
 
-            cards_html_campeonato = ""
+            options_select_html = ""
+            blocos_rodadas_html = ""
 
             if rodadas_existentes:
                 st.divider()
@@ -215,40 +216,62 @@ else:
                                 codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
 
                                 cards_html_rodada += f"""
-    <div class="match-card">
-        <div class="code-box-wrapper">
-            <pre><code>{codigo_escapado_exibicao}</code></pre>
-        </div>
-        <button class="copy-btn" data-code="{codigo_escapado_copia}" onclick="copiarTexto(this)">Copiar</button>
-    </div>\n\n"""
+        <div class="match-card">
+            <div class="code-box-wrapper">
+                <pre><code>{codigo_escapado_exibicao}</code></pre>
+            </div>
+            <button class="copy-btn" data-code="{codigo_escapado_copia}" onclick="copiarTexto(this)">Copiar</button>
+        </div>\n"""
 
                                 with st.expander(f"⚽ {jogo['nome']}"):
                                     st.code(codigo_iframe_puro, language="html")
 
-                            cards_html_campeonato += f"""
-    <div class="round-section" data-round="{rodada_nome}">
+                            # ID seguro para a rodada no HTML
+                            safe_rodada_id = re.sub(r'[^a-zA-Z0-9]', '_', rodada_nome).lower()
+                            safe_camp_prefix = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
+                            div_id = f"rodada_{safe_camp_prefix}_{safe_rodada_id}"
+
+                            # Montagem das opções para o select (a última rodada fica selecionada por padrão)
+                            is_last_round = (idx_rod == len(rodadas_existentes) - 1)
+                            selected_attr = "selected" if is_last_round else ""
+                            options_select_html += f'<option value="{div_id}" {selected_attr}>{rodada_nome}</option>\n'
+
+                            # Display block para a última rodada por padrão, none para as outras
+                            display_style = "block" if is_last_round else "none"
+
+                            blocos_rodadas_html += f"""
+    <div id="{div_id}" class="rodada-content-panel" style="display: {display_style};">
         <h2 class="round-title">{rodada_nome}</h2>
         {cards_html_rodada}
     </div>\n"""
 
-            # --- CONSTRUÇÃO DAS ABAS NO FRONTEND HTML ---
-            if cards_html_campeonato and st.session_state["campeonatos_visibilidade"].get(camp_nome, True):
-                safe_id = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
-                is_first = (botoes_abas_html == "")
-                active_class_btn = "active" if is_first else ""
-                active_class_content = "active" if is_first else ""
+            # --- CONSTRUÇÃO DO MENU LATERAL E PAINÉIS NO FRONTEND ---
+            if blocos_rodadas_html and st.session_state["campeonatos_visibilidade"].get(camp_nome, True):
+                safe_camp_id = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
+                is_first_camp = (menu_lateral_html == "")
+                active_menu_class = "active" if is_first_camp else ""
+                active_panel_class = "active" if is_first_camp else ""
 
-                botoes_abas_html += f"""
-        <button class="tab-btn {active_class_btn}" onclick="mudarAba(event, '{safe_id}')">{camp_nome}</button>"""
+                menu_lateral_html += f"""
+        <button class="menu-item {active_menu_class}" onclick="mudarCampeonato(event, '{safe_camp_id}')">{camp_nome}</button>"""
 
-                conteudo_abas_html += f"""
-    <div id="{safe_id}" class="tab-content {active_class_content}">
-        {cards_html_campeonato}
+                conteudo_paineis_html += f"""
+    <div id="{safe_camp_id}" class="championship-panel {active_panel_class}">
+        <h1 class="page-title">{camp_nome}</h1>
+        <div class="round-selector-container">
+            <label for="select_{safe_camp_id}" class="select-label">Selecione a Rodada / Fase:</label>
+            <select id="select_{safe_camp_id}" class="round-select" onchange="mudarRodada(this, '{safe_camp_id}')">
+                {options_select_html}
+            </select>
+        </div>
+        <div class="rounds-container">
+            {blocos_rodadas_html}
+        </div>
     </div>\n"""
 
     st.divider()
     st.subheader("📋 Código HTML Completo da Página para o Servidor")
-    st.markdown("O código abaixo consolida os campeonatos organizados em abas para facilitar a navegação no portal:")
+    st.markdown("O código abaixo utiliza o **Menu Lateral** de campeonatos e o **Seletor de Rodadas**:")
 
     html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -292,58 +315,116 @@ else:
             .header-desktop {{ display: none; }}
             .header-mobile {{ display: block; }}
         }}
-        .container {{
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }}
-        /* Estilos das Abas de Campeonatos */
-        .tabs-header {{
+        
+        /* Layout Principal com Grid Expandido e Menu Lateral */
+        .main-wrapper {{
+            max-width: 1280px;
+            margin: 30px auto;
+            padding: 0 20px;
             display: flex;
-            background-color: #141414;
-            border-bottom: 2px solid #222;
-            overflow-x: auto;
-            margin-top: 25px;
-            border-radius: 6px 6px 0 0;
+            gap: 30px;
         }}
-        .tab-btn {{
-            background-color: transparent;
-            color: #888;
-            border: none;
-            padding: 14px 24px;
-            font-size: 1rem;
-            font-weight: bold;
+        
+        /* Sidebar de Campeonatos */
+        .championship-sidebar {{
+            width: 280px;
+            flex-shrink: 0;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 15px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }}
+        .sidebar-title {{
+            font-size: 0.9rem;
             text-transform: uppercase;
+            color: #888;
+            margin: 0 0 12px 10px;
+            letter-spacing: 0.5px;
+        }}
+        .menu-item {{
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: #ccc;
+            border: none;
+            text-align: left;
+            padding: 12px 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: 4px;
         }}
-        .tab-btn:hover {{
-            color: #ffffff;
-            background-color: rgba(19, 125, 0, 0.05);
-        }}
-        .tab-btn.active {{
-            color: #ffffff;
-            border-bottom: 3px solid #137d00;
+        .menu-item:hover {{
             background-color: rgba(19, 125, 0, 0.1);
+            color: #ffffff;
         }}
-        .tab-content {{
+        .menu-item.active {{
+            background-color: #137d00;
+            color: #ffffff;
+        }}
+
+        /* Área de Conteúdo */
+        .content-area {{
+            flex-grow: 1;
+            min-width: 0;
+        }}
+        .championship-panel {{
             display: none;
-            padding: 20px 0;
-            animation: fadeIn 0.3s ease;
         }}
-        .tab-content.active {{
+        .championship-panel.active {{
             display: block;
         }}
-        @keyframes fadeIn {{
-            from {{ opacity: 0; }}
-            to {{ opacity: 1; }}
+
+        .page-title {{
+            color: #137d00;
+            font-size: 1.8rem;
+            margin: 0 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #137d00;
+            padding-bottom: 10px;
         }}
+
+        /* Seletor de Rodadas / Fases */
+        .round-selector-container {{
+            background: #141414;
+            border: 1px solid #222;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }}
+        .select-label {{
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #ccc;
+        }}
+        .round-select {{
+            background-color: #0b0b0b;
+            color: #ffffff;
+            border: 1px solid #333;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 4px;
+            flex-grow: 1;
+            cursor: pointer;
+            outline: none;
+        }}
+        .round-select:focus {{
+            border-color: #137d00;
+        }}
+
         .round-title {{
             color: #ffffff;
-            font-size: 1.4rem;
-            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
+            margin: 20px 0 15px 0;
             text-transform: uppercase;
             border-left: 4px solid #137d00;
             padding-left: 10px;
@@ -353,7 +434,7 @@ else:
             border: 1px solid #222;
             border-left: 5px solid #137d00;
             border-radius: 6px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding: 15px 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }}
@@ -374,7 +455,7 @@ else:
         code {{
             font-family: Consolas, Monaco, "Andale Mono", monospace;
             color: #4af626;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             white-space: pre-wrap;
             word-break: break-all;
         }}
@@ -396,6 +477,17 @@ else:
             background-color: #ffffff;
             color: #000000;
         }}
+
+        @media (max-width: 900px) {{
+            .main-wrapper {{
+                flex-direction: column;
+            }}
+            .championship-sidebar {{
+                width: 100%;
+                position: static;
+            }}
+        }}
+
         footer {{
             text-align: center;
             padding: 20px;
@@ -413,14 +505,17 @@ else:
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
     </header>
 
-    <div class="container">
-        <!-- Navegação por Abas -->
-        <div class="tabs-header">
-{botoes_abas_html}
-        </div>
+    <div class="main-wrapper">
+        <!-- Menu Lateral de Campeonatos -->
+        <nav class="championship-sidebar">
+            <div class="sidebar-title">Campeonatos</div>
+            {menu_lateral_html}
+        </nav>
 
-        <!-- Conteúdo das Abas -->
-{conteudo_abas_html}
+        <!-- Área de Conteúdo Principal -->
+        <main class="content-area">
+            {conteudo_paineis_html}
+        </main>
     </div>
 
     <footer>
@@ -428,19 +523,34 @@ else:
     </footer>
 
     <script>
-        function mudarAba(evt, tabId) {{
-            const contents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contents.length; i++) {{
-                contents[i].classList.remove("active");
+        function mudarCampeonato(evt, campId) {{
+            const panels = document.getElementsByClassName("championship-panel");
+            for (let i = 0; i < panels.length; i++) {{
+                panels[i].classList.remove("active");
             }}
             
-            const buttons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < buttons.length; i++) {{
-                buttons[i].classList.remove("active");
+            const items = document.getElementsByClassName("menu-item");
+            for (let i = 0; i < items.length; i++) {{
+                items[i].classList.remove("active");
             }}
             
-            document.getElementById(tabId).classList.add("active");
+            document.getElementById(campId).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }}
+
+        function mudarRodada(selectElement, campId) {{
+            const selectedValue = selectElement.value;
+            const panel = document.getElementById(campId);
+            const rodadas = panel.getElementsByClassName("rodada-content-panel");
+            
+            for (let i = 0; i < rodadas.length; i++) {{
+                rodadas[i].style.display = "none";
+            }}
+            
+            const rodadaAlvo = document.getElementById(selectedValue);
+            if (rodadaAlvo) {{
+                rodadaAlvo.style.display = "block";
+            }}
         }}
 
         function copiarTexto(botao) {{
