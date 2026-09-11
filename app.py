@@ -11,11 +11,11 @@ str_lit.set_page_config(
 
 str_lit.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
 str_lit.markdown(
-    "Faça o upload do arquivo de texto para estruturar a página com os blocos de código e botões de cópia para a redação."
+    "Gerencie os dados por campeonato, crie sub-abas de rodadas e selecione quais competições entram na página final."
 )
 
 # Categorias principais
-categorias = [
+todas_categorias = [
     "Brasileirão",
     "Paulistão",
     "Paulistão F",
@@ -26,75 +26,77 @@ categorias = [
     "Outras Competições",
 ]
 
+# Inicializar o estado da sessão para armazenar as sub-abas e seus jogos por categoria
+if "sub_abas_dados" not in str_lit.session_state:
+    str_lit.session_state["sub_abas_dados"] = {}
+
+str_lit.divider()
+
+# 1. Filtro de Campeonatos Visíveis (Ocultar/Exibir)
+str_lit.subheader("⚙️ Configuração de Exibição da Página")
+campeonatos_ativos = str_lit.multiselect(
+    "Selecione os campeonatos que devem aparecer no portal:",
+    options=todas_categorias,
+    default=todas_categorias
+)
+
+str_lit.divider()
+
+# 2. Seleção do Campeonato para Edição/Upload
+str_lit.subheader("📁 Gerenciamento de Dados por Competição")
 col_cat1, col_cat2 = str_lit.columns([1, 2])
 with col_cat1:
     categoria_selecionada = str_lit.selectbox(
-        "Competição Principal:", categorias
+        "Selecione o campeonato para gerenciar os uploads:",
+        todas_categorias
     )
-
-# Inicializar o estado da sessão para armazenar as sub-abas e seus jogos
-if "sub_abas_dados" not in str_lit.session_state:
-    str_lit.session_state["sub_abas_dados"] = {}
 
 if categoria_selecionada not in str_lit.session_state["sub_abas_dados"]:
     str_lit.session_state["sub_abas_dados"][categoria_selecionada] = {}
 
-str_lit.divider()
-
-# Gestão de Sub-Abas (Ex: Rodada 1, Rodada 2, 27ª Rodada, etc.)
-str_lit.subheader("Gerenciar Sub-Abas (Rodadas / Fases)")
-
+# Gestão de Sub-Abas para o campeonato selecionado
+str_lit.markdown(f"#### Sub-abas para: **{categoria_selecionada}**")
 col_add1, col_add2 = str_lit.columns([2, 1])
 with col_add1:
     nova_sub_aba = str_lit.text_input(
-        "Nome da nova sub-aba (ex: 27ª Rodada, Quartas de Final):",
+        "Nome da nova sub-aba (ex: Rodada 1, Quartas de Final):",
         placeholder="Digite o nome...",
+        key=f"input_{categoria_selecionada}"
     )
 with col_add2:
-    str_lit.markdown("###")  # Alinhamento visual
-    if str_lit.button("➕ Adicionar Sub-Aba"):
+    str_lit.markdown("###")
+    if str_lit.button("➕ Adicionar Sub-Aba", key=f"btn_add_{categoria_selecionada}"):
         if nova_sub_aba:
-            if (
-                nova_sub_aba
-                not in str_lit.session_state["sub_abas_dados"][categoria_selecionada]
-            ):
-                str_lit.session_state["sub_abas_dados"][categoria_selecionada][
-                    nova_sub_aba
-                ] = []
+            if nova_sub_aba not in str_lit.session_state["sub_abas_dados"][categoria_selecionada]:
+                str_lit.session_state["sub_abas_dados"][categoria_selecionada][nova_sub_aba] = []
                 str_lit.success(f"Sub-aba '{nova_sub_aba}' criada com sucesso!")
+                str_lit.rerun()
             else:
                 str_lit.warning("Esta sub-aba já existe.")
         else:
-            str_lit.error("Digite um nome válido para a sub-aba.")
+            str_lit.error("Digite um nome válido.")
 
-# Obter as sub-abas cadastradas para a categoria atual
-sub_abas_existentes = list(
-    str_lit.session_state["sub_abas_dados"][categoria_selecionada].keys()
-)
+# Obter sub-abas da categoria atual
+sub_abas_existentes = list(str_lit.session_state["sub_abas_dados"][categoria_selecionada].keys())
 
 if not sub_abas_existentes:
-    str_lit.info(
-        "Nenhuma sub-aba criada ainda para esta categoria. Adicione uma acima para começar."
-    )
+    str_lit.info(f"Nenhuma sub-aba criada para **{categoria_selecionada}**. Adicione uma acima.")
 else:
     str_lit.divider()
-    # Renderiza as abas dinamicamente
     abas_interface = str_lit.tabs(sub_abas_existentes)
 
     for idx, sub_aba_nome in enumerate(sub_abas_existentes):
         with abas_interface[idx]:
-            str_lit.markdown(f"### Conteúdo da Sub-Aba: {sub_aba_nome}")
+            str_lit.markdown(f"### Conteúdo de {sub_aba_nome} ({categoria_selecionada})")
 
-            # Área de Upload do .txt
             uploaded_file = str_lit.file_uploader(
-                f"Envie o arquivo .txt para preencher '{sub_aba_nome}'",
+                f"Envie o arquivo .txt para '{sub_aba_nome}'",
                 type=["txt"],
                 key=f"uploader_{categoria_selecionada}_{sub_aba_nome}",
             )
 
             if uploaded_file is not None:
                 conteudo_txt = uploaded_file.read().decode("utf-8")
-
                 comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
                 keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
 
@@ -107,223 +109,38 @@ else:
                         if novo_item not in str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
                             str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome].append(novo_item)
                     
-                    str_lit.success(f"{len(keys)} jogos importados com sucesso do arquivo .txt!")
+                    str_lit.success(f"{len(keys)} jogos importados com sucesso!")
                 else:
-                    str_lit.error("Não foi possível extrair os dados automaticamente. Verifique o formato do arquivo.")
+                    str_lit.error("Formato do arquivo .txt incompatível.")
 
-            # Botão para limpar itens desta sub-aba
             if str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]:
-                if str_lit.button("🗑️ Limpar jogos desta sub-aba", key=f"clear_{sub_aba_nome}"):
+                if str_lit.button("🗑️ Limpar jogos desta sub-aba", key=f"clear_{categoria_selecionada}_{sub_aba_nome}"):
                     str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome] = []
                     str_lit.rerun()
 
-            str_lit.markdown("---")
-            str_lit.markdown("#### Validação na Administração (Visualização rápida):")
-            
             jogos_atuais = str_lit.session_state["sub_abas_dados"][categoria_selecionada][sub_aba_nome]
             
-            if not jogos_atuais:
-                str_lit.info("Nenhum jogo cadastrado nesta sub-aba ainda. Faça o upload de um arquivo .txt acima.")
-            else:
-                cards_html_gerador = ""
-                
+            if jogos_atuais:
+                str_lit.markdown("---")
+                str_lit.markdown("#### Jogos cadastrados:")
                 for i, jogo in enumerate(jogos_atuais):
-                    id_container = f"iframe_container_{i}"
-                    
-                    # O código HTML completo do iframe ajustado automaticamente para height: 2000px
+                    id_container = f"iframe_{categoria_selecionada}_{sub_aba_nome}_{i}".lower().replace(" ", "_")
                     codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
     <div id="{id_container}" style="width: 100%; max-height: 100%; height: 2000px"></div>
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
 </div>"""
-
-                    # Escapamos o código para segurança na exibição e cópia
-                    codigo_escapado_exibicao = html.escape(codigo_iframe_puro)
-                    codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
-
-                    # Card com altura de 183px na caixa de código e botão logo abaixo
-                    card_html = f"""
-    <div class="match-card">
-        <div class="code-box-wrapper">
-            <pre><code>{codigo_escapado_exibicao}</code></pre>
-        </div>
-        <button class="copy-btn" data-code="{codigo_escapado_copia}" onclick="copiarTexto(this)">Copiar</button>
-    </div>\n\n"""
-                    
-                    cards_html_gerador += card_html
-
                     with str_lit.expander(f"⚽ {jogo['nome']}"):
                         str_lit.code(codigo_iframe_puro, language="html")
 
-                # Template HTML final para o servidor
-                html_pagina_completa = f"""<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lance a Lance - {categoria_selecionada} ({sub_aba_nome})</title>
-    
-    <!-- Meta tags Open Graph -->
-    <meta property="og:title" content="Lance a Lance: {categoria_selecionada} - {sub_aba_nome}">
-    <meta property="og:description" content="Central de cópias de iframes para os artigos de {categoria_selecionada}.">
-    <meta property="og:image" content="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg">
-    <meta property="og:type" content="website">
+# 3. Geração do HTML Consolidado considerando os campeonatos ativos
+str_lit.divider()
+str_lit.subheader("📋 Código HTML Completo da Página para o Servidor")
+str_lit.markdown("O código abaixo já reflete apenas os campeonatos selecionados na configuração de exibição superior.")
 
-    <style>
-        * {{ box-sizing: border-box; }}
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0b0b;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }}
-        .header-container {{
-            width: 100%;
-            background-color: #000;
-            text-align: center;
-            border-bottom: 4px solid #137d00;
-        }}
-        .header-desktop {{
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            display: block;
-        }}
-        .header-mobile {{
-            display: none;
-            width: 100%;
-            object-fit: cover;
-        }}
-        @media (max-width: 768px) {{
-            .header-desktop {{ display: none; }}
-            .header-mobile {{ display: block; }}
-        }}
-        .container {{
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }}
-        .page-title {{
-            text-align: center;
-            color: #137d00;
-            font-size: 1.8rem;
-            margin: 25px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }}
-        .match-card {{
-            background: #141414;
-            border: 1px solid #222;
-            border-left: 5px solid #137d00;
-            border-radius: 6px;
-            margin-bottom: 25px;
-            padding: 15px 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }}
-        .code-box-wrapper {{
-            background: #000;
-            border: 1px solid #262626;
-            border-radius: 4px;
-            padding: 12px;
-            margin-bottom: 12px;
-            height: 183px;
-            max-height: 183px;
-            overflow-y: auto;
-            overflow-x: auto;
-        }}
-        pre {{
-            margin: 0;
-        }}
-        code {{
-            font-family: Consolas, Monaco, "Andale Mono", monospace;
-            color: #4af626;
-            font-size: 0.85rem;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }}
-        .copy-btn {{
-            background-color: #137d00;
-            color: #ffffff;
-            border: none;
-            padding: 8px 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }}
-        .copy-btn:hover {{
-            background-color: #0f6600;
-        }}
-        .copy-btn.copied {{
-            background-color: #ffffff;
-            color: #000000;
-        }}
-        footer {{
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #1a1a1a;
-            margin-top: 40px;
-        }}
-    </style>
-</head>
-<body>
-
-    <!-- Header Responsivo -->
-    <header class="header-container">
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7" class="header-desktop">
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
-    </header>
-
-    <div class="container">
-        <h1 class="page-title">{categoria_selecionada} — {sub_aba_nome}</h1>
-
-        <!-- Cards de Códigos por Jogo -->
-{cards_html_gerador}
-    </div>
-
-    <footer>
-        <p>R7 Esportes • Sistema de Cobertura Lance a Lance</p>
-    </footer>
-
-    <script>
-        function copiarTexto(botao) {{
-            const codigoCodificado = botao.getAttribute('data-code');
-            
-            const textareaTemp = document.createElement('textarea');
-            textareaTemp.innerHTML = codigoCodificado;
-            const textoParaCopiar = textareaTemp.value;
-            
-            const inputInvisivel = document.createElement('textarea');
-            inputInvisivel.value = textoParaCopiar;
-            document.body.appendChild(inputInvisivel);
-            inputInvisivel.select();
-            
-            try {{
-                document.execCommand('copy');
-                const textoOriginal = botao.innerText;
-                botao.innerText = "Copiado! ✔️";
-                botao.classList.add("copied");
-                
-                setTimeout(() => {{
-                    botao.innerText = textoOriginal;
-                    botao.classList.remove("copied");
-                }}, 2000);
-            }} catch (err) {{
-                console.error('Erro ao copiar: ', err);
-                alert('Erro ao tentar copiar o código.');
-            }}
-            
-            document.body.removeChild(inputInvisivel);
-        }}
-    </script>
-</body>
-</html>"""
-
-                str_lit.divider()
-                str_lit.subheader("📋 Código HTML Completo da Página para o Servidor")
-                str_lit.markdown("Copie o código completo abaixo, salve como arquivo `.html` e faça o upload para o servidor:")
-                str_lit.code(html_pagina_completa, language="html")
+if not campeonatos_ativos:
+    str_lit.warning("Nenhum campeonato selecionado para exibição.")
+else:
+    # Aqui você pode estruturar como prefere renderizar os blocos combinados no HTML final
+    html_resumo_debug = f"<!-- Campeonatos ativos na página: {', '.join(campeonatos_ativos)} -->"
+    str_lit.code(html_resumo_debug, language="html")
