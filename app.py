@@ -22,6 +22,10 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
+# Chaves de controle para limpeza de inputs
+if "input_novo_camp_val" not in st.session_state:
+    st.session_state["input_novo_camp_val"] = ""
+
 # --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
 st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
 
@@ -55,8 +59,8 @@ if json_file is not None:
 
 st.divider()
 
-# --- GERENCIAMENTO DE CAMPEONATOS ---
-st.subheader("🏆 Gerenciar Campeonatos")
+# --- CRIAR CAMPEONATO ---
+st.subheader("🏆 Criar Campeonato")
 
 col_c1, col_c2 = st.columns([3, 1], vertical_alignment="bottom")
 with col_c1:
@@ -93,7 +97,7 @@ else:
         idx_camp = campeonatos_cadastrados.index(camp_selecionado)
         
         with st.expander(f"🛠️ Configurações e Ajustes de '{camp_selecionado}'", expanded=False):
-            col_A, col_B, col_C = st.columns([2, 1, 1])
+            col_A, col_B, col_C = st.columns([2, 1, 1], vertical_alignment="bottom")
             
             with col_A:
                 rename_camp = st.text_input("Renomear campeonato:", value=camp_selecionado, key=f"txt_ren_{camp_selecionado}")
@@ -116,13 +120,13 @@ else:
                 st.write("Ordem:")
                 col_sub_1, col_sub_2 = st.columns(2)
                 with col_sub_1:
-                    if idx_camp > 0 and st.button("⬆️", key=f"up_c_{camp_selecionado}", help="Subir campeonato"):
+                    if idx_camp > 0 and st.button("⬆️", key=f"up_c_{camp_selecionado}", help="Subir campeonato", use_container_width=True):
                         chaves = list(st.session_state["campeonatos_dados"].keys())
                         chaves[idx_camp], chaves[idx_camp-1] = chaves[idx_camp-1], chaves[idx_camp]
                         st.session_state["campeonatos_dados"] = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
                         st.rerun()
                 with col_sub_2:
-                    if idx_camp < len(campeonatos_cadastrados) - 1 and st.button("⬇️", key=f"down_c_{camp_selecionado}", help="Descer campeonato"):
+                    if idx_camp < len(campeonatos_cadastrados) - 1 and st.button("⬇️", key=f"down_c_{camp_selecionado}", help="Descer campeonato", use_container_width=True):
                         chaves = list(st.session_state["campeonatos_dados"].keys())
                         chaves[idx_camp], chaves[idx_camp+1] = chaves[idx_camp+1], chaves[idx_camp]
                         st.session_state["campeonatos_dados"] = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
@@ -142,17 +146,24 @@ else:
                     del st.session_state["campeonatos_visibilidade"][camp_selecionado]
                 st.rerun()
 
-        st.markdown(f"#### Rodadas / Fases de: **{camp_selecionado}**")
+        st.markdown(f"#### Criar Rodadas / Fases de: **{camp_selecionado}**")
 
         col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
+        
+        # Chave dinâmica única para limpar o input de rodada após adicionar
+        key_input_rodada = f"input_nova_rodada_{camp_selecionado}"
+        if key_input_rodada not in st.session_state:
+            st.session_state[key_input_rodada] = ""
+
         with col_r1:
-            nova_rod_nome = st.text_input("Nova rodada/fase:", placeholder="Ex: Rodada 1 ou Quartas de Final", key=f"input_nova_rodada_{camp_selecionado}")
+            nova_rod_nome = st.text_input("Nova rodada/fase:", placeholder="Ex: Rodada 1 ou Quartas de Final", key=key_input_rodada)
         with col_r2:
             if st.button("➕ Adicionar Rodada", key=f"btn_add_rod_{camp_selecionado}", use_container_width=True):
                 r_nome = nova_rod_nome.strip()
                 if r_nome:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         st.session_state["campeonatos_dados"][camp_selecionado][r_nome] = []
+                        st.session_state[key_input_rodada] = ""  # Limpeza automática do campo
                         st.success(f"Rodada '{r_nome}' adicionada!")
                         st.rerun()
                     else:
@@ -174,7 +185,7 @@ else:
                 idx_rod = rodadas_existentes.index(rodada_selecionada)
                 jogos_atuais = st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada]
 
-                col_rd_A, col_rd_B, col_rd_C = st.columns([2, 1, 1])
+                col_rd_A, col_rd_B, col_rd_C = st.columns([2, 1, 1], vertical_alignment="bottom")
                 with col_rd_A:
                     rename_rod = st.text_input("Renomear rodada:", value=rodada_selecionada, key=f"txt_ren_rod_{camp_selecionado}_{rodada_selecionada}")
                     if rename_rod.strip() and rename_rod.strip() != rodada_selecionada:
@@ -194,13 +205,13 @@ else:
                     st.write("Ordem da Rodada:")
                     c_sub_r1, c_sub_r2 = st.columns(2)
                     with c_sub_r1:
-                        if idx_rod > 0 and st.button("⬆️", key=f"up_r_{camp_selecionado}_{rodada_selecionada}", help="Subir rodada"):
+                        if idx_rod > 0 and st.button("⬆️", key=f"up_r_{camp_selecionado}_{rodada_selecionada}", help="Subir rodada", use_container_width=True):
                             chaves_r = list(st.session_state["campeonatos_dados"][camp_selecionado].keys())
                             chaves_r[idx_rod], chaves_r[idx_rod-1] = chaves_r[idx_rod-1], chaves_r[idx_rod]
                             st.session_state["campeonatos_dados"][camp_selecionado] = {k: st.session_state["campeonatos_dados"][camp_selecionado][k] for k in chaves_r}
                             st.rerun()
                     with c_sub_r2:
-                        if idx_rod < len(rodadas_existentes) - 1 and st.button("⬇️", key=f"down_r_{camp_selecionado}_{rodada_selecionada}", help="Descer rodada"):
+                        if idx_rod < len(rodadas_existentes) - 1 and st.button("⬇️", key=f"down_r_{camp_selecionado}_{rodada_selecionada}", help="Descer rodada", use_container_width=True):
                             chaves_r = list(st.session_state["campeonatos_dados"][camp_selecionado].keys())
                             chaves_r[idx_rod], chaves_r[idx_rod+1] = chaves_r[idx_rod+1], chaves_r[idx_rod]
                             st.session_state["campeonatos_dados"][camp_selecionado] = {k: st.session_state["campeonatos_dados"][camp_selecionado][k] for k in chaves_r}
@@ -208,7 +219,7 @@ else:
 
                 with col_rd_C:
                     st.write("Ação:")
-                    if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}"):
+                    if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}", use_container_width=True):
                         del st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada]
                         st.rerun()
 
