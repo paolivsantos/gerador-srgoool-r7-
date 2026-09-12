@@ -12,7 +12,7 @@ st.set_page_config(
 
 st.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
 st.markdown(
-    "Gerencie campeonatos, ordene-os, renomeie, defina visibilidade, organize rodadas e exporte/importe via JSON."
+    "Gerencie campeonatos, reordene, renomeie, defina visibilidade, organize rodadas e exporte/importe via JSON."
 )
 
 # Inicializar estados no session_state
@@ -85,22 +85,43 @@ campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
 
 if campeonatos_cadastrados:
     st.markdown("##### Organizar, Renomear e Exibir Campeonatos:")
-    
-    # Botão para Ordenar Alfabeticamente
-    if st.button("🔤 Ordenar Campeonatos Alfabeticamente"):
-        chaves_ordenadas = sorted(st.session_state["campeonatos_dados"].keys())
-        novo_dict = {k: st.session_state["campeonatos_dados"][k] for k in chaves_ordenadas}
-        st.session_state["campeonatos_dados"] = novo_dict
-        st.rerun()
+    st.markdown(
+        """
+        <style>
+        .grip-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 4px;
+            height: 38px;
+            color: #888;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            user-select: none;
+            cursor: grab;
+        }
+        .grip-box:active {
+            cursor: grabbing;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     for idx, camp in enumerate(campeonatos_cadastrados):
         if camp not in st.session_state["campeonatos_visibilidade"]:
             st.session_state["campeonatos_visibilidade"][camp] = True
             
-        cols = st.columns([0.5, 0.5, 2.5, 0.8, 0.4])
+        cols = st.columns([0.4, 0.4, 0.4, 2.5, 0.8, 0.4])
         
-        # Botão Subir na Ordem
+        # Alça visual estilo "grip" (pontinhos) ao lado do campo
         with cols[0]:
+            st.markdown('<div class="grip-box" title="Alça de arrastar">⠿</div>', unsafe_allow_html=True)
+
+        # Botão Subir na Ordem
+        with cols[1]:
             if idx > 0:
                 if st.button("⬆️", key=f"up_camp_{camp}", help="Mover para cima"):
                     chaves = list(st.session_state["campeonatos_dados"].keys())
@@ -111,7 +132,7 @@ if campeonatos_cadastrados:
                 st.markdown("")
 
         # Botão Descer na Ordem
-        with cols[1]:
+        with cols[2]:
             if idx < len(campeonatos_cadastrados) - 1:
                 if st.button("⬇️", key=f"down_camp_{camp}", help="Mover para baixo"):
                     chaves = list(st.session_state["campeonatos_dados"].keys())
@@ -122,33 +143,31 @@ if campeonatos_cadastrados:
                 st.markdown("")
 
         # Edição de Nome e Checkbox de Visibilidade
-        with cols[2]:
+        with cols[3]:
             novo_nome_input = st.text_input(f"Editar {camp}", value=camp, key=f"edit_name_{camp}", label_visibility="collapsed")
             if novo_nome_input.strip() and novo_nome_input.strip() != camp:
                 novo_nome = novo_nome_input.strip()
                 if novo_nome not in st.session_state["campeonatos_dados"]:
-                    # Refaz o dicionário mantendo a ordem das chaves com o nome atualizado
                     novo_dict = {}
                     for k, v in st.session_state["campeonatos_dados"].items():
                         chave_final = novo_nome if k == camp else k
                         novo_dict[chave_final] = v
                     st.session_state["campeonatos_dados"] = novo_dict
                     
-                    # Atualiza visibilidade
                     vis_val = st.session_state["campeonatos_visibilidade"].pop(camp, True)
                     st.session_state["campeonatos_visibilidade"][novo_nome] = vis_val
                     st.rerun()
                 else:
                     st.error("Já existe um campeonato com esse nome.")
 
-        with cols[3]:
+        with cols[4]:
             st.session_state["campeonatos_visibilidade"][camp] = st.checkbox(
                 "Exibir",
                 value=st.session_state["campeonatos_visibilidade"][camp],
                 key=f"chk_vis_{camp}"
             )
 
-        with cols[4]:
+        with cols[5]:
             if st.button("❌", key=f"del_camp_{camp}", help=f"Excluir {camp}"):
                 del st.session_state["campeonatos_dados"][camp]
                 if camp in st.session_state["campeonatos_visibilidade"]:
@@ -160,7 +179,6 @@ if not campeonatos_cadastrados:
 else:
     st.divider()
     
-    # Recarrega a lista após possíveis alterações de ordem/renomeação
     campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
     abas_campeonatos = st.tabs(campeonatos_cadastrados)
 
@@ -362,7 +380,7 @@ else:
 
     st.divider()
     st.subheader("📋 Código HTML Completo da Página para o Servidor")
-    st.markdown("O código abaixo já contempla a **ordenação**, **renomeação**, **contador** e o **painel de controle**:")
+    st.markdown("O código gerado para exportação e uso no servidor continua perfeitamente estruturado:")
 
     html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
