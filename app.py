@@ -83,7 +83,6 @@ else:
     st.divider()
     st.subheader("⚙️ Painel de Edição e Organização")
 
-    # Seleção limpa do campeonato a ser gerenciado (evita renderizar dezenas de inputs pesados juntos)
     camp_selecionado = st.selectbox(
         "Selecione o Campeonato para gerenciar:",
         campeonatos_cadastrados,
@@ -93,7 +92,6 @@ else:
     if camp_selecionado:
         idx_camp = campeonatos_cadastrados.index(camp_selecionado)
         
-        # Ações rápidas para o campeonato selecionado
         with st.expander(f"🛠️ Configurações e Ajustes de '{camp_selecionado}'", expanded=False):
             col_A, col_B, col_C = st.columns([2, 1, 1])
             
@@ -102,7 +100,6 @@ else:
                 if rename_camp.strip() and rename_camp.strip() != camp_selecionado:
                     novo_n = rename_camp.strip()
                     if novo_n not in st.session_state["campeonatos_dados"]:
-                        # Atualiza chave mantendo a ordem e dados
                         novo_dict = {}
                         for k, v in st.session_state["campeonatos_dados"].items():
                             chave_f = novo_n if k == camp_selecionado else k
@@ -147,7 +144,6 @@ else:
 
         st.markdown(f"#### Rodadas / Fases de: **{camp_selecionado}**")
 
-        # Adicionar Rodada
         col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
         with col_r1:
             nova_rod_nome = st.text_input("Nova rodada/fase:", placeholder="Ex: Rodada 1 ou Quartas de Final", key=f"input_nova_rodada_{camp_selecionado}")
@@ -216,7 +212,6 @@ else:
                         del st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada]
                         st.rerun()
 
-                # Upload de TXT dedicado à rodada selecionada
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
@@ -767,4 +762,4 @@ html_pagina_completa = f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-    st.code(html_pagina_completa, language="html")
+st.code(html_pagina_completa, language="html")
