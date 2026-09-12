@@ -22,10 +22,6 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
-# Chaves de controle para limpeza de inputs
-if "input_novo_camp_val" not in st.session_state:
-    st.session_state["input_novo_camp_val"] = ""
-
 # --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
 st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
 
@@ -72,6 +68,7 @@ with col_c2:
             if nome_limpo not in st.session_state["campeonatos_dados"]:
                 st.session_state["campeonatos_dados"][nome_limpo] = {}
                 st.session_state["campeonatos_visibilidade"][nome_limpo] = True
+                st.session_state["input_novo_camp"] = ""
                 st.success(f"Campeonato '{nome_limpo}' criado com sucesso!")
                 st.rerun()
             else:
@@ -90,7 +87,8 @@ else:
     camp_selecionado = st.selectbox(
         "Selecione o Campeonato para gerenciar:",
         campeonatos_cadastrados,
-        key="select_gerenciar_campeonato"
+        key="select_gerenciar_campeonato",
+        disabled=not bool(campeonatos_cadastrados)
     )
 
     if camp_selecionado:
@@ -150,7 +148,6 @@ else:
 
         col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
         
-        # Chave dinâmica única para limpar o input de rodada após adicionar
         key_input_rodada = f"input_nova_rodada_{camp_selecionado}"
         if key_input_rodada not in st.session_state:
             st.session_state[key_input_rodada] = ""
@@ -163,7 +160,7 @@ else:
                 if r_nome:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         st.session_state["campeonatos_dados"][camp_selecionado][r_nome] = []
-                        st.session_state[key_input_rodada] = ""  # Limpeza automática do campo
+                        st.session_state[key_input_rodada] = ""
                         st.success(f"Rodada '{r_nome}' adicionada!")
                         st.rerun()
                     else:
@@ -178,7 +175,8 @@ else:
             rodada_selecionada = st.selectbox(
                 "Selecione a Rodada para gerenciar os jogos/TXT:",
                 rodadas_existentes,
-                key=f"select_rodada_{camp_selecionado}"
+                key=f"select_rodada_{camp_selecionado}",
+                disabled=not bool(rodadas_existentes)
             )
 
             if rodada_selecionada:
