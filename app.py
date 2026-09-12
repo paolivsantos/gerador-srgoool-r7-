@@ -12,7 +12,7 @@ st.set_page_config(
 
 st.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
 st.markdown(
-    "Gerencie campeonatos, defina quais ficam visíveis, organize rodadas e exporte/importe via JSON."
+    "Gerencie campeonatos, ordene-os, renomeie, defina visibilidade, organize rodadas e exporte/importe via JSON."
 )
 
 # Inicializar estados no session_state
@@ -55,7 +55,7 @@ if json_file is not None:
 
 st.divider()
 
-# --- 1 & 3. GERENCIAMENTO DE CAMPEONATOS ---
+# --- GERENCIAMENTO DE CAMPEONATOS (ADICIONAR, ORDENAR, EDITAR E EXCLUIR) ---
 st.subheader("🏆 Gerenciar Campeonatos")
 
 def adicionar_campeonato_callback():
@@ -84,21 +84,71 @@ with col_c2:
 campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
 
 if campeonatos_cadastrados:
-    st.markdown("##### Campeonatos Cadastrados (Exibição e Exclusão):")
-    for camp in campeonatos_cadastrados:
+    st.markdown("##### Organizar, Renomear e Exibir Campeonatos:")
+    
+    # Botão para Ordenar Alfabeticamente
+    if st.button("🔤 Ordenar Campeonatos Alfabeticamente"):
+        chaves_ordenadas = sorted(st.session_state["campeonatos_dados"].keys())
+        novo_dict = {k: st.session_state["campeonatos_dados"][k] for k in chaves_ordenadas}
+        st.session_state["campeonatos_dados"] = novo_dict
+        st.rerun()
+
+    for idx, camp in enumerate(campeonatos_cadastrados):
         if camp not in st.session_state["campeonatos_visibilidade"]:
             st.session_state["campeonatos_visibilidade"][camp] = True
             
-        c_cols = [3, 0.4]
-        cols = st.columns(c_cols)
+        cols = st.columns([0.5, 0.5, 2.5, 0.8, 0.4])
         
+        # Botão Subir na Ordem
         with cols[0]:
+            if idx > 0:
+                if st.button("⬆️", key=f"up_camp_{camp}", help="Mover para cima"):
+                    chaves = list(st.session_state["campeonatos_dados"].keys())
+                    chaves[idx], chaves[idx-1] = chaves[idx-1], chaves[idx]
+                    st.session_state["campeonatos_dados"] = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
+                    st.rerun()
+            else:
+                st.markdown("")
+
+        # Botão Descer na Ordem
+        with cols[1]:
+            if idx < len(campeonatos_cadastrados) - 1:
+                if st.button("⬇️", key=f"down_camp_{camp}", help="Mover para baixo"):
+                    chaves = list(st.session_state["campeonatos_dados"].keys())
+                    chaves[idx], chaves[idx+1] = chaves[idx+1], chaves[idx]
+                    st.session_state["campeonatos_dados"] = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
+                    st.rerun()
+            else:
+                st.markdown("")
+
+        # Edição de Nome e Checkbox de Visibilidade
+        with cols[2]:
+            novo_nome_input = st.text_input(f"Editar {camp}", value=camp, key=f"edit_name_{camp}", label_visibility="collapsed")
+            if novo_nome_input.strip() and novo_nome_input.strip() != camp:
+                novo_nome = novo_nome_input.strip()
+                if novo_nome not in st.session_state["campeonatos_dados"]:
+                    # Refaz o dicionário mantendo a ordem das chaves com o nome atualizado
+                    novo_dict = {}
+                    for k, v in st.session_state["campeonatos_dados"].items():
+                        chave_final = novo_nome if k == camp else k
+                        novo_dict[chave_final] = v
+                    st.session_state["campeonatos_dados"] = novo_dict
+                    
+                    # Atualiza visibilidade
+                    vis_val = st.session_state["campeonatos_visibilidade"].pop(camp, True)
+                    st.session_state["campeonatos_visibilidade"][novo_nome] = vis_val
+                    st.rerun()
+                else:
+                    st.error("Já existe um campeonato com esse nome.")
+
+        with cols[3]:
             st.session_state["campeonatos_visibilidade"][camp] = st.checkbox(
-                f"Exibir **{camp}** na página final",
+                "Exibir",
                 value=st.session_state["campeonatos_visibilidade"][camp],
                 key=f"chk_vis_{camp}"
             )
-        with cols[1]:
+
+        with cols[4]:
             if st.button("❌", key=f"del_camp_{camp}", help=f"Excluir {camp}"):
                 del st.session_state["campeonatos_dados"][camp]
                 if camp in st.session_state["campeonatos_visibilidade"]:
@@ -109,6 +159,9 @@ if not campeonatos_cadastrados:
     st.info("Nenhum campeonato cadastrado ainda. Adicione um acima ou importe um JSON na barra lateral.")
 else:
     st.divider()
+    
+    # Recarrega a lista após possíveis alterações de ordem/renomeação
+    campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
     abas_campeonatos = st.tabs(campeonatos_cadastrados)
 
     menu_lateral_html = ""
@@ -309,7 +362,7 @@ else:
 
     st.divider()
     st.subheader("📋 Código HTML Completo da Página para o Servidor")
-    st.markdown("O código abaixo já contempla o **Contador no Header** e a aba de **Controle** no menu lateral:")
+    st.markdown("O código abaixo já contempla a **ordenação**, **renomeação**, **contador** e o **painel de controle**:")
 
     html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -355,7 +408,6 @@ else:
             .header-mobile {{ display: block; }}
         }}
         
-        /* Contador Flutuante no Header (Canto Superior Direito) */
         .header-counter-badge {{
             position: absolute;
             top: 15px;
@@ -425,7 +477,6 @@ else:
             color: #ffffff;
         }}
         
-        /* Botão Controle com Destaque Visual */
         .menu-control-btn {{
             margin-top: 15px;
             border-top: 1px solid #222;
@@ -545,7 +596,6 @@ else:
             color: #000000;
         }}
 
-        /* Estilos do Painel de Controle de Contrato */
         .control-wrapper {{
             background: #141414;
             border: 1px solid #222;
@@ -630,7 +680,6 @@ else:
 <body>
 
     <header class="header-container">
-        <!-- Contador de Scripts/Iframes Restantes no Canto Superior Direito -->
         <div class="header-counter-badge">
             Scripts restantes: <span>{restantes_contrato}</span> / {LIMITE_CONTRATO}
         </div>
@@ -639,13 +688,11 @@ else:
     </header>
 
     <div class="main-wrapper">
-        <!-- Menu Lateral com Campeonatos e aba de Controle -->
         <nav class="championship-sidebar">
             <div class="sidebar-title">Campeonatos</div>
             {menu_lateral_html}
         </nav>
 
-        <!-- Área de Conteúdo Principal -->
         <main class="content-area">
             {conteudo_paineis_html}
         </main>
