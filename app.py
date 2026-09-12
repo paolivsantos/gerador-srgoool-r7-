@@ -153,118 +153,154 @@ if not campeonatos_cadastrados:
 else:
     st.divider()
     
-    campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
-    abas_campeonatos = st.tabs(campeonatos_cadastrados)
+    # Para evitar scroll lateral excessivo com muitas abas, usamos um selectbox organizado ou seletor vertical limpo
+    st.subheader("⚙️ Configuração de Rodadas e Conteúdo por Campeonato")
+    
+    campeonato_selecionado_gestao = st.selectbox(
+        "Selecione o campeonato para gerenciar as rodadas:",
+        campeonatos_cadastrados,
+        key="selectbox_gestao_campeonato"
+    )
 
-    menu_lateral_html = ""
-    conteudo_paineis_html = ""
-    dados_controle_json = {}
-    total_geral_iframes = 0
-    LIMITE_CONTRATO = 500
+    camp_nome = campeonato_selecionado_gestao
+    st.markdown(f"### Competição Selecionada: **{camp_nome}**")
+    st.markdown("#### Gerenciar Rodadas / Fases")
 
-    for idx_camp, camp_nome in enumerate(campeonatos_cadastrados):
-        with abas_campeonatos[idx_camp]:
-            st.markdown(f"### Competição: **{camp_nome}**")
-            st.markdown("#### Gerenciar Rodadas / Fases")
+    def criar_callback_rodada(c_nome):
+        key_input = f"input_rodada_{c_nome}"
+        valor_rodada = st.session_state.get(key_input, "").strip()
+        if valor_rodada:
+            if valor_rodada not in st.session_state["campeonatos_dados"][c_nome]:
+                st.session_state["campeonatos_dados"][c_nome][valor_rodada] = []
+                st.session_state[key_input] = ""
+                st.success(f"Rodada '{valor_rodada}' adicionada!")
+            else:
+                st.warning("Esta rodada já existe neste campeonato.")
+        else:
+            st.error("Digite um nome válido para a rodada.")
 
-            def criar_callback_rodada(c_nome):
-                key_input = f"input_rodada_{c_nome}"
-                valor_rodada = st.session_state.get(key_input, "").strip()
-                if valor_rodada:
-                    if valor_rodada not in st.session_state["campeonatos_dados"][c_nome]:
-                        st.session_state["campeonatos_dados"][c_nome][valor_rodada] = []
-                        st.session_state[key_input] = ""
-                        st.success(f"Rodada '{valor_rodada}' adicionada!")
-                    else:
-                        st.warning("Esta rodada já existe neste campeonato.")
+    col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
+    with col_r1:
+        st.text_input(
+            f"Nome da rodada/fase para {camp_nome}:",
+            placeholder="",
+            key=f"input_rodada_{camp_nome}"
+        )
+    with col_r2:
+        st.button(
+            "➕ Adicionar Rodada", 
+            key=f"btn_add_rodada_{camp_nome}", 
+            on_click=criar_callback_rodada, 
+            args=(camp_nome,), 
+            use_container_width=True
+        )
+
+    rodadas_existentes = list(st.session_state["campeonatos_dados"][camp_nome].keys())
+
+    options_select_html = ""
+    blocos_rodadas_html = ""
+    total_iframes_camp = 0
+
+    if rodadas_existentes:
+        st.divider()
+        st.markdown("##### Organizar, Renomear e Preencher Rodadas:")
+
+        for idx_rod, rodada_nome in enumerate(rodadas_existentes):
+            cols_rod = st.columns([0.4, 0.4, 2.4, 1.2, 0.4])
+
+            # Subir Rodada
+            with cols_rod[0]:
+                if idx_rod > 0:
+                    if st.button("⬆️", key=f"up_rod_{camp_nome}_{rodada_nome}", help="Mover rodada para cima"):
+                        chaves_rod = list(st.session_state["campeonatos_dados"][camp_nome].keys())
+                        chaves_rod[idx_rod], chaves_rod[idx_rod-1] = chaves_rod[idx_rod-1], chaves_rod[idx_rod]
+                        st.session_state["campeonatos_dados"][camp_nome] = {k: st.session_state["campeonatos_dados"][camp_nome][k] for k in chaves_rod}
+                        st.rerun()
                 else:
-                    st.error("Digite um nome válido para a rodada.")
+                    st.markdown("")
 
-            col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
-            with col_r1:
-                st.text_input(
-                    f"Nome da rodada/fase para {camp_nome}:",
-                    placeholder="",
-                    key=f"input_rodada_{camp_nome}"
+            # Descer Rodada
+            with cols_rod[1]:
+                if idx_rod < len(rodadas_existentes) - 1:
+                    if st.button("⬇️", key=f"down_rod_{camp_nome}_{rodada_nome}", help="Mover rodada para baixo"):
+                        chaves_rod = list(st.session_state["campeonatos_dados"][camp_nome].keys())
+                        chaves_rod[idx_rod], chaves_rod[idx_rod+1] = chaves_rod[idx_rod+1], chaves_rod[idx_rod]
+                        st.session_state["campeonatos_dados"][camp_nome] = {k: st.session_state["campeonatos_dados"][camp_nome][k] for k in chaves_rod}
+                        st.rerun()
+                else:
+                    st.markdown("")
+
+            # Renomear Rodada
+            with cols_rod[2]:
+                novo_nome_rod_input = st.text_input(f"Editar rodada {rodada_nome}", value=rodada_nome, key=f"edit_rod_name_{camp_nome}_{rodada_nome}", label_visibility="collapsed")
+                if novo_nome_rod_input.strip() and novo_nome_rod_input.strip() != rodada_nome:
+                    novo_r_nome = novo_nome_rod_input.strip()
+                    if novo_r_nome not in st.session_state["campeonatos_dados"][camp_nome]:
+                        novo_dict_rod = {}
+                        for r_k, r_v in st.session_state["campeonatos_dados"][camp_nome].items():
+                            chave_r_final = novo_r_nome if r_k == rodada_nome else r_k
+                            novo_dict_rod[chave_r_final] = r_v
+                        st.session_state["campeonatos_dados"][camp_nome] = novo_dict_rod
+                        st.rerun()
+                    else:
+                        st.error("Já existe uma rodada com esse nome.")
+
+            # Uploader dedicado por rodada de forma limpa
+            with cols_rod[3]:
+                uploaded_file = st.file_uploader(
+                    f"TXT {rodada_nome}",
+                    type=["txt"],
+                    key=f"uploader_{camp_nome}_{rodada_nome}",
+                    label_visibility="collapsed"
                 )
-            with col_r2:
-                st.button(
-                    "➕ Adicionar Rodada", 
-                    key=f"btn_add_rodada_{camp_nome}", 
-                    on_click=criar_callback_rodada, 
-                    args=(camp_nome,), 
-                    use_container_width=True
-                )
+                if uploaded_file is not None:
+                    conteudo_txt = uploaded_file.read().decode("utf-8")
+                    comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
+                    keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
 
-            rodadas_existentes = list(st.session_state["campeonatos_dados"][camp_nome].keys())
-
-            options_select_html = ""
-            blocos_rodadas_html = ""
-            total_iframes_camp = 0
-
-            if rodadas_existentes:
-                st.divider()
-                abas_rodadas = st.tabs(rodadas_existentes)
-
-                for idx_rod, rodada_nome in enumerate(rodadas_existentes):
-                    with abas_rodadas[idx_rod]:
-                        st.markdown(f"##### Conteúdo da Rodada: {rodada_nome}")
-
-                        if st.button(f"🗑️ Excluir Rodada '{rodada_nome}'", key=f"del_rod_{camp_nome}_{rodada_nome}"):
-                            del st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
-                            st.rerun()
-
-                        uploaded_file = st.file_uploader(
-                            f"Envie o arquivo .txt para {camp_nome} - {rodada_nome}",
-                            type=["txt"],
-                            key=f"uploader_{camp_nome}_{rodada_nome}",
-                        )
-
-                        if uploaded_file is not None:
-                            conteudo_txt = uploaded_file.read().decode("utf-8")
-                            comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
-                            keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
-
-                            if comentarios and keys:
-                                novos_jogos = []
-                                for c_comentario, c_key in zip(comentarios, keys):
-                                    partes = c_comentario.split("-")
-                                    nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
-                                    novos_jogos.append({
-                                        "nome": nome_jogo,
-                                        "key": c_key,
-                                        "comentario_original": c_comentario.strip()
-                                    })
-                                
-                                st.session_state["campeonatos_dados"][camp_nome][rodada_nome] = novos_jogos
-                                st.success(f"{len(keys)} jogos importados com sucesso para {rodada_nome}!")
-                            else:
-                                st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
-
-                        if st.session_state["campeonatos_dados"][camp_nome][rodada_nome]:
-                            if st.button(f"🗑️ Limpar rodada", key=f"clear_{camp_nome}_{rodada_nome}"):
-                                st.session_state["campeonatos_dados"][camp_nome][rodada_nome] = []
-                                st.rerun()
-
-                        jogos_rodada = st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
-                        total_iframes_camp += len(jogos_rodada)
+                    if comentarios and keys:
+                        novos_jogos = []
+                        for c_comentario, c_key in zip(comentarios, keys):
+                            partes = c_comentario.split("-")
+                            nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
+                            novos_jogos.append({
+                                "nome": nome_jogo,
+                                "key": c_key,
+                                "comentario_original": c_comentario.strip()
+                            })
                         
-                        if jogos_rodada:
-                            st.markdown("---")
-                            cards_html_rodada = ""
-                            for i, jogo in enumerate(jogos_rodada):
-                                id_container = f"iframe_{camp_nome}_{rodada_nome}_{i}".lower().replace(" ", "_")
-                                
-                                codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
+                        st.session_state["campeonatos_dados"][camp_nome][rodada_nome] = novos_jogos
+                        st.success(f"Importado com sucesso!")
+                        st.rerun()
+
+            # Excluir Rodada
+            with cols_rod[4]:
+                if st.button("❌", key=f"del_rod_{camp_nome}_{rodada_nome}", help=f"Excluir rodada {rodada_nome}"):
+                    del st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
+                    st.rerun()
+
+        st.divider()
+
+        # Montagem dos cards das rodadas para visualização e exportação
+        for idx_rod, rodada_nome in enumerate(rodadas_existentes):
+            jogos_rodada = st.session_state["campeonatos_dados"][camp_nome][rodada_nome]
+            total_iframes_camp += len(jogos_rodada)
+            
+            if jogos_rodada:
+                cards_html_rodada = ""
+                for i, jogo in enumerate(jogos_rodada):
+                    id_container = f"iframe_{camp_nome}_{rodada_nome}_{i}".lower().replace(" ", "_")
+                    
+                    codigo_iframe_puro = f"""<!-- {jogo.get('comentario_original', jogo['nome'])} -->
 <div style="display: flex">
     <div id="{id_container}" style="width: 100%; max-height: 100%; height: 2000px"></div>
     <script src="https://www.srgoool.com.br/iframe.js.php?id={id_container}&key={jogo['key']}"></script>
 </div>"""
 
-                                codigo_escapado_exibicao = html.escape(codigo_iframe_puro)
-                                codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
+                    codigo_escapado_exibicao = html.escape(codigo_iframe_puro)
+                    codigo_escapado_copia = html.escape(codigo_iframe_puro, quote=True)
 
-                                cards_html_rodada += f"""
+                    cards_html_rodada += f"""
         <div class="match-card">
             <div class="code-box-wrapper">
                 <pre><code>{codigo_escapado_exibicao}</code></pre>
@@ -272,50 +308,98 @@ else:
             <button class="copy-btn" data-code="{codigo_escapado_copia}" onclick="copiarTexto(this)">Copiar</button>
         </div>\n"""
 
-                                with st.expander(f"⚽ {jogo['nome']}"):
-                                    st.code(codigo_iframe_puro, language="html")
+                safe_rodada_id = re.sub(r'[^a-zA-Z0-9]', '_', rodada_nome).lower()
+                safe_camp_prefix = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
+                div_id = f"rodada_{safe_camp_prefix}_{safe_rodada_id}"
 
-                            safe_rodada_id = re.sub(r'[^a-zA-Z0-9]', '_', rodada_nome).lower()
-                            safe_camp_prefix = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
-                            div_id = f"rodada_{safe_camp_prefix}_{safe_rodada_id}"
+                is_last_round = (idx_rod == len(rodadas_existentes) - 1)
+                selected_attr = "selected" if is_last_round else ""
+                options_select_html += f'<option value="{div_id}" {selected_attr}>{rodada_nome}</option>\n'
 
-                            is_last_round = (idx_rod == len(rodadas_existentes) - 1)
-                            selected_attr = "selected" if is_last_round else ""
-                            options_select_html += f'<option value="{div_id}" {selected_attr}>{rodada_nome}</option>\n'
+                display_style = "block" if is_last_round else "none"
 
-                            display_style = "block" if is_last_round else "none"
-
-                            blocos_rodadas_html += f"""
+                blocos_rodadas_html += f"""
     <div id="{div_id}" class="rodada-content-panel" style="display: {display_style};">
         <h2 class="round-title">{rodada_nome}</h2>
         {cards_html_rodada}
     </div>\n"""
 
-            total_geral_iframes += total_iframes_camp
-            dados_controle_json[camp_nome] = total_iframes_camp
+    # Coleta de dados para todos os campeonatos ativos no HTML final
+    menu_lateral_html = ""
+    conteudo_paineis_html = ""
+    dados_controle_json = {}
+    total_geral_iframes = 0
 
-            if blocos_rodadas_html and st.session_state["campeonatos_visibilidade"].get(camp_nome, True):
-                safe_camp_id = re.sub(r'[^a-zA-Z0-9]', '_', camp_nome).lower()
-                is_first_camp = (menu_lateral_html == "")
-                active_menu_class = "active" if is_first_camp else ""
-                active_panel_class = "active" if is_first_camp else ""
+    for c_nome, r_dict in st.session_state["campeonatos_dados"].items():
+        qtd_c = sum(len(j_list) for j_list in r_dict.values())
+        total_geral_iframes += qtd_c
+        dados_controle_json[c_nome] = qtd_c
 
-                menu_lateral_html += f"""
-        <button class="menu-item {active_menu_class}" onclick="mudarCampeonato(event, '{safe_camp_id}')">{camp_nome}</button>"""
+        if st.session_state["campeonatos_visibilidade"].get(c_nome, True) and r_dict:
+            safe_camp_id = re.sub(r'[^a-zA-Z0-9]', '_', c_nome).lower()
+            
+            # Montar opções de rodadas estáticas para o HTML exportado
+            opts_html_exp = ""
+            blocos_html_exp = ""
+            r_keys = list(r_dict.keys())
+            for idx_r_exp, r_exp_name in enumerate(r_keys):
+                j_exp_list = r_dict[r_exp_name]
+                s_r_id = re.sub(r'[^a-zA-Z0-9]', '_', r_exp_name).lower()
+                s_c_id = re.sub(r'[^a-zA-Z0-9]', '_', c_nome).lower()
+                d_id = f"rodada_{s_c_id}_{s_r_id}"
+                
+                is_last_e = (idx_r_exp == len(r_keys) - 1)
+                sel_att = "selected" if is_last_e else ""
+                opts_html_exp += f'<option value="{d_id}" {sel_att}>{r_exp_name}</option>\n'
+                
+                disp_sty = "block" if is_last_e else "none"
+                cards_exp_str = ""
+                for i_e, j_e in enumerate(j_exp_list):
+                    id_cont_e = f"iframe_{c_nome}_{r_exp_name}_{i_e}".lower().replace(" ", "_")
+                    c_puro_e = f"""<!-- {j_e.get('comentario_original', j_e['nome'])} -->
+<div style="display: flex">
+    <div id="{id_cont_e}" style="width: 100%; max-height: 100%; height: 2000px"></div>
+    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_cont_e}&key={j_e['key']}"></script>
+</div>"""
+                    c_esc_disp = html.escape(c_puro_e)
+                    c_esc_cop = html.escape(c_puro_e, quote=True)
+                    cards_exp_str += f"""
+        <div class="match-card">
+            <div class="code-box-wrapper">
+                <pre><code>{c_esc_disp}</code></pre>
+            </div>
+            <button class="copy-btn" data-code="{c_esc_cop}" onclick="copiarTexto(this)">Copiar</button>
+        </div>\n"""
+                
+                blocos_html_exp += f"""
+    <div id="{d_id}" class="rodada-content-panel" style="display: {disp_sty};">
+        <h2 class="round-title">{r_exp_name}</h2>
+        {cards_exp_str}
+    </div>\n"""
 
-                conteudo_paineis_html += f"""
+            is_first_camp = (menu_lateral_html == "")
+            active_menu_class = "active" if is_first_camp else ""
+            active_panel_class = "active" if is_first_camp else ""
+
+            menu_lateral_html += f"""
+        <button class="menu-item {active_menu_class}" onclick="mudarCampeonato(event, '{safe_camp_id}')">{c_nome}</button>"""
+
+            conteudo_paineis_html += f"""
     <div id="{safe_camp_id}" class="championship-panel {active_panel_class}">
-        <h1 class="page-title">{camp_nome}</h1>
+        <h1 class="page-title">{c_nome}</h1>
         <div class="round-selector-container">
             <label for="select_{safe_camp_id}" class="select-label">Selecione a Rodada / Fase:</label>
             <select id="select_{safe_camp_id}" class="round-select" onchange="mudarRodada(this, '{safe_camp_id}')">
-                {options_select_html}
+                {opts_html_exp}
             </select>
         </div>
         <div class="rounds-container">
-            {blocos_rodadas_html}
+            {blocos_html_exp}
         </div>
     </div>\n"""
+
+    LIMITE_CONTRATO = 500
+    restantes_contrato = LIMITE_CONTRATO - total_geral_iframes
 
     # --- HTML DO PAINEL DE CONTROLE ---
     paineis_controle_linhas = ""
@@ -334,8 +418,6 @@ else:
 
     if not paineis_controle_linhas:
         paineis_controle_linhas = '<p style="color: #777;">Nenhum dado de campeonato cadastrado ainda.</p>'
-
-    restantes_contrato = LIMITE_CONTRATO - total_geral_iframes
 
     conteudo_paineis_html += f"""
     <div id="painel_controle" class="championship-panel">
