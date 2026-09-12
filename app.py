@@ -55,7 +55,7 @@ if json_file is not None:
 
 st.divider()
 
-# --- GERENCIAMENTO DE CAMPEONATOS (ADICIONAR, ORDENAR, EDITAR E EXCLUIR) ---
+# --- GERENCIAMENTO DE CAMPEONATOS ---
 st.subheader("🏆 Gerenciar Campeonatos")
 
 def adicionar_campeonato_callback():
@@ -85,43 +85,15 @@ campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
 
 if campeonatos_cadastrados:
     st.markdown("##### Organizar, Renomear e Exibir Campeonatos:")
-    st.markdown(
-        """
-        <style>
-        .grip-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 4px;
-            height: 38px;
-            color: #888;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            user-select: none;
-            cursor: grab;
-        }
-        .grip-box:active {
-            cursor: grabbing;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
 
     for idx, camp in enumerate(campeonatos_cadastrados):
         if camp not in st.session_state["campeonatos_visibilidade"]:
             st.session_state["campeonatos_visibilidade"][camp] = True
             
-        cols = st.columns([0.4, 0.4, 0.4, 2.5, 0.8, 0.4])
+        cols = st.columns([0.4, 0.4, 3.0, 0.8, 0.4])
         
-        # Alça visual estilo "grip" (pontinhos) ao lado do campo
-        with cols[0]:
-            st.markdown('<div class="grip-box" title="Alça de arrastar">⠿</div>', unsafe_allow_html=True)
-
         # Botão Subir na Ordem
-        with cols[1]:
+        with cols[0]:
             if idx > 0:
                 if st.button("⬆️", key=f"up_camp_{camp}", help="Mover para cima"):
                     chaves = list(st.session_state["campeonatos_dados"].keys())
@@ -132,7 +104,7 @@ if campeonatos_cadastrados:
                 st.markdown("")
 
         # Botão Descer na Ordem
-        with cols[2]:
+        with cols[1]:
             if idx < len(campeonatos_cadastrados) - 1:
                 if st.button("⬇️", key=f"down_camp_{camp}", help="Mover para baixo"):
                     chaves = list(st.session_state["campeonatos_dados"].keys())
@@ -142,8 +114,8 @@ if campeonatos_cadastrados:
             else:
                 st.markdown("")
 
-        # Edição de Nome e Checkbox de Visibilidade
-        with cols[3]:
+        # Edição de Nome
+        with cols[2]:
             novo_nome_input = st.text_input(f"Editar {camp}", value=camp, key=f"edit_name_{camp}", label_visibility="collapsed")
             if novo_nome_input.strip() and novo_nome_input.strip() != camp:
                 novo_nome = novo_nome_input.strip()
@@ -160,14 +132,16 @@ if campeonatos_cadastrados:
                 else:
                     st.error("Já existe um campeonato com esse nome.")
 
-        with cols[4]:
+        # Visibilidade
+        with cols[3]:
             st.session_state["campeonatos_visibilidade"][camp] = st.checkbox(
                 "Exibir",
                 value=st.session_state["campeonatos_visibilidade"][camp],
                 key=f"chk_vis_{camp}"
             )
 
-        with cols[5]:
+        # Exclusão
+        with cols[4]:
             if st.button("❌", key=f"del_camp_{camp}", help=f"Excluir {camp}"):
                 del st.session_state["campeonatos_dados"][camp]
                 if camp in st.session_state["campeonatos_visibilidade"]:
@@ -380,7 +354,6 @@ else:
 
     st.divider()
     st.subheader("📋 Código HTML Completo da Página para o Servidor")
-    st.markdown("O código gerado para exportação e uso no servidor continua perfeitamente estruturado:")
 
     html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
