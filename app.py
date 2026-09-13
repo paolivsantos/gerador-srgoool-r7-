@@ -22,6 +22,9 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
+if "ultimo_campeonato_ativo" not in st.session_state:
+    st.session_state["ultimo_campeonato_ativo"] = None
+
 # --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
 st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
 
@@ -46,6 +49,8 @@ if json_file is not None:
                 for c in dados_carregados.keys():
                     if c not in st.session_state["campeonatos_visibilidade"]:
                         st.session_state["campeonatos_visibilidade"][c] = True
+                if dados_carregados:
+                    st.session_state["ultimo_campeonato_ativo"] = list(dados_carregados.keys())[-1]
                 st.sidebar.success("Dados carregados com sucesso!")
                 st.rerun()
             else:
@@ -68,6 +73,7 @@ with col_c2:
             if nome_limpo not in st.session_state["campeonatos_dados"]:
                 st.session_state["campeonatos_dados"][nome_limpo] = {}
                 st.session_state["campeonatos_visibilidade"][nome_limpo] = True
+                st.session_state["ultimo_campeonato_ativo"] = nome_limpo
                 st.session_state["input_novo_camp"] = ""
                 st.success(f"Campeonato '{nome_limpo}' criado com sucesso!")
                 st.rerun()
@@ -84,11 +90,21 @@ else:
     st.divider()
     st.subheader("⚙️ Painel de Edição e Organização")
 
+    # Garante que o índice padrão seja o do último campeonato atualizado/criado
+    default_idx = 0
+    if st.session_state["ultimo_campeonato_ativo"] in campeonatos_cadastrados:
+        default_idx = campeonatos_cadastrados.index(st.session_state["ultimo_campeonato_ativo"])
+
     camp_selecionado = st.selectbox(
         "Selecione o Campeonato para gerenciar:",
         campeonatos_cadastrados,
+        index=default_idx,
         key="select_gerenciar_campeonato"
     )
+
+    # Atualiza o estado caso o usuário mude manualmente pelo selectbox
+    if camp_selecionado != st.session_state["ultimo_campeonato_ativo"]:
+        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
 
     if camp_selecionado:
         idx_camp = campeonatos_cadastrados.index(camp_selecionado)
@@ -108,6 +124,7 @@ else:
                         st.session_state["campeonatos_dados"] = novo_dict
                         vis_val = st.session_state["campeonatos_visibilidade"].pop(camp_selecionado, True)
                         st.session_state["campeonatos_visibilidade"][novo_n] = vis_val
+                        st.session_state["ultimo_campeonato_ativo"] = novo_n
                         st.success("Renomeado com sucesso!")
                         st.rerun()
                     else:
@@ -141,6 +158,8 @@ else:
                 del st.session_state["campeonatos_dados"][camp_selecionado]
                 if camp_selecionado in st.session_state["campeonatos_visibilidade"]:
                     del st.session_state["campeonatos_visibilidade"][camp_selecionado]
+                restantes = list(st.session_state["campeonatos_dados"].keys())
+                st.session_state["ultimo_campeonato_ativo"] = restantes[-1] if restantes else None
                 st.rerun()
 
         st.markdown(f"#### Criar Rodadas / Fases de: **{camp_selecionado}**")
@@ -159,7 +178,8 @@ else:
                 if r_nome:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         st.session_state["campeonatos_dados"][camp_selecionado][r_nome] = []
-                        # Limpa o input removendo a chave do session_state antes do próximo rerun
+                        # Define este campeonato como o último ativo para focar nele ao atualizar
+                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                         del st.session_state[key_input_rodada]
                         st.success(f"Rodada '{r_nome}' adicionada!")
                         st.rerun()
@@ -193,6 +213,7 @@ else:
                                 chave_final_r = novo_nome_r if r_k == rodada_selecionada else r_k
                                 novo_d_rod[chave_final_r] = r_v
                             st.session_state["campeonatos_dados"][camp_selecionado] = novo_d_rod
+                            st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                             st.success("Rodada renomeada!")
                             st.rerun()
                         else:
@@ -206,18 +227,21 @@ else:
                             chaves_r = list(st.session_state["campeonatos_dados"][camp_selecionado].keys())
                             chaves_r[idx_rod], chaves_r[idx_rod-1] = chaves_r[idx_rod-1], chaves_r[idx_rod]
                             st.session_state["campeonatos_dados"][camp_selecionado] = {k: st.session_state["campeonatos_dados"][camp_selecionado][k] for k in chaves_r}
+                            st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                             st.rerun()
                     with c_sub_r2:
                         if idx_rod < len(rodadas_existentes) - 1 and st.button("⬇️", key=f"down_r_{camp_selecionado}_{rodada_selecionada}", help="Descer rodada", use_container_width=True):
                             chaves_r = list(st.session_state["campeonatos_dados"][camp_selecionado].keys())
                             chaves_r[idx_rod], chaves_r[idx_rod+1] = chaves_r[idx_rod+1], chaves_r[idx_rod]
                             st.session_state["campeonatos_dados"][camp_selecionado] = {k: st.session_state["campeonatos_dados"][camp_selecionado][k] for k in chaves_r}
+                            st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                             st.rerun()
 
                 with col_rd_C:
                     st.write("Ação:")
                     if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}", use_container_width=True):
                         del st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada]
+                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                         st.rerun()
 
                 uploaded_file = st.file_uploader(
@@ -243,6 +267,7 @@ else:
                             })
                         
                         st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada] = novos_jogos
+                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                         st.success(f"{len(keys)} jogos importados com sucesso para {rodada_selecionada}!")
                         st.rerun()
                     else:
@@ -251,6 +276,7 @@ else:
                 if jogos_atuais:
                     if st.button(f"🗑️ Limpar todos os jogos desta rodada", key=f"clear_rod_{camp_selecionado}_{rodada_selecionada}"):
                         st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada] = []
+                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
                         st.rerun()
 
                     st.markdown(f"**Jogos cadastrados em {rodada_selecionada} ({len(jogos_atuais)}):**")
@@ -731,15 +757,15 @@ html_pagina_completa = f"""<!DOCTYPE html>
                 rodadas[i].style.display = "none";
             }}
             
-            const rodadaAlvo = document.getElementById(selectedValue);
-            if (rodadaAlvo) {{
-                rodadaAlvo.style.display = "block";
+            for (let i = 0; i < rodadas.length; i++) {{
+                if (rodadas[i].id === selectedValue) {{
+                    rodadas[i].style.display = "block";
+                }}
             }}
         }}
 
         function copiarTexto(botao) {{
             const codigoCodificado = botao.getAttribute('data-code');
-            
             const textareaTemp = document.createElement('textarea');
             textareaTemp.innerHTML = codigoCodificado;
             const textoParaCopiar = textareaTemp.value;
@@ -761,7 +787,6 @@ html_pagina_completa = f"""<!DOCTYPE html>
                 }}, 2000);
             }} catch (err) {{
                 console.error('Erro ao copiar: ', err);
-                alert('Erro ao tentar copiar o código.');
             }}
             
             document.body.removeChild(inputInvisivel);
