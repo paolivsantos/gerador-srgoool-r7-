@@ -22,6 +22,9 @@ if "campeonatos_dados" not in st.session_state:
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
 
+if "limpar_inputs_rodada" not in st.session_state:
+    st.session_state["limpar_inputs_rodada"] = False
+
 # --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
 st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
 
@@ -148,6 +151,13 @@ else:
         col_r1, col_r2 = st.columns([3, 1], vertical_alignment="bottom")
         
         key_input_rodada = f"input_nova_rodada_{camp_selecionado}"
+        
+        # Limpa preventivamente ANTES de instanciar o widget se a flag estiver ativa
+        if st.session_state.get("limpar_inputs_rodada", False):
+            if key_input_rodada in st.session_state:
+                st.session_state[key_input_rodada] = ""
+            st.session_state["limpar_inputs_rodada"] = False
+
         if key_input_rodada not in st.session_state:
             st.session_state[key_input_rodada] = ""
 
@@ -159,8 +169,8 @@ else:
                 if r_nome:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         st.session_state["campeonatos_dados"][camp_selecionado][r_nome] = []
-                        # Limpa o input removendo a chave do session_state antes do próximo rerun
-                        del st.session_state[key_input_rodada]
+                        # Ativa a flag para limpar o input no próximo rerun antes da renderização
+                        st.session_state["limpar_inputs_rodada"] = True
                         st.success(f"Rodada '{r_nome}' adicionada!")
                         st.rerun()
                     else:
@@ -771,3 +781,4 @@ html_pagina_completa = f"""<!DOCTYPE html>
 </html>"""
 
 st.code(html_pagina_completa, language="html")
+            
