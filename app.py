@@ -87,8 +87,7 @@ else:
     camp_selecionado = st.selectbox(
         "Selecione o Campeonato para gerenciar:",
         campeonatos_cadastrados,
-        key="select_gerenciar_campeonato",
-        disabled=not bool(campeonatos_cadastrados)
+        key="select_gerenciar_campeonato"
     )
 
     if camp_selecionado:
@@ -160,7 +159,8 @@ else:
                 if r_nome:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         st.session_state["campeonatos_dados"][camp_selecionado][r_nome] = []
-                        st.session_state[key_input_rodada] = ""
+                        # Limpa o input removendo a chave do session_state antes do próximo rerun
+                        del st.session_state[key_input_rodada]
                         st.success(f"Rodada '{r_nome}' adicionada!")
                         st.rerun()
                     else:
@@ -175,8 +175,7 @@ else:
             rodada_selecionada = st.selectbox(
                 "Selecione a Rodada para gerenciar os jogos/TXT:",
                 rodadas_existentes,
-                key=f"select_rodada_{camp_selecionado}",
-                disabled=not bool(rodadas_existentes)
+                key=f"select_rodada_{camp_selecionado}"
             )
 
             if rodada_selecionada:
