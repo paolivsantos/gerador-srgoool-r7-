@@ -2,6 +2,9 @@ import json
 import re
 import html
 import streamlit as st
+import urllib.request
+import urllib.error
+import base64
 
 # Configuração da página
 st.set_page_config(
@@ -10,49 +13,121 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("⚽ Gerador e Organizador de Iframes - Lance a Lance (R7)")
-st.markdown(
-    "Gerencie campeonatos, reordene, renomeie, defina visibilidade, organize rodadas e exporte/importe via JSON."
-)
+# Configurações do GitHub (já preenchidas com as suas credenciais)
+GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", "")
+GITHUB_REPO = st.secrets.get("GITHUB_REPO", "paolivsantos/gerador-srgoool-r7")
+GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
+JSON_FILE_PATH = "estrutura_lance_a_lance.json"
 
-# Inicializar estados no session_state
+def carregar_do_github():
+    """Tenta carregar o JSON direto do repositório do GitHub"""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        return None, None
+    
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{JSON_FILE_PATH}?ref={GITHUB_BRANCH}"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json"
+    }
+    
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read().decode())
+            file_content = base64.b64decode(data["content"]).decode("utf-8")
+            return json.loads(file_content), data["sha"]
+    except Exception as e:
+        return None, None
+
+def salvar_no_github(dados_dict):
+    """Salva (faz commit automático) do JSON diretamente no GitHub"""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        st.error("Credenciais do GitHub não configuradas.")
+        return False
+    
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{JSON_FILE_PATH}"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+    }
+    
+    _, sha_atual = carregar_do_github()
+    
+    json_str = json.dumps(dados_dict, ensure_ascii=False, indent=4)
+    content_encoded = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
+    
+    payload = {
+        "message": "Atualização automática via painel Streamlit [skip ci]",
+        "content": content_encoded,
+        "branch": GITHUB_BRANCH
+    }
+    if sha_atual:
+        payload["sha"] = sha_atual
+        
+    try:
+        data_payload = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(url, data=data_payload, headers=headers, method="PUT")
+        with urllib.request.urlopen(req) as response:
+            return True
+    except Exception as e:
+        st.error(f"Erro ao salvar alteração no GitHub: {e}")
+        return False
+
+# Inicializar estados no session_state buscando do GitHub na primeira execução
 if "campeonatos_dados" not in st.session_state:
-    st.session_state["campeonatos_dados"] = {}
+    dados_git, _ = carregar_do_github()
+    if dados_git:
+        st.session_state["campeonatos_dados"] = dados_git
+    else:
+        st.session_state["campeonatos_dados"] = {}
 
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
+    for c in st.session_state["campeonatos_dados"].keys():
+        st.session_state["campeonatos_visibilidade"][c] = True
 
 if "ultimo_campeonato_ativo" not in st.session_state:
-    st.session_state["ultimo_campeonato_ativo"] = None
+    chaves = list(st.session_state["campeonatos_dados"].keys())
+    st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
-# --- SIDEBAR: EXPORTAR E IMPORTAR JSON ---
-st.sidebar.subheader("💾 Backup e Recuperação (JSON)")
+def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
+    """Função auxiliar para atualizar o estado e sincronizar imediatamente com o GitHub"""
+    st.session_state["campeonatos_dados"] = novo_dict
+    if ultimo_ativo:
+        st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
+    
+    sucesso = salvar_no_github(novo_dict)
+    if sucesso:
+        st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="☁️")
+    st.rerun()
+
+# --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
+st.sidebar.subheader("💾 Backup e Sincronização")
+st.sidebar.info("☁️ Os dados agora são salvos automaticamente no GitHub a cada alteração!")
 
 if st.session_state["campeonatos_dados"]:
     json_str = json.dumps(st.session_state["campeonatos_dados"], ensure_ascii=False, indent=4)
     st.sidebar.download_button(
-        label="📥 Exportar Estrutura (JSON)",
+        label="📥 Baixar Backup Local (JSON)",
         data=json_str,
         file_name="estrutura_lance_a_lance.json",
         mime="application/json",
     )
 
 st.sidebar.divider()
-json_file = st.sidebar.file_uploader("Carregar arquivo JSON salvo", type=["json"], key="json_uploader")
+json_file = st.sidebar.file_uploader("Forçar importação de JSON", type=["json"], key="json_uploader")
 
 if json_file is not None:
-    if st.sidebar.button("🔄 Aplicar JSON Carregado"):
+    if st.sidebar.button("🔄 Substituir Dados pelo Arquivo"):
         try:
             dados_carregados = json.load(json_file)
             if isinstance(dados_carregados, dict):
-                st.session_state["campeonatos_dados"] = dados_carregados
                 for c in dados_carregados.keys():
                     if c not in st.session_state["campeonatos_visibilidade"]:
                         st.session_state["campeonatos_visibilidade"][c] = True
-                if dados_carregados:
-                    st.session_state["ultimo_campeonato_ativo"] = list(dados_carregados.keys())[-1]
-                st.sidebar.success("Dados carregados com sucesso!")
-                st.rerun()
+                ultimo = list(dados_carregados.keys())[-1] if dados_carregados else None
+                aplicar_e_sintonizar(dados_carregados, ultimo)
             else:
                 st.sidebar.error("O arquivo JSON não possui o formato esperado.")
         except Exception as e:
@@ -71,12 +146,10 @@ with col_c2:
         nome_limpo = novo_camp_nome.strip()
         if nome_limpo:
             if nome_limpo not in st.session_state["campeonatos_dados"]:
-                st.session_state["campeonatos_dados"][nome_limpo] = {}
+                novo_dict = st.session_state["campeonatos_dados"].copy()
+                novo_dict[nome_limpo] = {}
                 st.session_state["campeonatos_visibilidade"][nome_limpo] = True
-                st.session_state["ultimo_campeonato_ativo"] = nome_limpo
-                st.session_state["input_novo_camp"] = ""
-                st.success(f"Campeonato '{nome_limpo}' criado com sucesso!")
-                st.rerun()
+                aplicar_e_sintonizar(novo_dict, nome_limpo)
             else:
                 st.warning("Este campeonato já existe.")
         else:
@@ -85,12 +158,11 @@ with col_c2:
 campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
 
 if not campeonatos_cadastrados:
-    st.info("Nenhum campeonato cadastrado ainda. Adicione um acima ou importe um JSON na barra lateral.")
+    st.info("Nenhum campeonato cadastrado ainda. Adicione um acima.")
 else:
     st.divider()
     st.subheader("⚙️ Painel de Edição e Organização")
 
-    # Garante que o índice padrão seja o do último campeonato atualizado/criado
     default_idx = 0
     if st.session_state["ultimo_campeonato_ativo"] in campeonatos_cadastrados:
         default_idx = campeonatos_cadastrados.index(st.session_state["ultimo_campeonato_ativo"])
@@ -102,7 +174,6 @@ else:
         key="select_gerenciar_campeonato"
     )
 
-    # Atualiza o estado caso o usuário mude manualmente pelo selectbox
     if camp_selecionado != st.session_state["ultimo_campeonato_ativo"]:
         st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
 
@@ -121,12 +192,9 @@ else:
                         for k, v in st.session_state["campeonatos_dados"].items():
                             chave_f = novo_n if k == camp_selecionado else k
                             novo_dict[chave_f] = v
-                        st.session_state["campeonatos_dados"] = novo_dict
                         vis_val = st.session_state["campeonatos_visibilidade"].pop(camp_selecionado, True)
                         st.session_state["campeonatos_visibilidade"][novo_n] = vis_val
-                        st.session_state["ultimo_campeonato_ativo"] = novo_n
-                        st.success("Renomeado com sucesso!")
-                        st.rerun()
+                        aplicar_e_sintonizar(novo_dict, novo_n)
                     else:
                         st.error("Já existe um campeonato com esse nome.")
 
@@ -137,14 +205,14 @@ else:
                     if idx_camp > 0 and st.button("⬆️", key=f"up_c_{camp_selecionado}", help="Subir campeonato", use_container_width=True):
                         chaves = list(st.session_state["campeonatos_dados"].keys())
                         chaves[idx_camp], chaves[idx_camp-1] = chaves[idx_camp-1], chaves[idx_camp]
-                        st.session_state["campeonatos_dados"] = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
-                        st.rerun()
+                        novo_dict = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
                 with col_sub_2:
                     if idx_camp < len(campeonatos_cadastrados) - 1 and st.button("⬇️", key=f"down_c_{camp_selecionado}", help="Descer campeonato", use_container_width=True):
                         chaves = list(st.session_state["campeonatos_dados"].keys())
                         chaves[idx_camp], chaves[idx_camp+1] = chaves[idx_camp+1], chaves[idx_camp]
-                        st.session_state["campeonatos_dados"] = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
-                        st.rerun()
+                        novo_dict = {k: st.session_state["campeonatos_dados"][k] for k in chaves}
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
             with col_C:
                 st.write("Status:")
@@ -155,12 +223,13 @@ else:
                     st.rerun()
 
             if st.button(f"❌ Excluir Campeonato '{camp_selecionado}'", key=f"del_c_{camp_selecionado}"):
-                del st.session_state["campeonatos_dados"][camp_selecionado]
+                novo_dict = st.session_state["campeonatos_dados"].copy()
+                del novo_dict[camp_selecionado]
                 if camp_selecionado in st.session_state["campeonatos_visibilidade"]:
                     del st.session_state["campeonatos_visibilidade"][camp_selecionado]
-                restantes = list(st.session_state["campeonatos_dados"].keys())
-                st.session_state["ultimo_campeonato_ativo"] = restantes[-1] if restantes else None
-                st.rerun()
+                restantes = list(novo_dict.keys())
+                ultimo = restantes[-1] if restantes else None
+                aplicar_e_sintonizar(novo_dict, ultimo)
 
         st.markdown(f"#### Criar Rodadas / Fases de: **{camp_selecionado}**")
 
@@ -177,11 +246,10 @@ else:
                 r_nome = nova_rod_nome.strip()
                 if r_nome:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
-                        st.session_state["campeonatos_dados"][camp_selecionado][r_nome] = []
-                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
+                        novo_dict = st.session_state["campeonatos_dados"].copy()
+                        novo_dict[camp_selecionado][r_nome] = []
                         del st.session_state[key_input_rodada]
-                        st.success(f"Rodada '{r_nome}' adicionada!")
-                        st.rerun()
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.warning("Esta rodada já existe neste campeonato.")
                 else:
@@ -207,14 +275,13 @@ else:
                     if rename_rod.strip() and rename_rod.strip() != rodada_selecionada:
                         novo_nome_r = rename_rod.strip()
                         if novo_nome_r not in st.session_state["campeonatos_dados"][camp_selecionado]:
+                            novo_dict = st.session_state["campeonatos_dados"].copy()
                             novo_d_rod = {}
-                            for r_k, r_v in st.session_state["campeonatos_dados"][camp_selecionado].items():
+                            for r_k, r_v in novo_dict[camp_selecionado].items():
                                 chave_final_r = novo_nome_r if r_k == rodada_selecionada else r_k
                                 novo_d_rod[chave_final_r] = r_v
-                            st.session_state["campeonatos_dados"][camp_selecionado] = novo_d_rod
-                            st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
-                            st.success("Rodada renomeada!")
-                            st.rerun()
+                            novo_dict[camp_selecionado] = novo_d_rod
+                            aplicar_e_sintonizar(novo_dict, camp_selecionado)
                         else:
                             st.error("Já existe uma rodada com esse nome.")
 
@@ -223,25 +290,25 @@ else:
                     c_sub_r1, c_sub_r2 = st.columns(2)
                     with c_sub_r1:
                         if idx_rod > 0 and st.button("⬆️", key=f"up_r_{camp_selecionado}_{rodada_selecionada}", help="Subir rodada", use_container_width=True):
-                            chaves_r = list(st.session_state["campeonatos_dados"][camp_selecionado].keys())
+                            novo_dict = st.session_state["campeonatos_dados"].copy()
+                            chaves_r = list(novo_dict[camp_selecionado].keys())
                             chaves_r[idx_rod], chaves_r[idx_rod-1] = chaves_r[idx_rod-1], chaves_r[idx_rod]
-                            st.session_state["campeonatos_dados"][camp_selecionado] = {k: st.session_state["campeonatos_dados"][camp_selecionado][k] for k in chaves_r}
-                            st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
-                            st.rerun()
+                            novo_dict[camp_selecionado] = {k: novo_dict[camp_selecionado][k] for k in chaves_r}
+                            aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     with c_sub_r2:
                         if idx_rod < len(rodadas_existentes) - 1 and st.button("⬇️", key=f"down_r_{camp_selecionado}_{rodada_selecionada}", help="Descer rodada", use_container_width=True):
-                            chaves_r = list(st.session_state["campeonatos_dados"][camp_selecionado].keys())
+                            novo_dict = st.session_state["campeonatos_dados"].copy()
+                            chaves_r = list(novo_dict[camp_selecionado].keys())
                             chaves_r[idx_rod], chaves_r[idx_rod+1] = chaves_r[idx_rod+1], chaves_r[idx_rod]
-                            st.session_state["campeonatos_dados"][camp_selecionado] = {k: st.session_state["campeonatos_dados"][camp_selecionado][k] for k in chaves_r}
-                            st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
-                            st.rerun()
+                            novo_dict[camp_selecionado] = {k: novo_dict[camp_selecionado][k] for k in chaves_r}
+                            aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
                 with col_rd_C:
                     st.write("Ação:")
                     if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}", use_container_width=True):
-                        del st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada]
-                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
-                        st.rerun()
+                        novo_dict = st.session_state["campeonatos_dados"].copy()
+                        del novo_dict[camp_selecionado][rodada_selecionada]
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
@@ -265,18 +332,17 @@ else:
                                 "comentario_original": c_comentario.strip()
                             })
                         
-                        st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada] = novos_jogos
-                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
-                        st.success(f"{len(keys)} jogos importados com sucesso para {rodada_selecionada}!")
-                        st.rerun()
+                        novo_dict = st.session_state["campeonatos_dados"].copy()
+                        novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
 
                 if jogos_atuais:
                     if st.button(f"🗑️ Limpar todos os jogos desta rodada", key=f"clear_rod_{camp_selecionado}_{rodada_selecionada}"):
-                        st.session_state["campeonatos_dados"][camp_selecionado][rodada_selecionada] = []
-                        st.session_state["ultimo_campeonato_ativo"] = camp_selecionado
-                        st.rerun()
+                        novo_dict = st.session_state["campeonatos_dados"].copy()
+                        novo_dict[camp_selecionado][rodada_selecionada] = []
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
                     st.markdown(f"**Jogos cadastrados em {rodada_selecionada} ({len(jogos_atuais)}):**")
                     for jogo in jogos_atuais:
@@ -288,7 +354,6 @@ conteudo_paineis_html = ""
 dados_controle_json = {}
 total_geral_iframes = 0
 
-# Descobre de forma segura qual campeonato deve iniciar ativo no front-end
 chaves_campeonatos = list(st.session_state["campeonatos_dados"].keys())
 if "ultimo_campeonato_ativo" in st.session_state and st.session_state["ultimo_campeonato_ativo"]:
     campeonato_ativo_padrao = st.session_state["ultimo_campeonato_ativo"]
@@ -343,7 +408,6 @@ for c_nome, r_dict in st.session_state["campeonatos_dados"].items():
         {cards_exp_str}
     </div>\n"""
 
-        # Define se este é o campeonato ativo com base no último atualizado
         is_active_camp = (c_nome == campeonato_ativo_padrao)
         active_menu_class = "active" if is_active_camp else ""
         active_panel_class = "active" if is_active_camp else ""
