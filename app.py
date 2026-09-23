@@ -52,7 +52,6 @@ def salvar_no_github(dados_dict):
         "Content-Type": "application/json"
     }
     
-    # Usa o SHA armazenado em session_state para evitar uma requisição GET desnecessária
     sha_atual = st.session_state.get("github_file_sha", None)
     
     json_str = json.dumps(dados_dict, ensure_ascii=False, indent=4)
@@ -71,12 +70,10 @@ def salvar_no_github(dados_dict):
         req = urllib.request.Request(url, data=data_payload, headers=headers, method="PUT")
         with urllib.request.urlopen(req) as response:
             resp_data = json.loads(response.read().decode())
-            # Atualiza o SHA com o novo retornado pelo commit
             if "content" in resp_data and "sha" in resp_data["content"]:
                 st.session_state["github_file_sha"] = resp_data["content"]["sha"]
             return True
     except urllib.error.HTTPError as e:
-        # Se houver conflito de SHA, tenta buscar o atualizado uma única vez e reenviar
         if e.code == 409 or e.code == 422:
             _, novo_sha = carregar_do_github()
             if novo_sha:
@@ -122,7 +119,6 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
     
-    # Feedback visual instantâneo usando spinner para o usuário saber que está salvando
     with st.spinner("Salvando alterações..."):
         sucesso_git = salvar_no_github(novo_dict)
 
@@ -288,7 +284,6 @@ else:
         if rodadas_existentes:
             st.markdown("---")
             
-            # Mantém a rodada selecionada no session_state para não resetar após o upload/ação
             key_select_rodada = f"select_rodada_ativa_{camp_selecionado}"
             if key_select_rodada not in st.session_state or st.session_state[key_select_rodada] not in rodadas_existentes:
                 st.session_state[key_select_rodada] = rodadas_existentes[-1]
@@ -344,9 +339,8 @@ else:
                     if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}", use_container_width=True):
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         del novo_dict[camp_selecionado][rodada_selecionada]
-                        restantes_r = list(novo_dict[camp_selecionado].keys())
-                        if restantes_r:
-                            st.session_state[key_select_rodada] = restantes_r[-1]
+                        if key_select_rodada in st.session_state:
+                            del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
                 uploaded_file = st.file_uploader(
