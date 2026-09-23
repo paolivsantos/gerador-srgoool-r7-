@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada que executa a gravação, incrementa o contador para limpar o uploader e encerra"""
+    """Função centralizada que grava, salva no GitHub e força o reload completo da página via JS"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -122,18 +122,19 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     sucesso_git = salvar_no_github(novo_dict)
 
     if sucesso_git:
-        st.session_state["mensagem_sucesso"] = "Alterações salvas e sincronizadas com sucesso!"
+        st.success("Salvo e sincronizado com sucesso! Atualizando...")
     else:
-        st.session_state["mensagem_erro"] = "Houve uma falha ao sincronizar com o GitHub."
-    
-    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
-    st.rerun()
+        st.error("Erro ao sincronizar com o GitHub.")
 
-# Exibe mensagens de feedback limpas no topo
-if "mensagem_sucesso" in st.session_state:
-    st.success(st.session_state.pop("mensagem_sucesso"))
-if "mensagem_erro" in st.session_state:
-    st.error(st.session_state.pop("mensagem_erro"))
+    # Injeta script JavaScript para recarregar a janela do navegador instantaneamente
+    st.markdown("""
+        <script>
+            setTimeout(function() {
+                window.location.reload();
+            }, 800);
+        </script>
+    """, unsafe_allow_html=True)
+    st.stop()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
 st.sidebar.subheader("💾 Backup e Sincronização")
@@ -353,18 +354,10 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
-                # Uploader com callback imediato de refresh (on_change)
-                # Assim que o arquivo é selecionado na interface, a função de callback força o rerun instantaneamente
-                def callback_upload_imediato():
-                    # Força a limpeza/refresh do estado mantendo a sessão atual
-                    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
-
-                counter_val = st.session_state.get("upload_counter", 0)
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
-                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}_{counter_val}",
-                    on_change=callback_upload_imediato
+                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}"
                 )
 
                 if uploaded_file is not None:
@@ -385,10 +378,6 @@ else:
                         
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
-                        
-                        # Garante que a rodada atual continue selecionada após o refresh automático
-                        st.session_state[key_select_rodada] = rodada_selecionada
-                        
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
@@ -907,5 +896,5 @@ html_pagina_completa = f"""<!DOCTYPE html>
 
 st.divider()
 st.subheader("📋 Código HTML Completo da Página")
-st.markdown("Copie o código abaixo utilizando o botão no canto superior direito do bloco:")
+st.markdown("Copie o código abaixo utilizando o botão no canto superior direito du bloco:")
 st.code(html_pagina_completa, language="html")
