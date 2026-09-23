@@ -1,1 +1,2177 @@
-{}
+{
+    "Amistosos": {
+        "Rodada 1": [
+            {
+                "nome": "Brasil x França",
+                "key": "MC42MDkzNzIzMTY0OTU4NjIx",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 1ª Rodada - Brasil x França"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "Brasil x Croácia",
+                "key": "MC43NDkwMDY0MjY2NTk0MTg2",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 2ª Rodada - Brasil x Croácia"
+            }
+        ],
+        "Rodada 3": [
+            {
+                "nome": "Brasil x Panamá",
+                "key": "MC41ODA0NTI4MTI0NDQ4NDA0",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 3ª Rodada - Brasil x Panamá"
+            }
+        ],
+        "Rodada 4": [
+            {
+                "nome": "Brasil x Egito",
+                "key": "MC4yNzE1NjIwNDI4OTkwMjE5",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 4ª Rodada - Brasil x Egito"
+            }
+        ],
+        "Rodada 5": [
+            {
+                "nome": "Austrália x Brasil",
+                "key": "MC4xMzg1NzAwNzMxODk3NDQ4",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 5ª Rodada - Austrália x Brasil"
+            }
+        ],
+        "Rodada 6": [
+            {
+                "nome": "Austrália x Brasil",
+                "key": "MC4zODU2NTM2NTA3NDcyODk2",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 6ª Rodada - Austrália x Brasil"
+            }
+        ],
+        "Rodada 7": [
+            {
+                "nome": "Índia x Brasil",
+                "key": "MC4yMDg1ODAzNzIxMTgwMDAz",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 7ª Rodada - Índia x Brasil"
+            }
+        ]
+    },
+    "Brasileirão": {
+        "Rodada 1": [
+            {
+                "nome": "Atlético Mineiro x Palmeiras",
+                "key": "MC4yNjE4MTI2NDMzOTE4Mzc=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Atlético Mineiro x Palmeiras"
+            },
+            {
+                "nome": "Vitória x Remo",
+                "key": "MC4wOTE4NjY5NDU5MzM0MjY2Nw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Vitória x Remo"
+            },
+            {
+                "nome": "Internacional x Athletico Paranaense",
+                "key": "MC43MjE5NjM4MzE4OTU5Mjg3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Internacional x Athletico Paranaense"
+            },
+            {
+                "nome": "Fluminense x Grêmio",
+                "key": "MC4wNzQ0NzQwMzExNzQ5OTY5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Fluminense x Grêmio"
+            },
+            {
+                "nome": "Corinthians x Bahia",
+                "key": "MC4yMTIxNzg5MTU5MzY2NjY0Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Corinthians x Bahia"
+            },
+            {
+                "nome": "Chapecoense x Santos",
+                "key": "MC45MTk1NzcyNzgxMjE5MTIx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Chapecoense x Santos"
+            },
+            {
+                "nome": "São Paulo x Flamengo",
+                "key": "MC45NjU5NzMxNzUwOTkwOTQ1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - São Paulo x Flamengo"
+            },
+            {
+                "nome": "Mirassol x Vasco",
+                "key": "MC4zMDkzNDI4NzU0MzM0NzM3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Mirassol x Vasco"
+            },
+            {
+                "nome": "Botafogo x Cruzeiro",
+                "key": "MC44MDg3NDM0MjczMjk0NTc4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Botafogo x Cruzeiro"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "Flamengo x Internacional",
+                "key": "MC4xOTMyNzU0NjAyMjIwNjEy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Flamengo x Internacional"
+            },
+            {
+                "nome": "Remo x Mirassol",
+                "key": "MC4zNDcyOTEyMTY1Nzc2NzQ1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Remo x Mirassol"
+            },
+            {
+                "nome": "Santos x São Paulo",
+                "key": "MC40NzcyMTE0Nzk1NDIwNDI1Nw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Santos x São Paulo"
+            },
+            {
+                "nome": "Grêmio x Botafogo",
+                "key": "MC4xNjU5MTk2MDc2NTk3MjY5Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Grêmio x Botafogo"
+            },
+            {
+                "nome": "Palmeiras x Vitória",
+                "key": "MC42MDYyMTUxNzY3MzcxMzYz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Palmeiras x Vitória"
+            },
+            {
+                "nome": "Vasco x Chapecoense",
+                "key": "MC45NDE0NTQ3MzM2NjczODc0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Vasco x Chapecoense"
+            },
+            {
+                "nome": "Cruzeiro x Coritiba",
+                "key": "MC40OTQyMDUzNDAyNzIwMDY5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Cruzeiro x Coritiba"
+            }
+        ],
+        "Rodada 2 - Atrasado": [
+            {
+                "nome": "Athletico Paranaense x Corinthians",
+                "key": "MC40NTkzMjM3MTIxMjEwNjU0Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 2ª Rodada - Athletico Paranaense x Corinthians"
+            }
+        ],
+        "Rodada 3": [
+            {
+                "nome": "Vitória x Flamengo",
+                "key": "MC45NjYyNzYwODc3NjY3NzAz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Vitória x Flamengo"
+            },
+            {
+                "nome": "Mirassol x Cruzeiro",
+                "key": "MC42OTg0MDE0NTkyMTE4NTc1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Mirassol x Cruzeiro"
+            },
+            {
+                "nome": "Vasco x Bahia",
+                "key": "MC42MDQxMDgxNjY1MTIyMDI3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Vasco x Bahia"
+            },
+            {
+                "nome": "São Paulo x Grêmio",
+                "key": "MC41NzMxNDMyMTE3MjcxNjQ=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - São Paulo x Grêmio"
+            },
+            {
+                "nome": "Athletico Paranaense x Santos",
+                "key": "MC4zMTk3NjY1MzQ3OTAxNzkyNQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Athletico Paranaense x Santos"
+            },
+            {
+                "nome": "Fluminense x Botafogo",
+                "key": "MC42Mzg1OTA5MzkwMDYzODcy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Fluminense x Botafogo"
+            },
+            {
+                "nome": "Corinthians x Bragantino",
+                "key": "MC4yNTUzMjkzMDQ2MTI1NDg0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Corinthians x Bragantino"
+            },
+            {
+                "nome": "Internacional x Palmeiras",
+                "key": "MC4xMDM5Mzg2MTMxODM3MzkyMw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 3ª Rodada - Internacional x Palmeiras"
+            }
+        ],
+        "Rodada 4": [
+            {
+                "nome": "Remo x Internacional",
+                "key": "MC4wODAwMjU2NjQ2MDUyMjQxOQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Remo x Internacional"
+            },
+            {
+                "nome": "Coritiba x São Paulo",
+                "key": "MC4wMTM5MjczNDIzODMxMjMzMjI=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Coritiba x São Paulo"
+            },
+            {
+                "nome": "Cruzeiro x Corinthians",
+                "key": "MC41NDQzODg4MDA0MzUxMzAz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Cruzeiro x Corinthians"
+            },
+            {
+                "nome": "Palmeiras x Fluminense",
+                "key": "MC4yNDMyODc3Mzc3MDc4NzU0Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Palmeiras x Fluminense"
+            },
+            {
+                "nome": "Grêmio x Atlético Mineiro",
+                "key": "MC4yMTgwNDE0MDM0MjIxNzA2OA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Grêmio x Atlético Mineiro"
+            },
+            {
+                "nome": "Santos x Vasco",
+                "key": "MC42NjAwOTQ2NjIyNTI5MDE3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Santos x Vasco"
+            }
+        ],
+        "Rodada 4 - Atrasado": [
+            {
+                "nome": "Flamengo x Mirassol",
+                "key": "MC4xODYzNDU0OTkxODI0NDE3Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Flamengo x Mirassol"
+            },
+            {
+                "nome": "Botafogo x Vitória",
+                "key": "MC45NzEwMDY0NDM2OTcwMzM4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 4ª Rodada - Botafogo x Vitória"
+            }
+        ],
+        "Rodada 5": [
+            {
+                "nome": "Mirassol x Santos",
+                "key": "MC4wOTIxNzMxMzEyNjg2MzI3Mg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Mirassol x Santos"
+            },
+            {
+                "nome": "Bahia x Vitória",
+                "key": "MC45NTk3MjAyNzcxODk5NDc5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Bahia x Vitória"
+            },
+            {
+                "nome": "Flamengo x Cruzeiro",
+                "key": "MC4wNTk5Mzc2NTU5ODE1NzIwMjQ=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Flamengo x Cruzeiro"
+            },
+            {
+                "nome": "Corinthians x Coritiba",
+                "key": "MC40MDUxMjczNjE3OTQxMjA5NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Corinthians x Coritiba"
+            },
+            {
+                "nome": "Remo x Fluminense",
+                "key": "MC40OTI2Njk0ODQxMDU1ODQ2NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Remo x Fluminense"
+            },
+            {
+                "nome": "Vasco x Palmeiras",
+                "key": "MC44MjEyODE1NzA3NzQ3NjUz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Vasco x Palmeiras"
+            },
+            {
+                "nome": "São Paulo x Chapecoense",
+                "key": "MC4xNzAzMjQ3NjQzNzMwODM0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - São Paulo x Chapecoense"
+            },
+            {
+                "nome": "Athletico Paranaense x Botafogo",
+                "key": "MC44NDQ2MzY2NjI3MTg1MDE2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Athletico Paranaense x Botafogo"
+            }
+        ],
+        "Rodada 5 - Atrasado": [
+            {
+                "nome": "Athletico Paranaense x Botafogo",
+                "key": "MC44NDQ2MzY2NjI3MTg1MDE2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 5ª Rodada - Athletico Paranaense x Botafogo"
+            }
+        ],
+        "Rodada 6": [
+            {
+                "nome": "Vitória x Atlético Mineiro",
+                "key": "MC44NDc4MTgwMTEyNzYyNTQ0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Vitória x Atlético Mineiro"
+            },
+            {
+                "nome": "Botafogo x Flamengo",
+                "key": "MC40OTE1OTczMDE3ODQ1Mjc3Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Botafogo x Flamengo"
+            },
+            {
+                "nome": "Santos x Corinthians",
+                "key": "MC44NTIyNTg5MDI4MzY4MzIx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Santos x Corinthians"
+            },
+            {
+                "nome": "Internacional x Bahia",
+                "key": "MC4wNjUzNzU4MzE5NzAzNjM3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Internacional x Bahia"
+            },
+            {
+                "nome": "Fluminense x Athletico Paranaense",
+                "key": "MC43MDk5ODY5MDkwMjI1NDI2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Fluminense x Athletico Paranaense"
+            },
+            {
+                "nome": "Palmeiras x Mirassol",
+                "key": "MC42MDQ1MzY5NDI3NjkzNDI=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Palmeiras x Mirassol"
+            },
+            {
+                "nome": "Cruzeiro x Vasco",
+                "key": "MC4wNjA3MzcwMDE3NjYyMDU3NjQ=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Cruzeiro x Vasco"
+            },
+            {
+                "nome": "Bragantino x São Paulo",
+                "key": "MC44MTU4NzIwNjM2ODg4MTQ3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 6ª Rodada - Bragantino x São Paulo"
+            }
+        ],
+        "Rodada 7": [
+            {
+                "nome": "Palmeiras x Botafogo",
+                "key": "MC4yNDA5NTE4MzM1Mzk1OTc1NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Palmeiras x Botafogo"
+            },
+            {
+                "nome": "Bahia x Bragantino",
+                "key": "MC4yOTYxNjMxMDI4ODc3MjI3NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Bahia x Bragantino"
+            },
+            {
+                "nome": "Athletico Paranaense x Cruzeiro",
+                "key": "MC45MTI2MTcxODc4NjU2NTMz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Athletico Paranaense x Cruzeiro"
+            },
+            {
+                "nome": "Atlético Mineiro x São Paulo",
+                "key": "MC4xNzExNjAzNDQxOTM4Mzg4NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Atlético Mineiro x São Paulo"
+            },
+            {
+                "nome": "Vasco x Fluminense",
+                "key": "MC4xOTA5MDc1NjMyNjA2NzAzNQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Vasco x Fluminense"
+            },
+            {
+                "nome": "Santos x Internacional",
+                "key": "MC4wMzg0OTIxMjU0OTQ4NjM5Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Santos x Internacional"
+            },
+            {
+                "nome": "Flamengo x Remo",
+                "key": "MC4yODA4MTQ4NDkxMDE3NjU4NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Flamengo x Remo"
+            },
+            {
+                "nome": "Chapecoense x Corinthians",
+                "key": "MC42MTczMTQzNDAxOTAzMjM0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 7ª Rodada - Chapecoense x Corinthians"
+            }
+        ],
+        "Rodada 8": [
+            {
+                "nome": "Bragantino x Botafogo",
+                "key": "MC44OTU5NjQ1NDEzNzU2MDQ=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Bragantino x Botafogo"
+            },
+            {
+                "nome": "Fluminense x Atlético Mineiro",
+                "key": "MC4wMzAyODE4MjQwODc5ODY1NTg=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Fluminense x Atlético Mineiro"
+            },
+            {
+                "nome": "São Paulo x Palmeiras",
+                "key": "MC41MTE2NzQwNjE4OTQxMTMy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - São Paulo x Palmeiras"
+            },
+            {
+                "nome": "Vasco x Grêmio",
+                "key": "MC42NDcxNDU1NDk0MzgwOTg=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Vasco x Grêmio"
+            },
+            {
+                "nome": "Cruzeiro x Santos",
+                "key": "MC45MzEwODMzOTk3MzgyNjI4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Cruzeiro x Santos"
+            },
+            {
+                "nome": "Athletico Paranaense x Coritiba",
+                "key": "MC40NDkyNzEwMzU3OTkwNzc3Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Athletico Paranaense x Coritiba"
+            },
+            {
+                "nome": "Internacional x Chapecoense",
+                "key": "MC45MTYwMTUxMTgyODIzMDI0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Internacional x Chapecoense"
+            },
+            {
+                "nome": "Corinthians x Flamengo",
+                "key": "MC41Nzk5Nzc1NzkwMjM2Njgy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 8ª Rodada - Corinthians x Flamengo"
+            }
+        ],
+        "Rodada 9": [
+            {
+                "nome": "Internacional x São Paulo",
+                "key": "MC44NTE0OTE2NzQ2NDI1MzY1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Internacional x São Paulo"
+            },
+            {
+                "nome": "Botafogo x Mirassol",
+                "key": "MC44MzY0ODg3NzIwMzEzNzU=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Botafogo x Mirassol"
+            },
+            {
+                "nome": "Cruzeiro x Vitória",
+                "key": "MC42NDk5NDMxNDY1Mjg2MjMy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Cruzeiro x Vitória"
+            },
+            {
+                "nome": "Coritiba x Vasco",
+                "key": "MC42ODU0OTQ5ODg4NjM4MTc0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Coritiba x Vasco"
+            },
+            {
+                "nome": "Fluminense x Corinthians",
+                "key": "MC4xNzQ5MTY3NDYyNTc3MjY4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Fluminense x Corinthians"
+            },
+            {
+                "nome": "Santos x Remo",
+                "key": "MC4xNTM5NjM1NTU3MjUyNTc0NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Santos x Remo"
+            },
+            {
+                "nome": "Palmeiras x Grêmio",
+                "key": "MC4yODQ0MTM1MzcyNzU0MzEy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Palmeiras x Grêmio"
+            },
+            {
+                "nome": "Bragantino x Flamengo",
+                "key": "MC4zNTEwNTcxMTkwNjMxNTQ5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 9ª Rodada - Bragantino x Flamengo"
+            }
+        ],
+        "Rodada 10": [
+            {
+                "nome": "São Paulo x Cruzeiro",
+                "key": "MC42MjA3ODQyNzIwODY2MDU3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - São Paulo x Cruzeiro"
+            },
+            {
+                "nome": "Coritiba x Fluminense",
+                "key": "MC4zMjgwNjY2NjMxOTA3ODQ1NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Coritiba x Fluminense"
+            },
+            {
+                "nome": "Vasco x Botafogo",
+                "key": "MC42NDYyMDg0Mjg0NDgyNjAy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Vasco x Botafogo"
+            },
+            {
+                "nome": "Flamengo x Santos",
+                "key": "MC4zNjU5NzI5NDAyMTk1NDE=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Flamengo x Santos"
+            },
+            {
+                "nome": "Atlético Mineiro x Athletico Paranaense",
+                "key": "MC4zMjUzNjA0NDg0MDI2ODgzNQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Atlético Mineiro x Athletico Paranaense"
+            },
+            {
+                "nome": "Corinthians x Internacional",
+                "key": "MC4xODU4NDM4MTI0NzQ4MzU1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Corinthians x Internacional"
+            },
+            {
+                "nome": "Bahia x Palmeiras",
+                "key": "MC4wMjUyNDIxMDUxNDk4ODk0NjM=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Bahia x Palmeiras"
+            },
+            {
+                "nome": "Mirassol x Bragantino",
+                "key": "MC4zMDM4NTM3NjcyNzU2NzQwNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 10ª Rodada - Mirassol x Bragantino"
+            }
+        ],
+        "Rodada 11": [
+            {
+                "nome": "Vitória x São Paulo",
+                "key": "MC4yMTM1ODM2ODM3OTM5NzY2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Vitória x São Paulo"
+            },
+            {
+                "nome": "Mirassol x Bahia",
+                "key": "MC4xNzM1Mzk0NjgyNDg4NzcxNw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Mirassol x Bahia"
+            },
+            {
+                "nome": "Fluminense x Flamengo",
+                "key": "MC41MzEzNTc0OTE4ODM3ODIy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Fluminense x Flamengo"
+            },
+            {
+                "nome": "Santos x Atlético Mineiro",
+                "key": "MC41MTUwMzI3NDYzNzc0MzE2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Santos x Atlético Mineiro"
+            },
+            {
+                "nome": "Internacional x Grêmio",
+                "key": "MC4yMjM3NjcyNDM1MzQxMDk4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Internacional x Grêmio"
+            },
+            {
+                "nome": "Botafogo x Coritiba",
+                "key": "MC42MTYyODMxODYzNTQwMDY4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Botafogo x Coritiba"
+            },
+            {
+                "nome": "Cruzeiro x Bragantino",
+                "key": "MC42Njc0ODg0ODQzMzM3MjQy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Cruzeiro x Bragantino"
+            },
+            {
+                "nome": "Corinthians x Palmeiras",
+                "key": "MC42OTU0NzU2MjU1MjE5NDYz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 11ª Rodada - Corinthians x Palmeiras"
+            }
+        ],
+        "Rodada 12": [
+            {
+                "nome": "Vasco x São Paulo",
+                "key": "MC43NjUzMTYwOTEyNTkzMDQ2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 12ª Rodada - Vasco x São Paulo"
+            },
+            {
+                "nome": "Vitória x Corinthians",
+                "key": "MC4yMzA3NDg2NjU3MzM5NjAxMw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 12ª Rodada - Vitória x Corinthians"
+            },
+            {
+                "nome": "Cruzeiro x Grêmio",
+                "key": "MC40OTYzODAxMDQyMTQzMDc=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 12ª Rodada - Cruzeiro x Grêmio"
+            },
+            {
+                "nome": "Santos x Fluminense",
+                "key": "MC4zNTQ0ODQyNjUwNjg5OTY5NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 12ª Rodada - Santos x Fluminense"
+            },
+            {
+                "nome": "Palmeiras x Athletico Paranaense",
+                "key": "MC4yNjc3ODAzNzQ5ODQ5ODM3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 12ª Rodada - Palmeiras x Athletico Paranaense"
+            },
+            {
+                "nome": "Flamengo x Bahia",
+                "key": "MC44OTc0NjkwMTU2OTY1MjI4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 12ª Rodada - Flamengo x Bahia"
+            }
+        ],
+        "Rodada 13": [
+            {
+                "nome": "Bahia x Santos",
+                "key": "MC4zNjA3ODE4OTM0NzAxMjE0Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 13ª Rodada - Bahia x Santos"
+            },
+            {
+                "nome": "São Paulo x Mirassol",
+                "key": "MC45ODU5NDc2MjU2OTg0NzI5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 13ª Rodada - São Paulo x Mirassol"
+            },
+            {
+                "nome": "Corinthians x Vasco",
+                "key": "MC40ODU5NjgxMjM2NDI2OTgwNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 13ª Rodada - Corinthians x Vasco"
+            },
+            {
+                "nome": "Bragantino x Palmeiras",
+                "key": "MC4zNTk4NjU5OTQ1Mjc4MTEy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 13ª Rodada - Bragantino x Palmeiras"
+            },
+            {
+                "nome": "Fluminense x Chapecoense",
+                "key": "MC41NzIyODY0NjI5NDQyNjc4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 13ª Rodada - Fluminense x Chapecoense"
+            },
+            {
+                "nome": "Atlético Mineiro x Flamengo",
+                "key": "MC40NjM3NDEwNTk4NDY5MzQ5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 13ª Rodada - Atlético Mineiro x Flamengo"
+            }
+        ],
+        "Rodada 14": [
+            {
+                "nome": "Botafogo x Remo",
+                "key": "MC44NDU0MjM5MzIwNDMyOTk=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 14ª Rodada - Botafogo x Remo"
+            },
+            {
+                "nome": "Palmeiras x Santos",
+                "key": "MC42NDQ3MzA3Njg3NjY5MzQ4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 14ª Rodada - Palmeiras x Santos"
+            },
+            {
+                "nome": "Cruzeiro x Atlético Mineiro",
+                "key": "MC42NDEwNjk0OTQ3ODQ4NzQ0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 14ª Rodada - Cruzeiro x Atlético Mineiro"
+            },
+            {
+                "nome": "São Paulo x Bahia",
+                "key": "MC40MDc1MDYyMzcxODYwMzE2Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 14ª Rodada - São Paulo x Bahia"
+            },
+            {
+                "nome": "Flamengo x Vasco",
+                "key": "MC4zNzc3NDM3NTg2MTMwMDUx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 14ª Rodada - Flamengo x Vasco"
+            },
+            {
+                "nome": "Mirassol x Corinthians",
+                "key": "MC4zNDI5MjQ5NTU2MjAzNjA1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 14ª Rodada - Mirassol x Corinthians"
+            }
+        ],
+        "Rodada 15": [
+            {
+                "nome": "Fluminense x Vitória",
+                "key": "MC4zNjQ4NzI2ODAzODU0Nzg1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 15ª Rodada - Fluminense x Vitória"
+            },
+            {
+                "nome": "Remo x Palmeiras",
+                "key": "MC43NDk3MzMwNjIyMjc5Mzkz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 15ª Rodada - Remo x Palmeiras"
+            },
+            {
+                "nome": "Santos x Bragantino",
+                "key": "MC41MTI4MTUwOTAzNzM5MTc2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 15ª Rodada - Santos x Bragantino"
+            },
+            {
+                "nome": "Corinthians x São Paulo",
+                "key": "MC45NjEwNzQzMzU0NjQzNDU2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 15ª Rodada - Corinthians x São Paulo"
+            },
+            {
+                "nome": "Grêmio x Flamengo",
+                "key": "MC4wOTM4MTc5NzQ1MjgxMjgyNg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 15ª Rodada - Grêmio x Flamengo"
+            },
+            {
+                "nome": "Vasco x Athletico Paranaense",
+                "key": "MC4xNjcyMDU5NzkyNzE5ODM3Mg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 15ª Rodada - Vasco x Athletico Paranaense"
+            }
+        ],
+        "Rodada 16": [
+            {
+                "nome": "Internacional x Vasco",
+                "key": "MC4zOTk5NDYwOTM5MzE3NDM5Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 16ª Rodada - Internacional x Vasco"
+            },
+            {
+                "nome": "Fluminense x São Paulo",
+                "key": "MC40MDIwNTY4NDk5MzYwNzYz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 16ª Rodada - Fluminense x São Paulo"
+            },
+            {
+                "nome": "Palmeiras x Cruzeiro",
+                "key": "MC4wMzk1NjU1ODAwMDI1NTg5NTY=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 16ª Rodada - Palmeiras x Cruzeiro"
+            },
+            {
+                "nome": "Santos x Coritiba",
+                "key": "MC4xMzMyMzQ2NDcyMjY3Mzg0Mg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 16ª Rodada - Santos x Coritiba"
+            },
+            {
+                "nome": "Botafogo x Corinthians",
+                "key": "MC4xNzUzNjgzNTM4ODc4MDQy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 16ª Rodada - Botafogo x Corinthians"
+            },
+            {
+                "nome": "Athletico Paranaense x Flamengo",
+                "key": "MC4xMzI4ODcxNzU0MzA0Mzg2NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 16ª Rodada - Athletico Paranaense x Flamengo"
+            }
+        ],
+        "Rodada 17": [
+            {
+                "nome": "São Paulo x Botafogo",
+                "key": "MC4wNTIyMjczODgxODQ3MjkzOQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 17ª Rodada - São Paulo x Botafogo"
+            },
+            {
+                "nome": "Mirassol x Fluminense",
+                "key": "MC4yNzcwMDI0MTMwODM4MDE0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 17ª Rodada - Mirassol x Fluminense"
+            },
+            {
+                "nome": "Grêmio x Santos",
+                "key": "MC42NzA4OTcyOTYzMjMzNDUz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 17ª Rodada - Grêmio x Santos"
+            },
+            {
+                "nome": "Flamengo x Palmeiras",
+                "key": "MC4yMjQ5NzA0NTgyODQ5MjQyNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 17ª Rodada - Flamengo x Palmeiras"
+            },
+            {
+                "nome": "Cruzeiro x Chapecoense",
+                "key": "MC43ODE0MTcyNjYyNjIxNTI1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 17ª Rodada - Cruzeiro x Chapecoense"
+            },
+            {
+                "nome": "Corinthians x Atlético Mineiro",
+                "key": "MC44MjIxOTQyMTEwMTkzODQ=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 17ª Rodada - Corinthians x Atlético Mineiro"
+            }
+        ],
+        "Rodada 18": [
+            {
+                "nome": "Flamengo x Coritiba",
+                "key": "MC40MzMzNjczNzk0MTMzMjg1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 18ª Rodada - Flamengo x Coritiba"
+            },
+            {
+                "nome": "Grêmio x Corinthians",
+                "key": "MC45MzIwNTc2ODYwODY3OTc4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 18ª Rodada - Grêmio x Corinthians"
+            },
+            {
+                "nome": "Santos x Vitória",
+                "key": "MC44MDg3ODk4OTc1MzIwMDY2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 18ª Rodada - Santos x Vitória"
+            },
+            {
+                "nome": "Palmeiras x Chapecoense",
+                "key": "MC45Nzg0ODkxNTQ5Mjk3NTA3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 18ª Rodada - Palmeiras x Chapecoense"
+            },
+            {
+                "nome": "Remo x São Paulo",
+                "key": "MC4xMjUxMTU1ODkzNTUyMjYyNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 18ª Rodada - Remo x São Paulo"
+            },
+            {
+                "nome": "Cruzeiro x Fluminense",
+                "key": "MC4zMTIxODUxNDI0ODAwMDk0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 18ª Rodada - Cruzeiro x Fluminense"
+            }
+        ],
+        "Rodada 19": [
+            {
+                "nome": "Botafogo x Santos",
+                "key": "MC41MzYzNDA1MDgxNzgxOTM2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 19ª Rodada - Botafogo x Santos"
+            },
+            {
+                "nome": "Fluminense x Bragantino",
+                "key": "MC4yNjU4MDgwMjg0MTY1MjkzNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 19ª Rodada - Fluminense x Bragantino"
+            },
+            {
+                "nome": "Coritiba x Palmeiras",
+                "key": "MC4yMjMyODgyNDI5MTMxMTk3Mg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 19ª Rodada - Coritiba x Palmeiras"
+            },
+            {
+                "nome": "São Paulo x Athletico Paranaense",
+                "key": "MC4xNDQyOTQxNzgyNDc3MjU3NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 19ª Rodada - São Paulo x Athletico Paranaense"
+            },
+            {
+                "nome": "Chapecoense x Flamengo",
+                "key": "MC44NTAyMDQ2MzYyMDMzMTU3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 19ª Rodada - Chapecoense x Flamengo"
+            },
+            {
+                "nome": "Corinthians x Remo",
+                "key": "MC4wODk3NDc5Mzc0Nzk3NTI5OQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 19ª Rodada - Corinthians x Remo"
+            }
+        ],
+        "Rodada 20": [
+            {
+                "nome": "Santos x Chapecoense",
+                "key": "MC41MDk2MDA2MzcwMjM4OTY2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 20ª Rodada - Santos x Chapecoense"
+            },
+            {
+                "nome": "Vasco x Mirassol",
+                "key": "MC42MjU0ODM3NzYwOTM5MTEx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 20ª Rodada - Vasco x Mirassol"
+            },
+            {
+                "nome": "Bahia x Corinthians",
+                "key": "MC4yOTc3ODYyODkxNzIwNDg=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 20ª Rodada - Bahia x Corinthians"
+            },
+            {
+                "nome": "Flamengo x São Paulo",
+                "key": "MC4wMjg1ODU3ODYwMjY1MTY3Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 20ª Rodada - Flamengo x São Paulo"
+            },
+            {
+                "nome": "Palmeiras x Atlético Mineiro",
+                "key": "MC44NjMwNTM2MDg1NTgxOTA2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 20ª Rodada - Palmeiras x Atlético Mineiro"
+            }
+        ],
+        "Rodada 21": [
+            {
+                "nome": "Internacional x Flamengo",
+                "key": "MC4wMjMwNDI2MzY5NDQ5NTIwODQ=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Internacional x Flamengo"
+            },
+            {
+                "nome": "Vitória x Palmeiras",
+                "key": "MC43ODQwNjM0Nzk2NjIwMDA2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Vitória x Palmeiras"
+            },
+            {
+                "nome": "Fluminense x Bahia",
+                "key": "MC45OTk1NDk4Mzg3MTM4ODI0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Fluminense x Bahia"
+            },
+            {
+                "nome": "Corinthians x Athletico Paranaense",
+                "key": "MC45MDEyNTc4NDE3NTU4NzYy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Corinthians x Athletico Paranaense"
+            }
+        ],
+        "Rodada 21 - Atrasado": [
+            {
+                "nome": "Botafogo x Grêmio",
+                "key": "MC45NzM4NzQ1ODc1NDEzMjkz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Botafogo x Grêmio"
+            }
+        ],
+        "Rodada 22": [
+            {
+                "nome": "Grêmio x São Paulo",
+                "key": "MC44Mjk5NDA2MzM2ODk5Mjk0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 22ª Rodada - Grêmio x São Paulo"
+            },
+            {
+                "nome": "Coritiba x Chapecoense",
+                "key": "MC41NjM4NjExMDcwNDc1MTc5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 22ª Rodada - Coritiba x Chapecoense"
+            },
+            {
+                "nome": "Palmeiras x Internacional",
+                "key": "MC4yNDM4OTU2MDcyOTYyODAy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 22ª Rodada - Palmeiras x Internacional"
+            },
+            {
+                "nome": "Santos x Athletico Paranaense",
+                "key": "MC40MzEwMDk5OTUyMjExNjk3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 22ª Rodada - Santos x Athletico Paranaense"
+            },
+            {
+                "nome": "Bragantino x Corinthians",
+                "key": "MC41NTkyNjY4NTE4MDQ0Njc3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 22ª Rodada - Bragantino x Corinthians"
+            },
+            {
+                "nome": "Flamengo x Vitória",
+                "key": "MC4xNTU3ODg1MTk1NjQ4MTkwNw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 22ª Rodada - Flamengo x Vitória"
+            }
+        ],
+        "Rodada 23": [
+            {
+                "nome": "Fluminense x Palmeiras",
+                "key": "MC45NDU4Njg4NjE4MTExMTM0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 23ª Rodada - Fluminense x Palmeiras"
+            },
+            {
+                "nome": "São Paulo x Coritiba",
+                "key": "MC4xODA2ODYzMDM1ODI2ODE2Mg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 23ª Rodada - São Paulo x Coritiba"
+            },
+            {
+                "nome": "Vasco x Santos",
+                "key": "MC45MjAyMjAyODgzNzM3MzU=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 23ª Rodada - Vasco x Santos"
+            },
+            {
+                "nome": "Vitória x Botafogo",
+                "key": "MC4wMjAxODkxMjY5NzIyODUyMg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 23ª Rodada - Vitória x Botafogo"
+            },
+            {
+                "nome": "Mirassol x Flamengo",
+                "key": "MC44NTgwMDkwMjM0NTk2MzY2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 23ª Rodada - Mirassol x Flamengo"
+            },
+            {
+                "nome": "Corinthians x Cruzeiro",
+                "key": "MC42NjE1MTI0Nzc5Mzk0OTQ0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 23ª Rodada - Corinthians x Cruzeiro"
+            }
+        ],
+        "Rodada 24": [
+            {
+                "nome": "Fluminense x Remo",
+                "key": "MC42MTAxNzc2NjM3MjMxNzIz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 24ª Rodada - Fluminense x Remo"
+            },
+            {
+                "nome": "Cruzeiro x Flamengo",
+                "key": "MC42NzM5NDU5NTA5NzE4NjU5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 24ª Rodada - Cruzeiro x Flamengo"
+            },
+            {
+                "nome": "Palmeiras x Vasco",
+                "key": "MC4zMTMzNzQzNzE1NTk3MDc4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 24ª Rodada - Palmeiras x Vasco"
+            },
+            {
+                "nome": "Santos x Mirassol",
+                "key": "MC4wNjMwMjY3MDQ4ODQxNTkxMQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 24ª Rodada - Santos x Mirassol"
+            },
+            {
+                "nome": "Chapecoense x São Paulo",
+                "key": "MC44ODg1OTk3Nzc0OTA0NTky",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 24ª Rodada - Chapecoense x São Paulo"
+            },
+            {
+                "nome": "Coritiba x Corinthians",
+                "key": "MC4yMDAxMDk2NzE5ODc2OTUz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 24ª Rodada - Coritiba x Corinthians"
+            }
+        ],
+        "Rodada 25": [
+            {
+                "nome": "São Paulo x Bragantino",
+                "key": "MC40MjcyMDcwNDY1ODYyODE2Nw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 25ª Rodada - São Paulo x Bragantino"
+            },
+            {
+                "nome": "Vasco x Cruzeiro",
+                "key": "MC41OTMzMzgxNjk3MTAwOTQy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 25ª Rodada - Vasco x Cruzeiro"
+            },
+            {
+                "nome": "Athletico Paranaense x Fluminense",
+                "key": "MC40Mjg1NjIwODE4MTgwNjEwNQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 25ª Rodada - Athletico Paranaense x Fluminense"
+            },
+            {
+                "nome": "Flamengo x Botafogo",
+                "key": "MC4zOTMwMzEzMTE1ODc0NTk3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 25ª Rodada - Flamengo x Botafogo"
+            },
+            {
+                "nome": "Corinthians x Santos",
+                "key": "MC44MDI2MzYzMDM3NTUxMTY=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 25ª Rodada - Corinthians x Santos"
+            },
+            {
+                "nome": "Mirassol x Palmeiras",
+                "key": "MC4yNDM4Njg0NjI5Njg0OTUxOA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 25ª Rodada - Mirassol x Palmeiras"
+            }
+        ],
+        "Rodada 26": [
+            {
+                "nome": "São Paulo x Atlético Mineiro",
+                "key": "MC4wMTgyMTQzMjQ1MDYxOTkyOQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 26ª Rodada - São Paulo x Atlético Mineiro"
+            },
+            {
+                "nome": "Fluminense x Vasco",
+                "key": "MC41NDY3NDU5ODM0NjE2MTI5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 26ª Rodada - Fluminense x Vasco"
+            },
+            {
+                "nome": "Remo x Flamengo",
+                "key": "MC4zMzk5NDIyMTk5ODM3MzI1Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 26ª Rodada - Remo x Flamengo"
+            },
+            {
+                "nome": "Internacional x Santos",
+                "key": "MC4yMjQyNDUwNDE4MTc2NTQ5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 26ª Rodada - Internacional x Santos"
+            },
+            {
+                "nome": "Botafogo x Palmeiras",
+                "key": "MC40NDA2OTcwNzk5MzQ4Mjk=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 26ª Rodada - Botafogo x Palmeiras"
+            },
+            {
+                "nome": "Corinthians x Chapecoense",
+                "key": "MC4zMTM3NjQ4MTU1MTA5NjI5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 26ª Rodada - Corinthians x Chapecoense"
+            }
+        ],
+        "Rodada 27": [
+            {
+                "nome": "Grêmio x Vasco",
+                "key": "MC42MDQ4MTg2Nzk5NTU2MTkx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 27ª Rodada - Grêmio x Vasco"
+            },
+            {
+                "nome": "Atlético Mineiro x Fluminense",
+                "key": "MC45OTAwMTA1ODI4MzI2Mjk0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 27ª Rodada - Atlético Mineiro x Fluminense"
+            },
+            {
+                "nome": "Chapecoense x Internacional",
+                "key": "MC41ODE0NTk5NTAyNjU5MDM=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 27ª Rodada - Chapecoense x Internacional"
+            },
+            {
+                "nome": "Palmeiras x São Paulo",
+                "key": "MC42MDQzNzEyMTIwNTQzODk3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 27ª Rodada - Palmeiras x São Paulo"
+            },
+            {
+                "nome": "Santos x Cruzeiro",
+                "key": "MC4yNDk5MTM3NTMyNDMwODI5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 27ª Rodada - Santos x Cruzeiro"
+            },
+            {
+                "nome": "Flamengo x Corinthians",
+                "key": "MC4zMDkwMjA2Nzk3MzE4NzI2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 27ª Rodada - Flamengo x Corinthians"
+            }
+        ],
+        "Rodada 28": [
+            {
+                "nome": "Mirassol x Botafogo",
+                "key": "MC44NDY4MzkyNzUwNjg0NTM4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - Mirassol x Botafogo"
+            },
+            {
+                "nome": "Remo x Santos",
+                "key": "MC4xODEzMjY4MTYwMjczNTcwNg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - Remo x Santos"
+            },
+            {
+                "nome": "São Paulo x Internacional",
+                "key": "MC44MjM2NTYzMDU1MDY1MDU0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - São Paulo x Internacional"
+            },
+            {
+                "nome": "Grêmio x Palmeiras",
+                "key": "MC4wMTc1Mjg3MzY5ODAxOTMwNQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - Grêmio x Palmeiras"
+            },
+            {
+                "nome": "Corinthians x Fluminense",
+                "key": "MC45MjAxMzk1Mjk2Njc5MjQ3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - Corinthians x Fluminense"
+            },
+            {
+                "nome": "Flamengo x Bragantino",
+                "key": "MC4zMjQ4OTI3MDc0NzE2MzU4NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - Flamengo x Bragantino"
+            }
+        ]
+    },
+    "Champions League 2025/2026": {
+        "Playoffs - Jogos de Ida": [
+            {
+                "nome": "Benfica x Real Madrid",
+                "key": "MC40NTE2MTI5NTYzMTExOTMyNQ==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Playoff - Único x Único - 1ª Rodada - Benfica x Real Madrid"
+            },
+            {
+                "nome": "Monaco x PSG",
+                "key": "MC4xNzk1Mjk0MjIxMjk5OTc0NQ==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Playoff - Único x Único - 1ª Rodada - Monaco x PSG"
+            }
+        ],
+        "Playoffs - Jogos de Volta": [
+            {
+                "nome": "PSG x Monaco",
+                "key": "MC4wNjM3NTUwOTEzMzkxMjE2Ng==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Playoff - Único x Único - 2ª Rodada - PSG x Monaco"
+            },
+            {
+                "nome": "Real Madrid x Benfica",
+                "key": "MC40ODYyNTUyMjI0NTMwNDIxNQ==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Playoff - Único x Único - 2ª Rodada - Real Madrid x Benfica"
+            }
+        ],
+        "Oitavas de Final - Ida": [
+            {
+                "nome": "Real Madrid x Manchester City",
+                "key": "MC4wODY3MjEzOTQyOTE4MTk0NA==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Real Madrid x Manchester City"
+            },
+            {
+                "nome": "PSG x Chelsea",
+                "key": "MC40NjkyMzU0MzgzNTkxODkyNA==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - PSG x Chelsea"
+            }
+        ],
+        "Oitavas de Final  - Volta": [
+            {
+                "nome": "Manchester City x Real Madrid",
+                "key": "MC42NTg2OTcyMDM0MTUxNjQ=",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Manchester City x Real Madrid"
+            },
+            {
+                "nome": "Chelsea x PSG",
+                "key": "MC42ODM1ODY5OTY2ODUzMjg5",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Chelsea x PSG"
+            }
+        ],
+        "Quartas de Final - Ida": [
+            {
+                "nome": "Sporting x Arsenal",
+                "key": "MC4zMzY3MjE3NTIxNTI1MTkx",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Sporting x Arsenal"
+            },
+            {
+                "nome": "Real Madrid x Bayern de Munique",
+                "key": "MC45MzcxMjE4NzczODgyMTA4",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Real Madrid x Bayern de Munique"
+            },
+            {
+                "nome": "Barcelona x Atlético de Madrid",
+                "key": "MC4yNzgyMjEyNTYzNTg3NTUwNQ==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Barcelona x Atlético de Madrid"
+            },
+            {
+                "nome": "PSG x Liverpool",
+                "key": "MC45NjM2MTY2NzEwMDY3Njk2",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 1ª Rodada - PSG x Liverpool"
+            }
+        ],
+        "Quartas de Final - Volta": [
+            {
+                "nome": "Arsenal x Sporting",
+                "key": "MC45NzYyMDU0NTY5Nzk3NjQx",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Arsenal x Sporting"
+            },
+            {
+                "nome": "Bayern de Munique x Real Madrid",
+                "key": "MC42NDY4ODA2NjU0NjUxNDY5",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Bayern de Munique x Real Madrid"
+            },
+            {
+                "nome": "Atlético de Madrid x Barcelona",
+                "key": "MC4yNTcxNjk3MTgxNjIzMTQ3",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Atlético de Madrid x Barcelona"
+            },
+            {
+                "nome": "Liverpool x PSG",
+                "key": "MC4yNDg4MTYwMjg0NjkwNzA4Mw==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Liverpool x PSG"
+            }
+        ],
+        "Semifinal - Ida": [
+            {
+                "nome": "PSG x Bayern de Munique",
+                "key": "MC41OTk0ODAzMzg5NTI5NTE1",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Semifinal - Único x Único - 1ª Rodada - PSG x Bayern de Munique"
+            },
+            {
+                "nome": "Atlético de Madrid x Arsenal",
+                "key": "MC42Nzc2NTc1Mjg0ODAxOTU5",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Semifinal - Único x Único - 1ª Rodada - Atlético de Madrid x Arsenal"
+            }
+        ],
+        "Semifinal - Volta": [
+            {
+                "nome": "Arsenal x Atlético de Madrid",
+                "key": "MC4xNTc2NjgzMjA2MDg5NDc3Mw==",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Semifinal - Único x Único - 2ª Rodada - Arsenal x Atlético de Madrid"
+            },
+            {
+                "nome": "Bayern de Munique x PSG",
+                "key": "MC42NjY3MDg0MjUzMDgzMDYy",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Semifinal - Único x Único - 2ª Rodada - Bayern de Munique x PSG"
+            }
+        ],
+        "Final": [
+            {
+                "nome": "PSG x Arsenal",
+                "key": "MC45NTAwNjQ1OTY2NzM1MzM4",
+                "comentario_original": "UEFA Champions League - 2026/2025 - Masculino - Final - Único x Único - 1ª Rodada - PSG x Arsenal"
+            }
+        ]
+    },
+    "Champions League 2026/2027": {
+        "Rodada 1": [
+            {
+                "nome": "Real Madrid x Internazionale",
+                "key": "MC44MjYzNzYzNzc0NDMyMDIx",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 1ª Rodada - Real Madrid x Internazionale"
+            },
+            {
+                "nome": "Barcelona x Feyenoord",
+                "key": "MC4wMTIyMTA2MTQwNTkzMTY1Njc=",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 1ª Rodada - Barcelona x Feyenoord"
+            }
+        ]
+    },
+    "Copa do Brasil": {
+        "Fase 5 - Jogos de Ida": [
+            {
+                "nome": "Botafogo x Chapecoense",
+                "key": "MC4yOTc5MTkwODQ1OTU0NDE=",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Botafogo x Chapecoense"
+            },
+            {
+                "nome": "São Paulo x Juventude",
+                "key": "MC40ODQyNDU1MjMzMzAwNTI5",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - São Paulo x Juventude"
+            },
+            {
+                "nome": "Paysandu x Vasco",
+                "key": "MC41MTAyNjYyNzg0MTQzMDM3",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Paysandu x Vasco"
+            },
+            {
+                "nome": "Barra x Corinthians",
+                "key": "MC41MTkzOTM0NTg1MTQ4NDA4",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Barra x Corinthians"
+            },
+            {
+                "nome": "Santos x Coritiba",
+                "key": "MC4wMjA1MTg0Mzk4NDEwMDgyMjQ=",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Santos x Coritiba"
+            },
+            {
+                "nome": "Flamengo x Vitória",
+                "key": "MC43OTc0NTQxMjc4NTMyMjc5",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Flamengo x Vitória"
+            },
+            {
+                "nome": "Palmeiras x Jacuipense",
+                "key": "MC45NjY5NjI3NDcyNDUwNjA5",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Palmeiras x Jacuipense"
+            },
+            {
+                "nome": "Operário x Fluminense",
+                "key": "MC4xOTUyMDUzMjM1Nzk5MTIzOA==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 1ª Rodada - Operário x Fluminense"
+            }
+        ],
+        "Fase 5 - Jogos de Volta": [
+            {
+                "nome": "Fluminense x Operário",
+                "key": "MC4yMDQwNjUzMDQ0Mzk1NzU2OA==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Fluminense x Operário"
+            },
+            {
+                "nome": "Vasco x Paysandu",
+                "key": "MC4zMDAwNzMxMDcwNTI2NjI1",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Vasco x Paysandu"
+            },
+            {
+                "nome": "Juventude x São Paulo",
+                "key": "MC44NDkyOTc5MjQ3NTgyMTI1",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Juventude x São Paulo"
+            },
+            {
+                "nome": "Coritiba x Santos",
+                "key": "MC4wNTc3MDc5ODc3Nzk0Nzk0Ng==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Coritiba x Santos"
+            },
+            {
+                "nome": "Jacuipense x Palmeiras",
+                "key": "MC4zOTU3OTQwODA5Mzg5NTIxMw==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Jacuipense x Palmeiras"
+            },
+            {
+                "nome": "Chapecoense x Botafogo",
+                "key": "MC4wMDA3MTU5MjQ0Mjc1ODAwMTg=",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Chapecoense x Botafogo"
+            },
+            {
+                "nome": "Corinthians x Barra",
+                "key": "MC40NTE0NTYxMTIyNzYyNTYy",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Corinthians x Barra"
+            },
+            {
+                "nome": "Vitória x Flamengo",
+                "key": "MC41NzEyMjMwOTAwMDM0NTI0",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quinta Fase - Único x Único - 2ª Rodada - Vitória x Flamengo"
+            }
+        ],
+        "Oitavas de Final  - Jogo de Ida": [
+            {
+                "nome": "Vasco x Fluminense",
+                "key": "MC42Mjk2MDAwOTQyODYzNTI0",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Vasco x Fluminense"
+            },
+            {
+                "nome": "Santos x Remo",
+                "key": "MC44NjU2NTEyNjAwMDQ5ODU0",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Santos x Remo"
+            },
+            {
+                "nome": "Palmeiras x Fortaleza",
+                "key": "MC43ODA5NzMzNjgxMjAzNTQ5",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Palmeiras x Fortaleza"
+            },
+            {
+                "nome": "Internacional x Corinthians",
+                "key": "MC4wNDc2MzI5MzA4NDQ2ODAzNA==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Internacional x Corinthians"
+            }
+        ],
+        "Oitavas de Final - Jogo de Volta": [
+            {
+                "nome": "Remo x Santos",
+                "key": "MC43MzEyMzU1MTY5Mzg2MDAy",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Remo x Santos"
+            },
+            {
+                "nome": "Fortaleza x Palmeiras",
+                "key": "MC40MDE1MzE1NzAwMzM2NjUzNQ==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Fortaleza x Palmeiras"
+            },
+            {
+                "nome": "Fluminense x Vasco",
+                "key": "MC43MzU5Mjg5OTcxNTE0ODc1",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Fluminense x Vasco"
+            },
+            {
+                "nome": "Corinthians x Internacional",
+                "key": "MC4wMDU3MzkxMzI4NzkwNTg5NTQ=",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Corinthians x Internacional"
+            }
+        ],
+        "Quartas de Final - Jogo de Ida": [
+            {
+                "nome": "Cruzeiro x Atlético Mineiro",
+                "key": "MC40OTc4ODE4MjU1NDU2OTI2Ng==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Cruzeiro x Atlético Mineiro"
+            },
+            {
+                "nome": "Palmeiras x Santos",
+                "key": "MC4yMzMzMDY5MDA4MTUzOTI3Ng==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Palmeiras x Santos"
+            },
+            {
+                "nome": "Internacional x Grêmio",
+                "key": "MC45NTE4OTQ5NjIxODQwMzM0",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Internacional x Grêmio"
+            }
+        ],
+        "Quartas de Final - Jogo de Volta": [
+            {
+                "nome": "Atlético Mineiro x Cruzeiro",
+                "key": "MC45NjY5MDc2OTY3Njc2MjQy",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Atlético Mineiro x Cruzeiro"
+            },
+            {
+                "nome": "Santos x Palmeiras",
+                "key": "MC41OTc5NjAxMDY2NTQwNTU1",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Santos x Palmeiras"
+            },
+            {
+                "nome": "Grêmio x Internacional",
+                "key": "MC42NTkwNzMwMzIxMjEyNDI=",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Grêmio x Internacional"
+            }
+        ]
+    },
+    "Copa do Mundo": {
+        "Rodada 1": [
+            {
+                "nome": "Brasil x Marrocos",
+                "key": "MC44OTA0MjU1MzIwMjI4ODc0",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 1ª Rodada - Brasil x Marrocos"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "Brasil x Haiti",
+                "key": "MC42MDQ0ODk0MDk5Mjc3MzQ2",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 2ª Rodada - Brasil x Haiti"
+            }
+        ],
+        "Rodada 3": [
+            {
+                "nome": "Escócia x Brasil",
+                "key": "MC4yNzgzOTgyNjUzOTAwOTY1",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 3ª Rodada - Escócia x Brasil"
+            }
+        ],
+        "Segunda Fase": [
+            {
+                "nome": "Brasil x Japão",
+                "key": "MC4yNjA1MzkwMTUwNjYzODA2",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Segunda Fase - Único x Único - 1ª Rodada - Brasil x Japão"
+            }
+        ],
+        "Oitavas de Final": [
+            {
+                "nome": "Brasil x Noruega",
+                "key": "MC43NzA1NjY4MTM0MzQwNzA3",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Brasil x Noruega"
+            }
+        ],
+        "Quartas de Final": [
+            {
+                "nome": "França x Marrocos",
+                "key": "MC45Nzg4MjIxNDgzODUyOTI=",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - França x Marrocos"
+            },
+            {
+                "nome": "Espanha x Bélgica",
+                "key": "MC45NTIwMTgxMDQ0NDg5MzE0",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Espanha x Bélgica"
+            },
+            {
+                "nome": "Noruega x Inglaterra",
+                "key": "MC4yNzg5NDQ5MjU2NjQ4NzI4",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Noruega x Inglaterra"
+            },
+            {
+                "nome": "Argentina x Suíça",
+                "key": "MC43MzE3OTA5MjQxOTUwMDU1",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Argentina x Suíça"
+            }
+        ],
+        "Semifinal": [
+            {
+                "nome": "França x Espanha",
+                "key": "MC43MzM0NDUyMzYyMTExMjY=",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - França x Espanha"
+            },
+            {
+                "nome": "Inglaterra x Argentina",
+                "key": "MC45Nzg1ODYwMDU5NTgzNDI5",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Inglaterra x Argentina"
+            }
+        ],
+        "Terceiro Lugar": [
+            {
+                "nome": "França x Inglaterra",
+                "key": "MC40NzM1NTAwOTkzODkyMDg1Ng==",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Final - Disputa do 3º lugar x Disputa do 3º lugar - 1ª Rodada - França x Inglaterra"
+            }
+        ],
+        "Final": [
+            {
+                "nome": "Espanha x Argentina",
+                "key": "MC4xOTg1OTg0Mjg4MTQyOTc5Mw==",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Final - Final x Final - 1ª Rodada - Espanha x Argentina"
+            }
+        ]
+    },
+    "Copa dos Campeões Feminina": {
+        "Semifinal": [
+            {
+                "nome": "Gotham x Corinthians",
+                "key": "MC44MTgwMDU2OTg1NjM1MzYz",
+                "comentario_original": "Copa dos Campeões Feminina da FIFA - 2026/2025 - Única - Semifinal - Único x Único - 1ª Rodada - Gotham x Corinthians"
+            }
+        ],
+        "Final": [
+            {
+                "nome": "Arsenal x Corinthians",
+                "key": "MC41NTI0MTA4Mjc1MzI3OTMy",
+                "comentario_original": "Copa dos Campeões Feminina da FIFA - 2026/2025 - Única - Final - Final x Final - 1ª Rodada - Arsenal x Corinthians"
+            }
+        ]
+    },
+    "Copa Intercontinental": {},
+    "Copa Sulamericana": {
+        "Rodada 1": [
+            {
+                "nome": "Boston River x São Paulo",
+                "key": "MC4yMzU3MzAyNDIyMDM2Njk4NA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 1ª Rodada - Boston River x São Paulo"
+            },
+            {
+                "nome": "Deportivo Cuenca x Santos",
+                "key": "MC4xMjA2Mjg2NzM2OTU2MTMzMg==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 1ª Rodada - Deportivo Cuenca x Santos"
+            },
+            {
+                "nome": "Botafogo x Caracas",
+                "key": "MC4xNzAzNzI4OTY5ODY0Mjk1",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo E x Grupo E - 1ª Rodada - Botafogo x Caracas"
+            },
+            {
+                "nome": "Barracas Central x Vasco",
+                "key": "MC44ODc2ODgwNzk3NDQyODY5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo G x Grupo G - 1ª Rodada - Barracas Central x Vasco"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "São Paulo x O'Higgins",
+                "key": "MC4wOTA3MjQ0NDAzNzYwMTc2NQ==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 2ª Rodada - São Paulo x O'Higgins"
+            },
+            {
+                "nome": "Vasco x Audax Italiano",
+                "key": "MC44MzE5OTMyMTA5MDQyOTM5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo G x Grupo G - 2ª Rodada - Vasco x Audax Italiano"
+            },
+            {
+                "nome": "Santos x Recoleta",
+                "key": "MC45OTEzNTEzMjA0MDAyMw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 2ª Rodada - Santos x Recoleta"
+            },
+            {
+                "nome": "Racing x Botafogo",
+                "key": "MC4zNDc3MzY0NjYwNjg1MjkwNA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo E x Grupo E - 2ª Rodada - Racing x Botafogo"
+            }
+        ],
+        "Rodada 5": [
+            {
+                "nome": "São Paulo x Millonarios",
+                "key": "MC40NDA3MDk2Nzg4NjY2MzAx",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 5ª Rodada - São Paulo x Millonarios"
+            },
+            {
+                "nome": "Santos x San Lorenzo",
+                "key": "MC4zNTQ3MTU0NTkzNzkxMDI1NA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 5ª Rodada - Santos x San Lorenzo"
+            }
+        ],
+        "Rodada 6": [
+            {
+                "nome": "São Paulo x Boston River",
+                "key": "MC4xNjMwMzU1OTMxNDc0MjI3NQ==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 6ª Rodada - São Paulo x Boston River"
+            },
+            {
+                "nome": "Santos x Deportivo Cuenca",
+                "key": "MC44NjMwODUyMjMyMzQzMzg=",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 6ª Rodada - Santos x Deportivo Cuenca"
+            }
+        ],
+        "Playoffs - Jogos de Ida": [
+            {
+                "nome": "Universidad Central x Santos",
+                "key": "MC4wNzc0MTY3NjQ2NDQzNjI3NA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Playoff - Único x Único - 1ª Rodada - Universidad Central x Santos"
+            }
+        ],
+        "Playoffs - Jogos de Volta": [
+            {
+                "nome": "Santos x Universidad Central",
+                "key": "MC4wOTA3MTU4MTYzMjg5Njg2OA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Playoff - Único x Único - 2ª Rodada - Santos x Universidad Central"
+            }
+        ],
+        "Oitavas de Final - Jogos de Ida": [
+            {
+                "nome": "Bolívar x São Paulo",
+                "key": "MC4yMTM4ODc4MTkyODgxOTQ=",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 1ª Rodada - Bolívar x São Paulo"
+            },
+            {
+                "nome": "Santos x Macará",
+                "key": "MC42NzI3NDQ1ODk1NTI5NzY4",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 1ª Rodada - Santos x Macará"
+            }
+        ],
+        "Oitavas de Final - Jogos de Volta": [
+            {
+                "nome": "São Paulo x Bolívar",
+                "key": "MC45MjE3NDg4NDY2OTY0NTU4",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 2ª Rodada - São Paulo x Bolívar"
+            },
+            {
+                "nome": "Macará x Santos",
+                "key": "MC4zNTU0MDUzOTk5MDY4MjY1Nw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 2ª Rodada - Macará x Santos"
+            }
+        ],
+        "Quartas de Final - Jogos de Ida": [
+            {
+                "nome": "Santa Fe x Vasco",
+                "key": "MC42Njg5MTYyMDA5MTA2MTY5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Santa Fe x Vasco"
+            },
+            {
+                "nome": "Boca Juniors x São Paulo",
+                "key": "MC45Mzg3NzczMDY5OTE0MjE5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Boca Juniors x São Paulo"
+            },
+            {
+                "nome": "Santos x Atlético Mineiro",
+                "key": "MC44MTY1MjMzMDEyNDQyNjk0",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Santos x Atlético Mineiro"
+            }
+        ],
+        "Quartas de Final - Jogos de Volta": [
+            {
+                "nome": "Vasco x Santa Fe",
+                "key": "MC44NDU3NjkzNzcyODE2NzQ2",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - Vasco x Santa Fe"
+            },
+            {
+                "nome": "São Paulo x Boca Juniors",
+                "key": "MC44MTYyNjk3MzAwNDY2NDI3",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - São Paulo x Boca Juniors"
+            },
+            {
+                "nome": "Atlético Mineiro x Santos",
+                "key": "MC44OTcyMDA3NTE5NTM5NDUy",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - Atlético Mineiro x Santos"
+            }
+        ]
+    },
+    "Libertadores da América": {
+        "Segunda Fase - Jogos de Ida": [
+            {
+                "nome": "O'Higgins x Bahia",
+                "key": "MC45NjMyNjU5ODcwNzg5MDc=",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Segunda Fase - Único x Único - 1ª Rodada - O'Higgins x Bahia"
+            },
+            {
+                "nome": "Nacional Potosí x Botafogo",
+                "key": "MC44ODUwOTg3MzAxMDY5Mw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Segunda Fase - Único x Único - 1ª Rodada - Nacional Potosí x Botafogo"
+            }
+        ],
+        "Segunda Fase - Jogos de Volta": [
+            {
+                "nome": "Bahia x O'Higgins",
+                "key": "MC41OTQ3MDExNzc5OTQ0NDIz",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Segunda Fase - Único x Único - 2ª Rodada - Bahia x O'Higgins"
+            },
+            {
+                "nome": "Botafogo x Nacional Potosí",
+                "key": "MC4zODA4ODg5Njk5OTIxODQx",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Segunda Fase - Único x Único - 2ª Rodada - Botafogo x Nacional Potosí"
+            }
+        ],
+        "Terceira Fase - Jogos de Ida": [
+            {
+                "nome": "Barcelona x Botafogo",
+                "key": "MC43NzgwODU4NzY5ODA4NzY0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Terceira Fase - Único x Único - 1ª Rodada - Barcelona x Botafogo"
+            }
+        ],
+        "Terceira Fase - Jogos de Volta": [
+            {
+                "nome": "Botafogo x Barcelona",
+                "key": "MC4wNjE0MDg1MjkxMTUyODk5NA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Terceira Fase - Único x Único - 2ª Rodada - Botafogo x Barcelona"
+            }
+        ],
+        "Rodada 1": [
+            {
+                "nome": "La Guaira x Fluminense",
+                "key": "MC40NDY3Nzk5NDYyODEzNjk3NA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo C x Grupo C - 1ª Rodada - La Guaira x Fluminense"
+            },
+            {
+                "nome": "Barcelona x Cruzeiro",
+                "key": "MC41MDM0ODc4NTQ3MzM1ODYx",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo D x Grupo D - 1ª Rodada - Barcelona x Cruzeiro"
+            },
+            {
+                "nome": "Mirassol x Lanús",
+                "key": "MC41NDUyNTAwMDAwMDg2MTQ4",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo G x Grupo G - 1ª Rodada - Mirassol x Lanús"
+            },
+            {
+                "nome": "Junior x Palmeiras",
+                "key": "MC44MzE1ODIzNzU2NDUyNDg2",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo F x Grupo F - 1ª Rodada - Junior x Palmeiras"
+            },
+            {
+                "nome": "Cusco x Flamengo",
+                "key": "MC44MjgzNTk1ODQxNjQyMDkz",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo A x Grupo A - 1ª Rodada - Cusco x Flamengo"
+            },
+            {
+                "nome": "Platense x Corinthians",
+                "key": "MC4zNDQ4MjkxNTYzODQ2NDQyMw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo E x Grupo E - 1ª Rodada - Platense x Corinthians"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "LDU x Mirassol",
+                "key": "MC41OTg4NTk0NDk0NzQ5NDE0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo G x Grupo G - 2ª Rodada - LDU x Mirassol"
+            },
+            {
+                "nome": "Cruzeiro x Universidad Católica",
+                "key": "MC4xNDM2NzQyNjI5MzMxMjk2OA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo D x Grupo D - 2ª Rodada - Cruzeiro x Universidad Católica"
+            },
+            {
+                "nome": "Fluminense x Independiente Rivadavia",
+                "key": "MC4xNjgzODAyMjQzMDI3NjUy",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo C x Grupo C - 2ª Rodada - Fluminense x Independiente Rivadavia"
+            },
+            {
+                "nome": "Corinthians x Santa Fe",
+                "key": "MC4zNDAwNzYyMjcwNTc3OTYxNw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo E x Grupo E - 2ª Rodada - Corinthians x Santa Fe"
+            },
+            {
+                "nome": "Palmeiras x Sporting Cristal",
+                "key": "MC4xMzg1Mzg0OTQ4MzUxNzc5",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo F x Grupo F - 2ª Rodada - Palmeiras x Sporting Cristal"
+            },
+            {
+                "nome": "Flamengo x Independiente Medellín",
+                "key": "MC4xMTY4MDk2NTk3NDYyOTgyNg==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo A x Grupo A - 2ª Rodada - Flamengo x Independiente Medellín"
+            }
+        ],
+        "Rodada 3": [
+            {
+                "nome": "Cruzeiro x Boca Juniors",
+                "key": "MC4zMTg3NTcxMTk4ODU0MTk2",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo D x Grupo D - 3ª Rodada - Cruzeiro x Boca Juniors"
+            },
+            {
+                "nome": "Mirassol x Always Ready",
+                "key": "MC4yNzA0Mzg3NDIxNDQ0NDE5",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo G x Grupo G - 3ª Rodada - Mirassol x Always Ready"
+            },
+            {
+                "nome": "Estudiantes x Flamengo",
+                "key": "MC42ODY5NzUyNjY0OTI5MDI1",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo A x Grupo A - 3ª Rodada - Estudiantes x Flamengo"
+            },
+            {
+                "nome": "Cerro Porteño x Palmeiras",
+                "key": "MC4yNjk1MjIyOTgzNzg0MjU=",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo F x Grupo F - 3ª Rodada - Cerro Porteño x Palmeiras"
+            },
+            {
+                "nome": "Bolívar x Fluminense",
+                "key": "MC42MjY4Mjk2NTQ1NjIxMjg0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo C x Grupo C - 3ª Rodada - Bolívar x Fluminense"
+            },
+            {
+                "nome": "Corinthians x Peñarol",
+                "key": "MC43MjY5ODYzMTQ4NDcxMjEz",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo E x Grupo E - 3ª Rodada - Corinthians x Peñarol"
+            }
+        ],
+        "Rodada 4": [
+            {
+                "nome": "Sporting Cristal x Palmeiras",
+                "key": "MC42NDMyODczMzcwNTI5MDM0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo F x Grupo F - 4ª Rodada - Sporting Cristal x Palmeiras"
+            },
+            {
+                "nome": "Santa Fe x Corinthians",
+                "key": "MC43OTcxNjMxNzA1NzM0NTM1",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo E x Grupo E - 4ª Rodada - Santa Fe x Corinthians"
+            },
+            {
+                "nome": "Independiente Rivadavia x Fluminense",
+                "key": "MC41MDQ1NjU3MzMwMjM1MTQ3",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo C x Grupo C - 4ª Rodada - Independiente Rivadavia x Fluminense"
+            },
+            {
+                "nome": "Universidad Católica x Cruzeiro",
+                "key": "MC42MDUwMDg5MjAyODY3OTA0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo D x Grupo D - 4ª Rodada - Universidad Católica x Cruzeiro"
+            },
+            {
+                "nome": "Mirassol x LDU",
+                "key": "MC4zMjA3MDEyMjY4OTA3NDAy",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo G x Grupo G - 4ª Rodada - Mirassol x LDU"
+            },
+            {
+                "nome": "Independiente Medellín x Flamengo",
+                "key": "MC42NDgyNDMzMDQ5NDU3NTUx",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo A x Grupo A - 4ª Rodada - Independiente Medellín x Flamengo"
+            }
+        ],
+        "Rodada 5": [
+            {
+                "nome": "Fluminense x Bolívar",
+                "key": "MC43MzE2NDg1MjU5MDQ1MzY4",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo C x Grupo C - 5ª Rodada - Fluminense x Bolívar"
+            },
+            {
+                "nome": "Always Ready x Mirassol",
+                "key": "MC41MTYxNjk3Nzc2MjA3NDE5",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo G x Grupo G - 5ª Rodada - Always Ready x Mirassol"
+            },
+            {
+                "nome": "Boca Juniors x Cruzeiro",
+                "key": "MC4yMjIzODkzMTgyNTYwNzAy",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo D x Grupo D - 5ª Rodada - Boca Juniors x Cruzeiro"
+            },
+            {
+                "nome": "Palmeiras x Cerro Porteño",
+                "key": "MC4wMTYwMTM1ODUwNDU5NDYzNzU=",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo F x Grupo F - 5ª Rodada - Palmeiras x Cerro Porteño"
+            },
+            {
+                "nome": "Flamengo x Estudiantes",
+                "key": "MC41Nzk4NjkzMjQ4ODE0NjE3",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo A x Grupo A - 5ª Rodada - Flamengo x Estudiantes"
+            },
+            {
+                "nome": "Peñarol x Corinthians",
+                "key": "MC4wODU0MzQ0Njg1NDI2MzAyOQ==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo E x Grupo E - 5ª Rodada - Peñarol x Corinthians"
+            }
+        ],
+        "Rodada 6": [
+            {
+                "nome": "Lanús x Mirassol",
+                "key": "MC42NjA1Njk3OTk3NDc4NDg3",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo G x Grupo G - 6ª Rodada - Lanús x Mirassol"
+            },
+            {
+                "nome": "Flamengo x Cusco",
+                "key": "MC4xMjEyMTAyMzkwMDkxOTYxNg==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo A x Grupo A - 6ª Rodada - Flamengo x Cusco"
+            },
+            {
+                "nome": "Fluminense x La Guaira",
+                "key": "MC43MDg1NzM5MDY0MTEwMg==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo C x Grupo C - 6ª Rodada - Fluminense x La Guaira"
+            },
+            {
+                "nome": "Corinthians x Platense",
+                "key": "MC4zNTc4NjY2MjAwNDY4OTM3NA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo E x Grupo E - 6ª Rodada - Corinthians x Platense"
+            },
+            {
+                "nome": "Palmeiras x Junior",
+                "key": "MC4yNDIxMDQ5MTc5OTAxNDE0Nw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo F x Grupo F - 6ª Rodada - Palmeiras x Junior"
+            },
+            {
+                "nome": "Cruzeiro x Barcelona",
+                "key": "MC4yMjI4Mjg1NjA3MTYzMTI5",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Fase de Grupos - Grupo D x Grupo D - 6ª Rodada - Cruzeiro x Barcelona"
+            }
+        ],
+        "Oitavas de Final - Jogos de Ida": [
+            {
+                "nome": "Fluminense x Independiente Rivadavia",
+                "key": "MC44NDM5OTQ0MjQ1MzMwOTM3",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Fluminense x Independiente Rivadavia"
+            },
+            {
+                "nome": "Palmeiras x Cerro Porteño",
+                "key": "MC4wMzAzMDEyOTE1MjM3ODE4Nzc=",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Palmeiras x Cerro Porteño"
+            },
+            {
+                "nome": "Cruzeiro x Flamengo",
+                "key": "MC45Nzk3NzQ5OTQ3NTY4MTY4",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Cruzeiro x Flamengo"
+            },
+            {
+                "nome": "Mirassol x LDU",
+                "key": "MC4zNDMwMTM1NTMyNjgyODg3NQ==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Mirassol x LDU"
+            },
+            {
+                "nome": "Rosario Central x Corinthians",
+                "key": "MC42OTkyODI4MzU4ODg5Mzk4",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Rosario Central x Corinthians"
+            }
+        ],
+        "Oitavas de Final - Jogos de Volta": [
+            {
+                "nome": "Independiente Rivadavia x Fluminense",
+                "key": "MC40Mzg5Mjc0MjkyMDU2NzA0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Independiente Rivadavia x Fluminense"
+            },
+            {
+                "nome": "Cerro Porteño x Palmeiras",
+                "key": "MC4wMTY1MTEwNTAwNjgzMTc5Ng==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Cerro Porteño x Palmeiras"
+            },
+            {
+                "nome": "Flamengo x Cruzeiro",
+                "key": "MC4zNjMzNjMzNjUwNDk4MTIzNw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Flamengo x Cruzeiro"
+            },
+            {
+                "nome": "LDU x Mirassol",
+                "key": "MC43NTUzMDQ3NjE5MzQzNzg=",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - LDU x Mirassol"
+            },
+            {
+                "nome": "Corinthians x Rosario Central",
+                "key": "MC4wODA1MjA0Njc5MDc2NzUwNA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Oitavas de final - Único x Único - 2ª Rodada - Corinthians x Rosario Central"
+            }
+        ],
+        "Quartas de Final - Jogos de Ida": [
+            {
+                "nome": "Fluminense x Platense",
+                "key": "MC40ODY4NzQ4MDM0MjI4MzM2",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Fluminense x Platense"
+            },
+            {
+                "nome": "Palmeiras x LDU",
+                "key": "MC4xODYwNDk4NDg5NjgyMDk1Ng==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Palmeiras x LDU"
+            },
+            {
+                "nome": "Estudiantes x Corinthians",
+                "key": "MC4xNTMwNzQxNzYxOTMyODQwMw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Estudiantes x Corinthians"
+            },
+            {
+                "nome": "Independiente del Valle x Flamengo",
+                "key": "MC4yMzM5NjA5ODM1NjEzMTU1Ng==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Independiente del Valle x Flamengo"
+            }
+        ],
+        "Quartas de Final - Jogos de Volta": [
+            {
+                "nome": "Platense x Fluminense",
+                "key": "MC41NDU2MjczNTYwODM3MTY2",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Platense x Fluminense"
+            },
+            {
+                "nome": "LDU x Palmeiras",
+                "key": "MC4xMjY1MDYzMzg5NDUxMzAy",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - LDU x Palmeiras"
+            },
+            {
+                "nome": "Corinthians x Estudiantes",
+                "key": "MC40OTI5NzQ1MTE4MDY4Mjk0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Corinthians x Estudiantes"
+            },
+            {
+                "nome": "Flamengo x Independiente del Valle",
+                "key": "MC4yMjc5NTg5NTA0MjYzOTEyOA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Flamengo x Independiente del Valle"
+            }
+        ]
+    },
+    "Mundial de Clubes": {},
+    "Paulistão": {
+        "Rodada 1": [
+            {
+                "nome": "Santos x Novorizontino",
+                "key": "MC4zNDIwMTEzNzU2NzEyNjMy",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 1ª Rodada - Santos x Novorizontino"
+            },
+            {
+                "nome": "Portuguesa x Palmeiras",
+                "key": "MC45NzAyMjMxNTk1MDE1MzY5",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 1ª Rodada - Portuguesa x Palmeiras"
+            },
+            {
+                "nome": "Corinthians x Ponte Preta",
+                "key": "MC4xMDQwMjkxNzMxMjgzMzQwNA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 1ª Rodada - Corinthians x Ponte Preta"
+            },
+            {
+                "nome": "Mirassol x São Paulo",
+                "key": "MC40NDcxMjM4NzA2Njk5Nzk1",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 1ª Rodada - Mirassol x São Paulo"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "Palmeiras x Santos",
+                "key": "MC42MzU4NjI0MDEzNDc0Nzky",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 2ª Rodada - Palmeiras x Santos"
+            },
+            {
+                "nome": "Bragantino x Corinthians",
+                "key": "MC4yMDk0MjM5MTE5NTI4MDg0",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 2ª Rodada - Bragantino x Corinthians"
+            },
+            {
+                "nome": "São Paulo x São Bernardo",
+                "key": "MC4yOTM4Nzg5NjgxNDc0NDgyNA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 2ª Rodada - São Paulo x São Bernardo"
+            }
+        ],
+        "Rodada 3": [
+            {
+                "nome": "Palmeiras x Mirassol",
+                "key": "MC4yMjgyNzkxMTM5ODIxMzI3NA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 3ª Rodada - Palmeiras x Mirassol"
+            },
+            {
+                "nome": "Corinthians x São Paulo",
+                "key": "MC4wMzMyODA3MDg4NTgwNzM0Mg==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 3ª Rodada - Corinthians x São Paulo"
+            },
+            {
+                "nome": "Guarani x Santos",
+                "key": "MC4xNzExNDk1NDY0Mzk4OTg3MQ==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 3ª Rodada - Guarani x Santos"
+            }
+        ],
+        "Rodada 4": [
+            {
+                "nome": "Novorizontino x Palmeiras",
+                "key": "MC41MDYzMzY2NzkyMjIzNzU4",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 4ª Rodada - Novorizontino x Palmeiras"
+            },
+            {
+                "nome": "São Paulo x Portuguesa",
+                "key": "MC43MjgzMzgyNjQ2MDcyMDgx",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 4ª Rodada - São Paulo x Portuguesa"
+            },
+            {
+                "nome": "Santos x Corinthians",
+                "key": "MC45MDQxODY0NTYzNzQ5OTc3",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 4ª Rodada - Santos x Corinthians"
+            }
+        ],
+        "Rodada 5": [
+            {
+                "nome": "Palmeiras x São Paulo",
+                "key": "MC44MjUxMjUyMDg4OTI5NzYx",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 5ª Rodada - Palmeiras x São Paulo"
+            },
+            {
+                "nome": "Santos x Bragantino",
+                "key": "MC40NTg5NjA3OTg5OTY0NjQxNA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 5ª Rodada - Santos x Bragantino"
+            },
+            {
+                "nome": "Velo Clube x Corinthians",
+                "key": "MC4wMjg2NTcyNDM2MTM3NjU4",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 5ª Rodada - Velo Clube x Corinthians"
+            }
+        ],
+        "Rodada 6": [
+            {
+                "nome": "São Paulo x Santos",
+                "key": "MC40Njk5OTk0NzQ5MTEwMTg3Mw==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 6ª Rodada - São Paulo x Santos"
+            },
+            {
+                "nome": "Botafogo x Palmeiras",
+                "key": "MC4zMTI5ODA0NTE5MTI2MDE=",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 6ª Rodada - Botafogo x Palmeiras"
+            }
+        ],
+        "Rodada 6 - Atarasado": [
+            {
+                "nome": "Corinthians x Capivariano",
+                "key": "MC4xODg5MTM3MDEyNzgwNzcxNg==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 6ª Rodada - Corinthians x Capivariano"
+            }
+        ],
+        "Rodada 7": [
+            {
+                "nome": "São Paulo x Primavera",
+                "key": "MC42MDQ5MzQxMTczODg4NTAy",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 7ª Rodada - São Paulo x Primavera"
+            },
+            {
+                "nome": "Noroeste x Santos",
+                "key": "MC44MzczMjQ1NTM5NDkxMjkz",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 7ª Rodada - Noroeste x Santos"
+            },
+            {
+                "nome": "Corinthians x Palmeiras",
+                "key": "MC40NjQ3NTk3NDUxMzY2MTA5NQ==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 7ª Rodada - Corinthians x Palmeiras"
+            }
+        ],
+        "Rodada 8": [
+            {
+                "nome": "Ponte Preta x São Paulo",
+                "key": "MC4yMDY0OTk3NTI3ODA4ODg=",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 8ª Rodada - Ponte Preta x São Paulo"
+            },
+            {
+                "nome": "São Bernardo x Corinthians",
+                "key": "MC4xOTAzNzg1NjE3OTMyNDc3Nw==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 8ª Rodada - São Bernardo x Corinthians"
+            },
+            {
+                "nome": "Santos x Velo Clube",
+                "key": "MC4wNTUyMDQwMDMxNjkzOTEzMQ==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 8ª Rodada - Santos x Velo Clube"
+            },
+            {
+                "nome": "Palmeiras x Guarani",
+                "key": "MC41NDA5MjEyODYyNTIyNTQ=",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Primeira Fase - Único x Único - 8ª Rodada - Palmeiras x Guarani"
+            }
+        ],
+        "Quartas de Final": [
+            {
+                "nome": "Bragantino x São Paulo",
+                "key": "MC4wMzUwNjU2NDUzODQ2NjMzODQ=",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Quartas de final - Único x Único - 1ª Rodada - Bragantino x São Paulo"
+            },
+            {
+                "nome": "Palmeiras x Capivariano",
+                "key": "MC4wODE3MTkxNzU5ODg1NDY3NA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Quartas de final - Único x Único - 1ª Rodada - Palmeiras x Capivariano"
+            },
+            {
+                "nome": "Novorizontino x Santos",
+                "key": "MC4yMzcwNzM4MTE5MjMyMjI0NA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Quartas de final - Único x Único - 1ª Rodada - Novorizontino x Santos"
+            },
+            {
+                "nome": "Portuguesa x Corinthians",
+                "key": "MC43Njg5MzAxMTkyNDcxMTA2",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Quartas de final - Único x Único - 1ª Rodada - Portuguesa x Corinthians"
+            }
+        ],
+        "Semifinais": [
+            {
+                "nome": "Novorizontino x Corinthians",
+                "key": "MC41MTg1NTEwOTk1OTcwNTg0",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Semifinal - Único x Único - 1ª Rodada - Novorizontino x Corinthians"
+            },
+            {
+                "nome": "Palmeiras x São Paulo",
+                "key": "MC42OTQwNDY3MzY0MDk5MzEy",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Semifinal - Único x Único - 1ª Rodada - Palmeiras x São Paulo"
+            }
+        ],
+        "Finais": [
+            {
+                "nome": "Palmeiras x Novorizontino",
+                "key": "MC45MTAzMzQyNDcwODA5MjA1",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Final - Único x Único - 1ª Rodada - Palmeiras x Novorizontino"
+            },
+            {
+                "nome": "Novorizontino x Palmeiras",
+                "key": "MC40NjUwNDQxNjQ1MzE5MDUzNA==",
+                "comentario_original": "Campeonato Paulista - 2026 - Série A1 - Final - Único x Único - 2ª Rodada - Novorizontino x Palmeiras"
+            }
+        ]
+    },
+    "Recopa Sulamericana": {
+        "Jogo de Ida": [
+            {
+                "nome": "Lanús x Flamengo",
+                "key": "MC44MjY4ODQ4MDg3ODg5MDAx",
+                "comentario_original": "CONMEBOL Recopa - 2026 - Única - Final - Único x Único - 1ª Rodada - Lanús x Flamengo"
+            }
+        ],
+        "Jogo de Volta": [
+            {
+                "nome": "Flamengo x Lanús",
+                "key": "MC42MDQxMzY5NjQ4Njg4ODE3",
+                "comentario_original": "CONMEBOL Recopa - 2026 - Única - Final - Único x Único - 2ª Rodada - Flamengo x Lanús"
+            }
+        ]
+    },
+    "Supercopa Feminina": {
+        "Final": [
+            {
+                "nome": "Palmeiras x Corinthians",
+                "key": "MC41MzQxNzU0NTg4NjE2Nzg0",
+                "comentario_original": "Supercopa - 2026 - Feminina - Final - Único x Único - 1ª Rodada - Palmeiras x Corinthians"
+            }
+        ]
+    },
+    "Supercopa Masculina": {
+        "Final": [
+            {
+                "nome": "Flamengo x Corinthians",
+                "key": "MC44Nzc4NjU0NzU0ODg3MDEz",
+                "comentario_original": "Supercopa - 2026 - Masculina - Final - Único x Único - 1ª Rodada - Flamengo x Corinthians"
+            }
+        ]
+    }
+}
