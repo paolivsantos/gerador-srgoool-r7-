@@ -19,11 +19,6 @@ GITHUB_REPO = st.secrets.get("GITHUB_REPO", "paolivsantos/gerador-srgoool-r7-")
 GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
 JSON_FILE_PATH = "estrutura_lance_a_lance.json"
 
-# Configurações do WebDAV
-WEBDAV_URL = st.secrets.get("WEBDAV_URL", "")
-WEBDAV_USER = st.secrets.get("WEBDAV_USER", "")
-WEBDAV_PASSWORD = st.secrets.get("WEBDAV_PASSWORD", "")
-
 def carregar_do_github():
     """Tenta carregar o JSON direto do repositório do GitHub"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
@@ -79,29 +74,6 @@ def salvar_no_github(dados_dict):
         st.error(f"Erro ao salvar alteração no GitHub: {e}")
         return False
 
-def salvar_no_webdav(conteudo_html):
-    """Envia o HTML gerado automaticamente para o servidor via WebDAV"""
-    if not WEBDAV_URL or not WEBDAV_USER or not WEBDAV_PASSWORD:
-        return False
-    
-    try:
-        credentials = f"{WEBDAV_USER}:{WEBDAV_PASSWORD}"
-        encoded_credentials = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
-        
-        headers = {
-            "Authorization": f"Basic {encoded_credentials}",
-            "Content-Type": "text/html; charset=utf-8"
-        }
-        
-        data_payload = conteudo_html.encode("utf-8")
-        req = urllib.request.Request(WEBDAV_URL, data=data_payload, headers=headers, method="PUT")
-        
-        with urllib.request.urlopen(req) as response:
-            return True
-    except Exception as e:
-        st.error(f"Erro ao enviar arquivo para o WebDAV: {e}")
-        return False
-
 # Inicializar estados no session_state buscando do GitHub na primeira execução
 if "campeonatos_dados" not in st.session_state:
     dados_git, _ = carregar_do_github()
@@ -119,27 +91,21 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     chaves = list(st.session_state["campeonatos_dados"].keys())
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
-def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None, html_str=None):
-    """Função auxiliar para atualizar o estado, salvar no GitHub e subir via WebDAV"""
+def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
+    """Função auxiliar para atualizar o estado e salvar no GitHub"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
     
     sucesso_git = salvar_no_github(novo_dict)
-    
-    sucesso_webdav = True
-    if html_str:
-        sucesso_webdav = salvar_no_webdav(html_str)
 
-    if sucesso_git and sucesso_webdav:
-        st.toast("Alteração salva, sincronizada no GitHub e enviada via WebDAV com sucesso!", icon="☁️")
-    elif sucesso_git:
-        st.toast("Salvo no GitHub, mas houve falha no WebDAV.", icon="⚠️")
+    if sucesso_git:
+        st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="🚀")
     st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
 st.sidebar.subheader("💾 Backup e Sincronização")
-st.sidebar.info("☁️ Os dados são salvos no GitHub e enviados via WebDAV a cada alteração!")
+st.sidebar.info("☁️ As alterações são salvas automaticamente no GitHub!")
 
 if st.session_state["campeonatos_dados"]:
     json_str = json.dumps(st.session_state["campeonatos_dados"], ensure_ascii=False, indent=4)
@@ -888,23 +854,9 @@ html_pagina_completa = f"""<!DOCTYPE html>
 </html>
 """
 
-# Disparar atualização automática do WebDAV se houver modificações e dados
-if WEBDAV_URL and st.session_state["campeonatos_dados"]:
-    # Opcional: Trigger de sincronização automática via webdav na alteração de dados
-    pass
-
 st.divider()
-st.subheader("📋 Código HTML Completo da Página para o Servidor")
+st.subheader("📋 Código HTML Completo da Página")
+st.markdown("Copie o código abaixo utilizando o botão no canto superior direito do bloco:")
 
-st.text_area(
-    "Copie o código abaixo e cole no seu servidor:",
-    value=html_pagina_completa,
-    height=300
-)
-
-st.download_button(
-    label="📥 Baixar Arquivo HTML para o Servidor",
-    data=html_pagina_completa,
-    file_name="index.html",
-    mime="text/html"
-)
+# Exibe o código HTML em um bloco formatado com o botão nativo de cópia do Streamlit
+st.code(html_pagina_completa, language="html")
