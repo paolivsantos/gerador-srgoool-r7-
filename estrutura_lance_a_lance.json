@@ -1065,7 +1065,13 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 28ª Rodada - Flamengo x Bragantino"
             }
         ],
-        "Rodada 29": [],
+        "Rodada 29": [
+            {
+                "nome": "Austrália x Brasil",
+                "key": "MC4zODU2NTM2NTA3NDcyODk2",
+                "comentario_original": "Amistosos - 2026 - Única - Única - Único x Único - 6ª Rodada - Austrália x Brasil"
+            }
+        ],
         "Rodada 30": []
     },
     "Champions League 2025/2026": {
