@@ -20,7 +20,7 @@ GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
 JSON_FILE_PATH = "estrutura_lance_a_lance.json"
 
 def carregar_do_github():
-    """Tenta carregar o JSON direto do repositório do GitHub"""
+    """Tenta carregar o JSON direto do repositório do GitHub com timeout de segurança"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         return None, None
     
@@ -32,7 +32,7 @@ def carregar_do_github():
     
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req, timeout=10) as response:
             data = json.loads(response.read().decode())
             file_content = base64.b64decode(data["content"]).decode("utf-8")
             return json.loads(file_content), data["sha"]
@@ -40,7 +40,7 @@ def carregar_do_github():
         return None, None
 
 def salvar_no_github(dados_dict):
-    """Salva o JSON no GitHub usando o SHA em cache"""
+    """Salva o JSON no GitHub com timeout para evitar travamento infinito"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         st.error("Credenciais do GitHub não configuradas.")
         return False
@@ -68,7 +68,7 @@ def salvar_no_github(dados_dict):
     try:
         data_payload = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data_payload, headers=headers, method="PUT")
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req, timeout=10) as response:
             resp_data = json.loads(response.read().decode())
             if "content" in resp_data and "sha" in resp_data["content"]:
                 st.session_state["github_file_sha"] = resp_data["content"]["sha"]
@@ -81,7 +81,7 @@ def salvar_no_github(dados_dict):
                 payload["sha"] = novo_sha
                 try:
                     req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="PUT")
-                    with urllib.request.urlopen(req) as response2:
+                    with urllib.request.urlopen(req, timeout=10) as response2:
                         resp_data2 = json.loads(response2.read().decode())
                         if "content" in resp_data2 and "sha" in resp_data2["content"]:
                             st.session_state["github_file_sha"] = resp_data2["content"]["sha"]
@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada que executa a gravação e limpa os campos de input imediatamente"""
+    """Função centralizada que executa a gravação e encerra o ciclo de forma limpa"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -126,9 +126,10 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     else:
         st.session_state["mensagem_erro"] = "Houve uma falha ao sincronizar com o GitHub."
     
+    # Força a limpeza de cache interna e recarrega de forma controlada
     st.rerun()
 
-# Exibe mensagens de feedback de forma limpa no topo se houverem
+# Exibe mensagens de feedback limpas no topo
 if "mensagem_sucesso" in st.session_state:
     st.success(st.session_state.pop("mensagem_sucesso"))
 if "mensagem_erro" in st.session_state:
@@ -151,7 +152,7 @@ st.sidebar.divider()
 json_file = st.sidebar.file_uploader("Forçar importação de JSON", type=["json"], key="json_uploader")
 
 if json_file is not None:
-    if st.sidebar.button("🔄 Substituir Dados pelo Arquivo"):
+    if st.sidebar.button("🔄 Substituir Dados pelo Arquivo", key="btn_substituir_json"):
         try:
             dados_carregados = json.load(json_file)
             if isinstance(dados_carregados, dict):
