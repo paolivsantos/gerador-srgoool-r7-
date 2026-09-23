@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada que executa a gravação e limpa os estados pendentes"""
+    """Função centralizada limpa e segura para gravação"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -122,11 +122,10 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     sucesso_git = salvar_no_github(novo_dict)
 
     if sucesso_git:
-        st.success("Salvo e sincronizado com sucesso!")
+        st.success("Alterações salvas e sincronizadas com sucesso!")
     else:
         st.error("Houve uma falha ao sincronizar com o GitHub.")
     
-    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
     st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
@@ -278,7 +277,7 @@ else:
                         if key_input_rodada in st.session_state:
                             del st.session_state[key_input_rodada]
                         
-                        # 1. PONTO CHAVE: Define automaticamente a nova rodada como a ativa no selectbox
+                        # Seleciona automaticamente a rodada recém-criada
                         st.session_state[f"select_rodada_ativa_{camp_selecionado}"] = r_nome
                         
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
@@ -351,43 +350,41 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
-                # 2. PONTO CHAVE: Callback acionado instantaneamente ao selecionar/enviar o arquivo
-                def trigger_auto_refresh():
-                    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
-
-                counter_val = st.session_state.get("upload_counter", 0)
+                # Uploader limpo sem callbacks problemáticos de WebSocket
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
-                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}_{counter_val}",
-                    on_change=trigger_auto_refresh
+                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}"
                 )
 
                 if uploaded_file is not None:
-                    conteudo_txt = uploaded_file.read().decode("utf-8")
-                    comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
-                    keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
+                    # Botão explícito e seguro para processar o arquivo sem travar o Streamlit
+                    if st.button("📥 Processar e Salvar Arquivo na Rodada", key=f"btn_processar_{camp_selecionado}_{rodada_selecionada}", type="primary"):
+                        conteudo_txt = uploaded_file.read().decode("utf-8")
+                        comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
+                        keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
 
-                    if comentarios and keys:
-                        novos_jogos = []
-                        for c_comentario, c_key in zip(comentarios, keys):
-                            partes = c_comentario.split("-")
-                            nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
-                            novos_jogos.append({
-                                "nome": nome_jogo,
-                                "key": c_key,
-                                "comentario_original": c_comentario.strip()
-                            })
-                        
-                        novo_dict = st.session_state["campeonatos_dados"].copy()
-                        novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
-                        
-                        st.session_state[key_select_rodada] = rodada_selecionada
-                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
-                    else:
-                        st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
+                        if comentarios and keys:
+                            novos_jogos = []
+                            for c_comentario, c_key in zip(comentarios, keys):
+                                partes = c_comentario.split("-")
+                                nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
+                                novos_jogos.append({
+                                    "nome": nome_jogo,
+                                    "key": c_key,
+                                    "comentario_original": c_comentario.strip()
+                                })
+                            
+                            novo_dict = st.session_state["campeonatos_dados"].copy()
+                            novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
+                            
+                            st.session_state[key_select_rodada] = rodada_selecionada
+                            aplicar_e_sintonizar(novo_dict, camp_selecionado)
+                        else:
+                            st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
 
                 if jogos_atuais:
+                    st.divider()
                     if st.button(f"🗑️ Limpar todos os jogos desta rodada", key=f"clear_rod_{camp_selecionado}_{rodada_selecionada}"):
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][rodada_selecionada] = []
