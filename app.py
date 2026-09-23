@@ -15,7 +15,7 @@ st.set_page_config(
 
 # Configurações do GitHub
 GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", "")
-GITHUB_REPO = st.secrets.get("GITHUB_REPO", "paolivsantos/gerador-srgoool-r7")
+GITHUB_REPO = st.secrets.get("GITHUB_REPO", "paolivsantos/gerador-srgoool-r7-")
 GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
 JSON_FILE_PATH = "estrutura_lance_a_lance.json"
 
