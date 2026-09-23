@@ -51,7 +51,53 @@
         ]
     },
     "Brasileirão": {
-        "Rodada 1": [],
+        "Rodada 1": [
+            {
+                "nome": "Atlético Mineiro x Palmeiras",
+                "key": "MC4yNjE4MTI2NDMzOTE4Mzc=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Atlético Mineiro x Palmeiras"
+            },
+            {
+                "nome": "Vitória x Remo",
+                "key": "MC4wOTE4NjY5NDU5MzM0MjY2Nw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Vitória x Remo"
+            },
+            {
+                "nome": "Internacional x Athletico Paranaense",
+                "key": "MC43MjE5NjM4MzE4OTU5Mjg3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Internacional x Athletico Paranaense"
+            },
+            {
+                "nome": "Fluminense x Grêmio",
+                "key": "MC4wNzQ0NzQwMzExNzQ5OTY5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Fluminense x Grêmio"
+            },
+            {
+                "nome": "Corinthians x Bahia",
+                "key": "MC4yMTIxNzg5MTU5MzY2NjY0Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Corinthians x Bahia"
+            },
+            {
+                "nome": "Chapecoense x Santos",
+                "key": "MC45MTk1NzcyNzgxMjE5MTIx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Chapecoense x Santos"
+            },
+            {
+                "nome": "São Paulo x Flamengo",
+                "key": "MC45NjU5NzMxNzUwOTkwOTQ1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - São Paulo x Flamengo"
+            },
+            {
+                "nome": "Mirassol x Vasco",
+                "key": "MC4zMDkzNDI4NzU0MzM0NzM3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Mirassol x Vasco"
+            },
+            {
+                "nome": "Botafogo x Cruzeiro",
+                "key": "MC44MDg3NDM0MjczMjk0NTc4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 1ª Rodada - Botafogo x Cruzeiro"
+            }
+        ],
         "Rodada 2": [
             {
                 "nome": "Flamengo x Internacional",
