@@ -114,16 +114,19 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função auxiliar para atualizar o estado e salvar no GitHub de forma otimizada"""
+    """Função auxiliar para atualizar o estado e salvar no GitHub com status fixo"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
     
-    with st.spinner("Salvando alterações..."):
+    # Usa st.status para manter uma caixa de progresso fixa e visível até o término completo
+    with st.status("Salvando alterações e sincronizando com o GitHub...", expanded=True) as status:
         sucesso_git = salvar_no_github(novo_dict)
+        if sucesso_git:
+            status.update(label="Salvo e sincronizado com sucesso!", state="complete", expanded=False)
+        else:
+            status.update(label="Erro ao salvar no GitHub.", state="error", expanded=True)
 
-    if sucesso_git:
-        st.toast("Salvo e sincronizado com sucesso!", icon="🚀")
     st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
@@ -855,6 +858,7 @@ html_pagina_completa = f"""<!DOCTYPE html>
             if (!campPanel) return;
 
             const roundPanels = campPanel.querySelectorAll('.rodada-content-panel');
+            roundNavPanels = roundPanels; // fallback
             roundPanels.forEach(rp => {{
                 if (rp.id === selectedVal) {{
                     rp.style.display = 'block';
