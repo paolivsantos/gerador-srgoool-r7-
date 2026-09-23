@@ -40,7 +40,7 @@ def carregar_do_github():
         return None, None
 
 def salvar_no_github(dados_dict):
-    """Salva (faz commit automático) do JSON diretamente no GitHub"""
+    """Salva o JSON no GitHub usando o SHA em cache para ser mais rápido"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         st.error("Credenciais do GitHub não configuradas.")
         return False
@@ -52,13 +52,14 @@ def salvar_no_github(dados_dict):
         "Content-Type": "application/json"
     }
     
-    _, sha_atual = carregar_do_github()
+    # Usa o SHA armazenado em session_state para evitar uma requisição GET desnecessária
+    sha_atual = st.session_state.get("github_file_sha", None)
     
     json_str = json.dumps(dados_dict, ensure_ascii=False, indent=4)
     content_encoded = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
     
     payload = {
-        "message": "Atualização automática via painel Streamlit [skip ci]",
+        "message": "Atualização rápida via painel Streamlit [skip ci]",
         "content": content_encoded,
         "branch": GITHUB_BRANCH
     }
@@ -69,18 +70,42 @@ def salvar_no_github(dados_dict):
         data_payload = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data_payload, headers=headers, method="PUT")
         with urllib.request.urlopen(req) as response:
+            resp_data = json.loads(response.read().decode())
+            # Atualiza o SHA com o novo retornado pelo commit
+            if "content" in resp_data and "sha" in resp_data["content"]:
+                st.session_state["github_file_sha"] = resp_data["content"]["sha"]
             return True
+    except urllib.error.HTTPError as e:
+        # Se houver conflito de SHA, tenta buscar o atualizado uma única vez e reenviar
+        if e.code == 409 or e.code == 422:
+            _, novo_sha = carregar_do_github()
+            if novo_sha:
+                st.session_state["github_file_sha"] = novo_sha
+                payload["sha"] = novo_sha
+                try:
+                    req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="PUT")
+                    with urllib.request.urlopen(req) as response2:
+                        resp_data2 = json.loads(response2.read().decode())
+                        if "content" in resp_data2 and "sha" in resp_data2["content"]:
+                            st.session_state["github_file_sha"] = resp_data2["content"]["sha"]
+                        return True
+                except Exception:
+                    pass
+        st.error(f"Erro ao salvar alteração no GitHub: {e}")
+        return False
     except Exception as e:
         st.error(f"Erro ao salvar alteração no GitHub: {e}")
         return False
 
-# Inicializar estados no session_state buscando do GitHub na primeira execução
+# Inicializar estados no session_state
 if "campeonatos_dados" not in st.session_state:
-    dados_git, _ = carregar_do_github()
+    dados_git, sha_git = carregar_do_github()
     if dados_git:
         st.session_state["campeonatos_dados"] = dados_git
+        st.session_state["github_file_sha"] = sha_git
     else:
         st.session_state["campeonatos_dados"] = {}
+        st.session_state["github_file_sha"] = None
 
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
@@ -92,15 +117,17 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função auxiliar para atualizar o estado e salvar no GitHub"""
+    """Função auxiliar para atualizar o estado e salvar no GitHub de forma otimizada"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
     
-    sucesso_git = salvar_no_github(novo_dict)
+    # Feedback visual instantâneo usando spinner para o usuário saber que está salvando
+    with st.spinner("Salvando alterações..."):
+        sucesso_git = salvar_no_github(novo_dict)
 
     if sucesso_git:
-        st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="🚀")
+        st.toast("Salvo e sincronizado com sucesso!", icon="🚀")
     st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
@@ -260,10 +287,17 @@ else:
 
         if rodadas_existentes:
             st.markdown("---")
+            
+            # Mantém a rodada selecionada no session_state para não resetar após o upload/ação
+            key_select_rodada = f"select_rodada_ativa_{camp_selecionado}"
+            if key_select_rodada not in st.session_state or st.session_state[key_select_rodada] not in rodadas_existentes:
+                st.session_state[key_select_rodada] = rodadas_existentes[-1]
+
             rodada_selecionada = st.selectbox(
                 "Selecione a Rodada para gerenciar os jogos/TXT:",
                 rodadas_existentes,
-                key=f"select_rodada_{camp_selecionado}"
+                index=rodadas_existentes.index(st.session_state[key_select_rodada]),
+                key=key_select_rodada
             )
 
             if rodada_selecionada:
@@ -282,6 +316,7 @@ else:
                                 chave_final_r = novo_nome_r if r_k == rodada_selecionada else r_k
                                 novo_d_rod[chave_final_r] = r_v
                             novo_dict[camp_selecionado] = novo_d_rod
+                            st.session_state[key_select_rodada] = novo_nome_r
                             aplicar_e_sintonizar(novo_dict, camp_selecionado)
                         else:
                             st.error("Já existe uma rodada com esse nome.")
@@ -309,6 +344,9 @@ else:
                     if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}", use_container_width=True):
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         del novo_dict[camp_selecionado][rodada_selecionada]
+                        restantes_r = list(novo_dict[camp_selecionado].keys())
+                        if restantes_r:
+                            st.session_state[key_select_rodada] = restantes_r[-1]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
                 uploaded_file = st.file_uploader(
@@ -857,6 +895,4 @@ html_pagina_completa = f"""<!DOCTYPE html>
 st.divider()
 st.subheader("📋 Código HTML Completo da Página")
 st.markdown("Copie o código abaixo utilizando o botão no canto superior direito do bloco:")
-
-# Exibe o código HTML em um bloco formatado com o botão nativo de cópia do Streamlit
 st.code(html_pagina_completa, language="html")
