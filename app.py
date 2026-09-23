@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada que executa a gravação e limpa os estados pendentes do uploader"""
+    """Função centralizada que executa a gravação, incrementa o contador para limpar o uploader e encerra"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -126,7 +126,7 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     else:
         st.session_state["mensagem_erro"] = "Houve uma falha ao sincronizar com o GitHub."
     
-    # Incrementa um contador de reset para forçar a limpeza dos widgets de upload pendentes
+    # Incrementa o contador para resetar o uploader e forçar a saída do loop de execução
     st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
     st.rerun()
 
@@ -354,7 +354,7 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
-                # Uploader com chave dinâmica baseada no contador de upload para forçar reset limpo
+                # Uploader com chave dinâmica baseada no contador
                 counter_val = st.session_state.get("upload_counter", 0)
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
@@ -380,6 +380,14 @@ else:
                         
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
+                        
+                        # AÇÃO AUTOMÁTICA: Simula exatamente a troca e retorno de rodada
+                        # Alteramos temporariamente o índice selecionado da rodada para forçar o recarregamento completo (a "piscada")
+                        if len(rodadas_existentes) > 1:
+                            # Se houver outra rodada, alterna para a anterior brevemente no state e volta
+                            target_rodada_temp = rodadas_existentes[idx_rod - 1] if idx_rod > 0 else rodadas_existentes[1]
+                            st.session_state[key_select_rodada] = target_rodada_temp
+                        
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
@@ -814,12 +822,9 @@ html_pagina_completa = f"""<!DOCTYPE html>
             }}
         }}
 
-        footer {{
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9rem;
-        }}
+        <footer>
+            <p>Lance a Lance &copy; 2026 - Todos os direitos reservados.</p>
+        </footer>
     </style>
 </head>
 <body>
