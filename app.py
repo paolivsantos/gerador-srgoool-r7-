@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada limpa e segura para gravação"""
+    """Função centralizada para gravação e sincronização"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -277,9 +277,7 @@ else:
                         if key_input_rodada in st.session_state:
                             del st.session_state[key_input_rodada]
                         
-                        # Seleciona automaticamente a rodada recém-criada
                         st.session_state[f"select_rodada_ativa_{camp_selecionado}"] = r_nome
-                        
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.warning("Esta rodada já existe neste campeonato.")
@@ -350,38 +348,43 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
-                # Uploader limpo sem callbacks problemáticos de WebSocket
+                # Uploader fixo
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
                     key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}"
                 )
 
-                if uploaded_file is not None:
-                    # Botão explícito e seguro para processar o arquivo sem travar o Streamlit
-                    if st.button("📥 Processar e Salvar Arquivo na Rodada", key=f"btn_processar_{camp_selecionado}_{rodada_selecionada}", type="primary"):
-                        conteudo_txt = uploaded_file.read().decode("utf-8")
-                        comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
-                        keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
+                # Botão fixo e independente abaixo do uploader para processar a importação a qualquer momento
+                if st.button("🔄 Processar e Salvar Arquivo TXT", key=f"btn_exec_txt_{camp_selecionado}_{rodada_selecionada}", type="primary"):
+                    if uploaded_file is not None:
+                        try:
+                            conteudo_txt = uploaded_file.read().decode("utf-8")
+                            comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
+                            keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
 
-                        if comentarios and keys:
-                            novos_jogos = []
-                            for c_comentario, c_key in zip(comentarios, keys):
-                                partes = c_comentario.split("-")
-                                nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
-                                novos_jogos.append({
-                                    "nome": nome_jogo,
-                                    "key": c_key,
-                                    "comentario_original": c_comentario.strip()
-                                })
-                            
-                            novo_dict = st.session_state["campeonatos_dados"].copy()
-                            novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
-                            
-                            st.session_state[key_select_rodada] = rodada_selecionada
-                            aplicar_e_sintonizar(novo_dict, camp_selecionado)
-                        else:
-                            st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
+                            if comentarios and keys:
+                                novos_jogos = []
+                                for c_comentario, c_key in zip(comentarios, keys):
+                                    partes = c_comentario.split("-")
+                                    nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
+                                    novos_jogos.append({
+                                        "nome": nome_jogo,
+                                        "key": c_key,
+                                        "comentario_original": c_comentario.strip()
+                                    })
+                                
+                                novo_dict = st.session_state["campeonatos_dados"].copy()
+                                novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
+                                
+                                st.session_state[key_select_rodada] = rodada_selecionada
+                                aplicar_e_sintonizar(novo_dict, camp_selecionado)
+                            else:
+                                st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
+                        except Exception as e:
+                            st.error(f"Erro ao processar o arquivo TXT: {e}")
+                    else:
+                        st.warning("Selecione um arquivo .txt antes de clicar em processar.")
 
                 if jogos_atuais:
                     st.divider()
@@ -814,12 +817,9 @@ html_pagina_completa = f"""<!DOCTYPE html>
             }}
         }}
 
-        footer {{
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9rem;
-        }}
+        <footer>
+            <p>Lance a Lance &copy; 2026 - Todos os direitos reservados.</p>
+        </footer>
     </style>
 </head>
 <body>
