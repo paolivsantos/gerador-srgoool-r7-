@@ -20,7 +20,7 @@ GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
 JSON_FILE_PATH = "estrutura_lance_a_lance.json"
 
 def carregar_do_github():
-    """Tenta carregar o JSON direto do repositório do GitHub com timeout de segurança"""
+    """Tenta carregar o JSON direto do repositório do GitHub"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         return None, None
     
@@ -32,7 +32,7 @@ def carregar_do_github():
     
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=10) as response:
+        with urllib.request.urlopen(req) as response:
             data = json.loads(response.read().decode())
             file_content = base64.b64decode(data["content"]).decode("utf-8")
             return json.loads(file_content), data["sha"]
@@ -40,7 +40,7 @@ def carregar_do_github():
         return None, None
 
 def salvar_no_github(dados_dict):
-    """Salva o JSON no GitHub com timeout para evitar travamento infinito"""
+    """Salva (faz commit automático) do JSON diretamente no GitHub"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         st.error("Credenciais do GitHub não configuradas.")
         return False
@@ -52,13 +52,13 @@ def salvar_no_github(dados_dict):
         "Content-Type": "application/json"
     }
     
-    sha_atual = st.session_state.get("github_file_sha", None)
+    _, sha_atual = carregar_do_github()
     
     json_str = json.dumps(dados_dict, ensure_ascii=False, indent=4)
     content_encoded = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
     
     payload = {
-        "message": "Atualização via painel Streamlit [skip ci]",
+        "message": "Atualização automática via painel Streamlit [skip ci]",
         "content": content_encoded,
         "branch": GITHUB_BRANCH
     }
@@ -68,41 +68,19 @@ def salvar_no_github(dados_dict):
     try:
         data_payload = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data_payload, headers=headers, method="PUT")
-        with urllib.request.urlopen(req, timeout=10) as response:
-            resp_data = json.loads(response.read().decode())
-            if "content" in resp_data and "sha" in resp_data["content"]:
-                st.session_state["github_file_sha"] = resp_data["content"]["sha"]
+        with urllib.request.urlopen(req) as response:
             return True
-    except urllib.error.HTTPError as e:
-        if e.code == 409 or e.code == 422:
-            _, novo_sha = carregar_do_github()
-            if novo_sha:
-                st.session_state["github_file_sha"] = novo_sha
-                payload["sha"] = novo_sha
-                try:
-                    req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="PUT")
-                    with urllib.request.urlopen(req, timeout=10) as response2:
-                        resp_data2 = json.loads(response2.read().decode())
-                        if "content" in resp_data2 and "sha" in resp_data2["content"]:
-                            st.session_state["github_file_sha"] = resp_data2["content"]["sha"]
-                        return True
-                except Exception:
-                    pass
-        st.error(f"Erro ao salvar alteração no GitHub: {e}")
-        return False
     except Exception as e:
         st.error(f"Erro ao salvar alteração no GitHub: {e}")
         return False
 
-# Inicializar estados no session_state
+# Inicializar estados no session_state buscando do GitHub na primeira execução
 if "campeonatos_dados" not in st.session_state:
-    dados_git, sha_git = carregar_do_github()
+    dados_git, _ = carregar_do_github()
     if dados_git:
         st.session_state["campeonatos_dados"] = dados_git
-        st.session_state["github_file_sha"] = sha_git
     else:
         st.session_state["campeonatos_dados"] = {}
-        st.session_state["github_file_sha"] = None
 
 if "campeonatos_visibilidade" not in st.session_state:
     st.session_state["campeonatos_visibilidade"] = {}
@@ -114,7 +92,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada para gravação e sincronização"""
+    """Função auxiliar para atualizar o estado e salvar no GitHub"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -122,10 +100,7 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     sucesso_git = salvar_no_github(novo_dict)
 
     if sucesso_git:
-        st.success("Alterações salvas e sincronizadas com sucesso!")
-    else:
-        st.error("Houve uma falha ao sincronizar com o GitHub.")
-    
+        st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="🚀")
     st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
@@ -145,7 +120,7 @@ st.sidebar.divider()
 json_file = st.sidebar.file_uploader("Forçar importação de JSON", type=["json"], key="json_uploader")
 
 if json_file is not None:
-    if st.sidebar.button("🔄 Substituir Dados pelo Arquivo", key="btn_substituir_json"):
+    if st.sidebar.button("🔄 Substituir Dados pelo Arquivo"):
         try:
             dados_carregados = json.load(json_file)
             if isinstance(dados_carregados, dict):
@@ -274,10 +249,7 @@ else:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][r_nome] = []
-                        if key_input_rodada in st.session_state:
-                            del st.session_state[key_input_rodada]
-                        
-                        st.session_state[f"select_rodada_ativa_{camp_selecionado}"] = r_nome
+                        del st.session_state[key_input_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.warning("Esta rodada já existe neste campeonato.")
@@ -288,16 +260,10 @@ else:
 
         if rodadas_existentes:
             st.markdown("---")
-            
-            key_select_rodada = f"select_rodada_ativa_{camp_selecionado}"
-            if key_select_rodada not in st.session_state or st.session_state[key_select_rodada] not in rodadas_existentes:
-                st.session_state[key_select_rodada] = rodadas_existentes[-1]
-
             rodada_selecionada = st.selectbox(
                 "Selecione a Rodada para gerenciar os jogos/TXT:",
                 rodadas_existentes,
-                index=rodadas_existentes.index(st.session_state[key_select_rodada]),
-                key=key_select_rodada
+                key=f"select_rodada_{camp_selecionado}"
             )
 
             if rodada_selecionada:
@@ -316,7 +282,6 @@ else:
                                 chave_final_r = novo_nome_r if r_k == rodada_selecionada else r_k
                                 novo_d_rod[chave_final_r] = r_v
                             novo_dict[camp_selecionado] = novo_d_rod
-                            st.session_state[key_select_rodada] = novo_nome_r
                             aplicar_e_sintonizar(novo_dict, camp_selecionado)
                         else:
                             st.error("Já existe uma rodada com esse nome.")
@@ -344,50 +309,37 @@ else:
                     if st.button(f"🗑️ Excluir Rodada", key=f"del_r_{camp_selecionado}_{rodada_selecionada}", use_container_width=True):
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         del novo_dict[camp_selecionado][rodada_selecionada]
-                        if key_select_rodada in st.session_state:
-                            del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
-                # Uploader fixo
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
                     key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}"
                 )
 
-                # Botão fixo e independente abaixo do uploader para processar a importação a qualquer momento
-                if st.button("🔄 Processar e Salvar Arquivo TXT", key=f"btn_exec_txt_{camp_selecionado}_{rodada_selecionada}", type="primary"):
-                    if uploaded_file is not None:
-                        try:
-                            conteudo_txt = uploaded_file.read().decode("utf-8")
-                            comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
-                            keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
+                if uploaded_file is not None:
+                    conteudo_txt = uploaded_file.read().decode("utf-8")
+                    comentarios = re.findall(r"<!--(.*?)-->", conteudo_txt)
+                    keys = re.findall(r"key=([A-Za-z0-9=_\-]+)", conteudo_txt)
 
-                            if comentarios and keys:
-                                novos_jogos = []
-                                for c_comentario, c_key in zip(comentarios, keys):
-                                    partes = c_comentario.split("-")
-                                    nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
-                                    novos_jogos.append({
-                                        "nome": nome_jogo,
-                                        "key": c_key,
-                                        "comentario_original": c_comentario.strip()
-                                    })
-                                
-                                novo_dict = st.session_state["campeonatos_dados"].copy()
-                                novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
-                                
-                                st.session_state[key_select_rodada] = rodada_selecionada
-                                aplicar_e_sintonizar(novo_dict, camp_selecionado)
-                            else:
-                                st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
-                        except Exception as e:
-                            st.error(f"Erro ao processar o arquivo TXT: {e}")
+                    if comentarios and keys:
+                        novos_jogos = []
+                        for c_comentario, c_key in zip(comentarios, keys):
+                            partes = c_comentario.split("-")
+                            nome_jogo = partes[-1].strip() if len(partes) > 0 else c_comentario.strip()
+                            novos_jogos.append({
+                                "nome": nome_jogo,
+                                "key": c_key,
+                                "comentario_original": c_comentario.strip()
+                            })
+                        
+                        novo_dict = st.session_state["campeonatos_dados"].copy()
+                        novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
+                        aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
-                        st.warning("Selecione um arquivo .txt antes de clicar em processar.")
+                        st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
 
                 if jogos_atuais:
-                    st.divider()
                     if st.button(f"🗑️ Limpar todos os jogos desta rodada", key=f"clear_rod_{camp_selecionado}_{rodada_selecionada}"):
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][rodada_selecionada] = []
@@ -817,9 +769,12 @@ html_pagina_completa = f"""<!DOCTYPE html>
             }}
         }}
 
-        <footer>
-            <p>Lance a Lance &copy; 2026 - Todos os direitos reservados.</p>
-        </footer>
+        footer {{
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }}
     </style>
 </head>
 <body>
@@ -902,4 +857,6 @@ html_pagina_completa = f"""<!DOCTYPE html>
 st.divider()
 st.subheader("📋 Código HTML Completo da Página")
 st.markdown("Copie o código abaixo utilizando o botão no canto superior direito do bloco:")
+
+# Exibe o código HTML em um bloco formatado com o botão nativo de cópia do Streamlit
 st.code(html_pagina_completa, language="html")
