@@ -40,7 +40,7 @@ def carregar_do_github():
         return None, None
 
 def salvar_no_github(dados_dict):
-    """Salva o JSON no GitHub usando o SHA em cache para ser mais rápido"""
+    """Salva o JSON no GitHub usando o SHA em cache"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         st.error("Credenciais do GitHub não configuradas.")
         return False
@@ -58,7 +58,7 @@ def salvar_no_github(dados_dict):
     content_encoded = base64.b64encode(json_str.encode("utf-8")).decode("utf-8")
     
     payload = {
-        "message": "Atualização rápida via painel Streamlit [skip ci]",
+        "message": "Atualização via painel Streamlit [skip ci]",
         "content": content_encoded,
         "branch": GITHUB_BRANCH
     }
@@ -114,20 +114,25 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função auxiliar para atualizar o estado e salvar no GitHub com status fixo"""
+    """Função centralizada que executa a gravação e limpa os campos de input imediatamente"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
     
-    # Usa st.status para manter uma caixa de progresso fixa e visível até o término completo
-    with st.status("Salvando alterações e sincronizando com o GitHub...", expanded=True) as status:
-        sucesso_git = salvar_no_github(novo_dict)
-        if sucesso_git:
-            status.update(label="Salvo e sincronizado com sucesso!", state="complete", expanded=False)
-        else:
-            status.update(label="Erro ao salvar no GitHub.", state="error", expanded=True)
+    sucesso_git = salvar_no_github(novo_dict)
 
+    if sucesso_git:
+        st.session_state["mensagem_sucesso"] = "Alterações salvas e sincronizadas com sucesso!"
+    else:
+        st.session_state["mensagem_erro"] = "Houve uma falha ao sincronizar com o GitHub."
+    
     st.rerun()
+
+# Exibe mensagens de feedback de forma limpa no topo se houverem
+if "mensagem_sucesso" in st.session_state:
+    st.success(st.session_state.pop("mensagem_sucesso"))
+if "mensagem_erro" in st.session_state:
+    st.error(st.session_state.pop("mensagem_erro"))
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
 st.sidebar.subheader("💾 Backup e Sincronização")
@@ -275,7 +280,8 @@ else:
                     if r_nome not in st.session_state["campeonatos_dados"][camp_selecionado]:
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][r_nome] = []
-                        del st.session_state[key_input_rodada]
+                        if key_input_rodada in st.session_state:
+                            del st.session_state[key_input_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.warning("Esta rodada já existe neste campeonato.")
@@ -858,7 +864,6 @@ html_pagina_completa = f"""<!DOCTYPE html>
             if (!campPanel) return;
 
             const roundPanels = campPanel.querySelectorAll('.rodada-content-panel');
-            roundNavPanels = roundPanels; // fallback
             roundPanels.forEach(rp => {{
                 if (rp.id === selectedVal) {{
                     rp.style.display = 'block';
