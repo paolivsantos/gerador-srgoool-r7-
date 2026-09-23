@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada que grava, salva no GitHub e força o reload completo da página via JS"""
+    """Função centralizada que executa a gravação e limpa os estados pendentes"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -122,19 +122,12 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     sucesso_git = salvar_no_github(novo_dict)
 
     if sucesso_git:
-        st.success("Salvo e sincronizado com sucesso! Atualizando...")
+        st.success("Salvo e sincronizado com sucesso!")
     else:
-        st.error("Erro ao sincronizar com o GitHub.")
-
-    # Injeta script JavaScript para recarregar a janela do navegador instantaneamente
-    st.markdown("""
-        <script>
-            setTimeout(function() {
-                window.location.reload();
-            }, 800);
-        </script>
-    """, unsafe_allow_html=True)
-    st.stop()
+        st.error("Houve uma falha ao sincronizar com o GitHub.")
+    
+    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
+    st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
 st.sidebar.subheader("💾 Backup e Sincronização")
@@ -284,6 +277,10 @@ else:
                         novo_dict[camp_selecionado][r_nome] = []
                         if key_input_rodada in st.session_state:
                             del st.session_state[key_input_rodada]
+                        
+                        # 1. PONTO CHAVE: Define automaticamente a nova rodada como a ativa no selectbox
+                        st.session_state[f"select_rodada_ativa_{camp_selecionado}"] = r_nome
+                        
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.warning("Esta rodada já existe neste campeonato.")
@@ -354,10 +351,16 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
+                # 2. PONTO CHAVE: Callback acionado instantaneamente ao selecionar/enviar o arquivo
+                def trigger_auto_refresh():
+                    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
+
+                counter_val = st.session_state.get("upload_counter", 0)
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
-                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}"
+                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}_{counter_val}",
+                    on_change=trigger_auto_refresh
                 )
 
                 if uploaded_file is not None:
@@ -378,6 +381,8 @@ else:
                         
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
+                        
+                        st.session_state[key_select_rodada] = rodada_selecionada
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
                         st.error("Não foi possível extrair dados do .txt. Verifique o formato.")
@@ -812,9 +817,12 @@ html_pagina_completa = f"""<!DOCTYPE html>
             }}
         }}
 
-        <footer>
-            <p>Lance a Lance &copy; 2026 - Todos os direitos reservados.</p>
-        </footer>
+        footer {{
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }}
     </style>
 </head>
 <body>
@@ -896,5 +904,5 @@ html_pagina_completa = f"""<!DOCTYPE html>
 
 st.divider()
 st.subheader("📋 Código HTML Completo da Página")
-st.markdown("Copie o código abaixo utilizando o botão no canto superior direito du bloco:")
+st.markdown("Copie o código abaixo utilizando o botão no canto superior direito do bloco:")
 st.code(html_pagina_completa, language="html")
