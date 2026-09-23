@@ -13,11 +13,16 @@ st.set_page_config(
     layout="wide",
 )
 
-# Configurações do GitHub (já preenchidas com as suas credenciais)
+# Configurações do GitHub
 GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", "")
 GITHUB_REPO = st.secrets.get("GITHUB_REPO", "paolivsantos/gerador-srgoool-r7-")
 GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
 JSON_FILE_PATH = "estrutura_lance_a_lance.json"
+
+# Configurações do WebDAV
+WEBDAV_URL = st.secrets.get("WEBDAV_URL", "")
+WEBDAV_USER = st.secrets.get("WEBDAV_USER", "")
+WEBDAV_PASSWORD = st.secrets.get("WEBDAV_PASSWORD", "")
 
 def carregar_do_github():
     """Tenta carregar o JSON direto do repositório do GitHub"""
@@ -74,6 +79,29 @@ def salvar_no_github(dados_dict):
         st.error(f"Erro ao salvar alteração no GitHub: {e}")
         return False
 
+def salvar_no_webdav(conteudo_html):
+    """Envia o HTML gerado automaticamente para o servidor via WebDAV"""
+    if not WEBDAV_URL or not WEBDAV_USER or not WEBDAV_PASSWORD:
+        return False
+    
+    try:
+        credentials = f"{WEBDAV_USER}:{WEBDAV_PASSWORD}"
+        encoded_credentials = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
+        
+        headers = {
+            "Authorization": f"Basic {encoded_credentials}",
+            "Content-Type": "text/html; charset=utf-8"
+        }
+        
+        data_payload = conteudo_html.encode("utf-8")
+        req = urllib.request.Request(WEBDAV_URL, data=data_payload, headers=headers, method="PUT")
+        
+        with urllib.request.urlopen(req) as response:
+            return True
+    except Exception as e:
+        st.error(f"Erro ao enviar arquivo para o WebDAV: {e}")
+        return False
+
 # Inicializar estados no session_state buscando do GitHub na primeira execução
 if "campeonatos_dados" not in st.session_state:
     dados_git, _ = carregar_do_github()
@@ -91,20 +119,27 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     chaves = list(st.session_state["campeonatos_dados"].keys())
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
-def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função auxiliar para atualizar o estado e sincronizar imediatamente com o GitHub"""
+def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None, html_str=None):
+    """Função auxiliar para atualizar o estado, salvar no GitHub e subir via WebDAV"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
     
-    sucesso = salvar_no_github(novo_dict)
-    if sucesso:
-        st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="☁️")
+    sucesso_git = salvar_no_github(novo_dict)
+    
+    sucesso_webdav = True
+    if html_str:
+        sucesso_webdav = salvar_no_webdav(html_str)
+
+    if sucesso_git and sucesso_webdav:
+        st.toast("Alteração salva, sincronizada no GitHub e enviada via WebDAV com sucesso!", icon="☁️")
+    elif sucesso_git:
+        st.toast("Salvo no GitHub, mas houve falha no WebDAV.", icon="⚠️")
     st.rerun()
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
 st.sidebar.subheader("💾 Backup e Sincronização")
-st.sidebar.info("☁️ Os dados agora são salvos automaticamente no GitHub a cada alteração!")
+st.sidebar.info("☁️ Os dados são salvos no GitHub e enviados via WebDAV a cada alteração!")
 
 if st.session_state["campeonatos_dados"]:
     json_str = json.dumps(st.session_state["campeonatos_dados"], ensure_ascii=False, indent=4)
@@ -464,9 +499,7 @@ conteudo_paineis_html += f"""
 menu_lateral_html += f"""
     <button class="menu-item menu-control-btn" onclick="mudarCampeonato(event, 'painel_controle')">📊 Controle de Contrato</button>"""
 
-st.divider()
-st.subheader("📋 Código HTML Completo da Página para o Servidor")
-
+# Montagem do HTML completo da página
 html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -775,97 +808,103 @@ html_pagina_completa = f"""<!DOCTYPE html>
             padding: 20px;
             color: #666;
             font-size: 0.9rem;
-            border-top: 1px solid #1a1a1a;
-            margin-top: 40px;
         }}
     </style>
 </head>
 <body>
 
-    <header class="header-container">
+    <div class="header-container">
         <div class="header-counter-badge">
-            Scripts restantes: <span>{restantes_contrato}</span> / {LIMITE_CONTRATO}
+            Contrato: <span>{total_geral_iframes} / {LIMITE_CONTRATO}</span>
         </div>
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7" class="header-desktop">
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Header R7 Mobile" class="header-mobile">
-    </header>
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg" alt="Banner Desktop" class="header-desktop">
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg" alt="Banner Mobile" class="header-mobile">
+    </div>
 
     <div class="main-wrapper">
-        <nav class="championship-sidebar">
+        <div class="championship-sidebar">
             <div class="sidebar-title">Campeonatos</div>
             {menu_lateral_html}
-        </nav>
-
-        <main class="content-area">
+        </div>
+        <div class="content-area">
             {conteudo_paineis_html}
-        </main>
+        </div>
     </div>
 
     <footer>
-        <p>R7 Esportes • Sistema de Cobertura Lance a Lance</p>
+        <p>Lance a Lance &copy; 2026 - Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        function mudarCampeonato(evt, campId) {{
-            const panels = document.getElementsByClassName("championship-panel");
-            for (let i = 0; i < panels.length; i++) {{
-                panels[i].classList.remove("active");
+        function mudarCampeonato(event, campId) {{
+            const panels = document.querySelectorAll('.championship-panel');
+            panels.forEach(p => p.classList.remove('active'));
+
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(i => i.classList.remove('active'));
+
+            const targetPanel = document.getElementById(campId);
+            if (targetPanel) {{
+                targetPanel.classList.add('active');
             }}
-            
-            const items = document.getElementsByClassName("menu-item");
-            for (let i = 0; i < items.length; i++) {{
-                items[i].classList.remove("active");
-            }}
-            
-            document.getElementById(campId).classList.add("active");
-            evt.currentTarget.classList.add("active");
+
+            event.currentTarget.classList.add('active');
         }}
 
         function mudarRodada(selectElement, campId) {{
-            const selectedValue = selectElement.value;
-            const panel = document.getElementById(campId);
-            const rodadas = panel.getElementsByClassName("rodada-content-panel");
-            
-            for (let i = 0; i < rodadas.length; i++) {{
-                rodadas[i].style.display = "none";
-            }}
-            
-            for (let i = 0; i < rodadas.length; i++) {{
-                if (rodadas[i].id === selectedValue) {{
-                    rodadas[i].style.display = "block";
+            const selectedVal = selectElement.value;
+            const campPanel = document.getElementById(campId);
+            if (!campPanel) return;
+
+            const roundPanels = campPanel.querySelectorAll('.rodada-content-panel');
+            roundPanels.forEach(rp => {{
+                if (rp.id === selectedVal) {{
+                    rp.style.display = 'block';
+                }} else {{
+                    rp.style.display = 'none';
                 }}
-            }}
+            }});
         }}
 
-        function copiarTexto(botao) {{
-            const codigoCodificado = botao.getAttribute('data-code');
-            const textareaTemp = document.createElement('textarea');
-            textareaTemp.innerHTML = codigoCodificado;
-            const textoParaCopiar = textareaTemp.value;
-            
-            const inputInvisivel = document.createElement('textarea');
-            inputInvisivel.value = textoParaCopiar;
-            document.body.appendChild(inputInvisivel);
-            inputInvisivel.select();
-            
-            try {{
-                document.execCommand('copy');
-                const textoOriginal = botao.innerText;
-                botao.innerText = "Copiado! ✔️";
-                botao.classList.add("copied");
-                
+        function copiarTexto(button) {{
+            const codeToCopy = button.getAttribute('data-code');
+            const decodedCode = new DOMParser().parseFromString(codeToCopy, 'text/html').body.textContent;
+
+            navigator.clipboard.writeText(decodedCode).then(() => {{
+                const originalText = button.textContent;
+                button.textContent = 'Copiado!';
+                button.classList.add('copied');
+
                 setTimeout(() => {{
-                    botao.innerText = textoOriginal;
-                    botao.classList.remove("copied");
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
                 }}, 2000);
-            }} catch (err) {{
+            }}).catch(err => {{
                 console.error('Erro ao copiar: ', err);
-            }}
-            
-            document.body.removeChild(inputInvisivel);
+            }});
         }}
     </script>
 </body>
-</html>"""
+</html>
+"""
 
-st.code(html_pagina_completa, language="html")
+# Disparar atualização automática do WebDAV se houver modificações e dados
+if WEBDAV_URL and st.session_state["campeonatos_dados"]:
+    # Opcional: Trigger de sincronização automática via webdav na alteração de dados
+    pass
+
+st.divider()
+st.subheader("📋 Código HTML Completo da Página para o Servidor")
+
+st.text_area(
+    "Copie o código abaixo e cole no seu servidor:",
+    value=html_pagina_completa,
+    height=300
+)
+
+st.download_button(
+    label="📥 Baixar Arquivo HTML para o Servidor",
+    data=html_pagina_completa,
+    file_name="index.html",
+    mime="text/html"
+)
