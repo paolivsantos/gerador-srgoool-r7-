@@ -126,7 +126,6 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     else:
         st.session_state["mensagem_erro"] = "Houve uma falha ao sincronizar com o GitHub."
     
-    # Incrementa o contador para resetar o uploader e forçar a saída do loop de execução
     st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
     st.rerun()
 
@@ -354,12 +353,18 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
-                # Uploader com chave dinâmica baseada no contador
+                # Uploader com callback imediato de refresh (on_change)
+                # Assim que o arquivo é selecionado na interface, a função de callback força o rerun instantaneamente
+                def callback_upload_imediato():
+                    # Força a limpeza/refresh do estado mantendo a sessão atual
+                    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
+
                 counter_val = st.session_state.get("upload_counter", 0)
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
-                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}_{counter_val}"
+                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}_{counter_val}",
+                    on_change=callback_upload_imediato
                 )
 
                 if uploaded_file is not None:
@@ -381,12 +386,8 @@ else:
                         novo_dict = st.session_state["campeonatos_dados"].copy()
                         novo_dict[camp_selecionado][rodada_selecionada] = novos_jogos
                         
-                        # AÇÃO AUTOMÁTICA: Simula exatamente a troca e retorno de rodada
-                        # Alteramos temporariamente o índice selecionado da rodada para forçar o recarregamento completo (a "piscada")
-                        if len(rodadas_existentes) > 1:
-                            # Se houver outra rodada, alterna para a anterior brevemente no state e volta
-                            target_rodada_temp = rodadas_existentes[idx_rod - 1] if idx_rod > 0 else rodadas_existentes[1]
-                            st.session_state[key_select_rodada] = target_rodada_temp
+                        # Garante que a rodada atual continue selecionada após o refresh automático
+                        st.session_state[key_select_rodada] = rodada_selecionada
                         
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
                     else:
