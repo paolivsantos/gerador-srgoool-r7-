@@ -114,7 +114,7 @@ if "ultimo_campeonato_ativo" not in st.session_state:
     st.session_state["ultimo_campeonato_ativo"] = chaves[-1] if chaves else None
 
 def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
-    """Função centralizada que executa a gravação e encerra o ciclo de forma limpa"""
+    """Função centralizada que executa a gravação e limpa os estados pendentes do uploader"""
     st.session_state["campeonatos_dados"] = novo_dict
     if ultimo_ativo:
         st.session_state["ultimo_campeonato_ativo"] = ultimo_ativo
@@ -126,7 +126,8 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
     else:
         st.session_state["mensagem_erro"] = "Houve uma falha ao sincronizar com o GitHub."
     
-    # Força a limpeza de cache interna e recarrega de forma controlada
+    # Incrementa um contador de reset para forçar a limpeza dos widgets de upload pendentes
+    st.session_state["upload_counter"] = st.session_state.get("upload_counter", 0) + 1
     st.rerun()
 
 # Exibe mensagens de feedback limpas no topo
@@ -353,10 +354,12 @@ else:
                             del st.session_state[key_select_rodada]
                         aplicar_e_sintonizar(novo_dict, camp_selecionado)
 
+                # Uploader com chave dinâmica baseada no contador de upload para forçar reset limpo
+                counter_val = st.session_state.get("upload_counter", 0)
                 uploaded_file = st.file_uploader(
                     f"📁 Enviar arquivo .txt para '{rodada_selecionada}'",
                     type=["txt"],
-                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}"
+                    key=f"uploader_file_{camp_selecionado}_{rodada_selecionada}_{counter_val}"
                 )
 
                 if uploaded_file is not None:
