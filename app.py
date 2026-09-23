@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Configurações do GitHub (já preenchidas com as suas credenciais)
+# Configurações do GitHub
 GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", "")
 GITHUB_REPO = st.secrets.get("GITHUB_REPO", "paolivsantos/gerador-srgoool-r7")
 GITHUB_BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
@@ -40,7 +40,7 @@ def carregar_do_github():
         return None, None
 
 def salvar_no_github(dados_dict):
-    """Salva (faz commit automático) do JSON diretamente no GitHub"""
+    """Salva (faz commit automático) do JSON diretamente no GitHub de forma segura"""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         st.error("Credenciais do GitHub não configuradas.")
         return False
@@ -52,6 +52,7 @@ def salvar_no_github(dados_dict):
         "Content-Type": "application/json"
     }
     
+    # Busca o SHA atual se o arquivo já existir
     _, sha_atual = carregar_do_github()
     
     json_str = json.dumps(dados_dict, ensure_ascii=False, indent=4)
@@ -70,6 +71,10 @@ def salvar_no_github(dados_dict):
         req = urllib.request.Request(url, data=data_payload, headers=headers, method="PUT")
         with urllib.request.urlopen(req) as response:
             return True
+    except urllib.error.HTTPError as e:
+        erro_detalhe = e.read().decode()
+        st.error(f"Erro HTTP ao salvar no GitHub ({e.code}): {erro_detalhe}")
+        return False
     except Exception as e:
         st.error(f"Erro ao salvar alteração no GitHub: {e}")
         return False
@@ -77,7 +82,7 @@ def salvar_no_github(dados_dict):
 # Inicializar estados no session_state buscando do GitHub na primeira execução
 if "campeonatos_dados" not in st.session_state:
     dados_git, _ = carregar_do_github()
-    if dados_git:
+    if dados_git and len(dados_git) > 0:
         st.session_state["campeonatos_dados"] = dados_git
     else:
         st.session_state["campeonatos_dados"] = {}
@@ -104,7 +109,7 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
 
 # --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
 st.sidebar.subheader("💾 Backup e Sincronização")
-st.sidebar.info("☁️ Os dados agora são salvos automaticamente no GitHub a cada alteração!")
+st.sidebar.info("☁️ Os dados são salvos automaticamente no GitHub a cada alteração!")
 
 if st.session_state["campeonatos_dados"]:
     json_str = json.dumps(st.session_state["campeonatos_dados"], ensure_ascii=False, indent=4)
@@ -158,7 +163,7 @@ with col_c2:
 campeonatos_cadastrados = list(st.session_state["campeonatos_dados"].keys())
 
 if not campeonatos_cadastrados:
-    st.info("Nenhum campeonato cadastrado ainda. Adicione um acima.")
+    st.info("Nenhum campeonato cadastrado ainda. Adicione um acima ou importe o JSON na barra lateral.")
 else:
     st.divider()
     st.subheader("⚙️ Painel de Edição e Organização")
