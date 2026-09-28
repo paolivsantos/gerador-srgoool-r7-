@@ -783,8 +783,8 @@ html_pagina_completa = f"""<!DOCTYPE html>
         <div class="header-counter-badge">
             Contrato: <span>{total_geral_iframes} / {LIMITE_CONTRATO}</span>
         </div>
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg" alt="Banner Desktop" class="header-desktop">
-        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/ZKWPEFW6KJA5BBMQXMQ2R3X6XA.jpg" alt="Banner Mobile" class="header-mobile">
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Banner Desktop" class="header-desktop">
+        <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg" alt="Banner Mobile" class="header-mobile">
     </div>
 
     <div class="main-wrapper">
