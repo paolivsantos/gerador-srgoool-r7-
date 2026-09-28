@@ -12,7 +12,6 @@ st.set_page_config(
 url_desktop = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg"
 url_mobile = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg"
 
-# Montagem completa da página injetada no componente do Streamlit
 html_code = f"""
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -26,7 +25,6 @@ html_code = f"""
             padding: 0;
             box-sizing: border-box;
         }}
-
         body {{
             background-color: #121212;
             color: #ffffff;
@@ -35,7 +33,6 @@ html_code = f"""
             flex-direction: column;
             min-height: 100vh;
         }}
-
         header {{
             width: 100%;
             background-color: #006b3f;
@@ -45,19 +42,16 @@ html_code = f"""
             padding: 10px 20px;
             border-bottom: 4px solid #004d2c;
         }}
-
         .logo-container {{
             max-width: 600px;
             width: 100%;
         }}
-
         .logo-container img {{
             width: 100%;
             height: auto;
             display: block;
             object-fit: contain;
         }}
-
         .contrato-badge {{
             background-color: #000000;
             color: #ffffff;
@@ -68,12 +62,10 @@ html_code = f"""
             border: 1px solid #00ff66;
             white-space: nowrap;
         }}
-
         .main-container {{
             display: flex;
             flex: 1;
         }}
-
         aside {{
             width: 260px;
             background-color: #1a1a1a;
@@ -81,7 +73,6 @@ html_code = f"""
             border-right: 1px solid #333;
             flex-shrink: 0;
         }}
-
         .menu-titulo {{
             font-size: 11px;
             text-transform: uppercase;
@@ -89,11 +80,9 @@ html_code = f"""
             padding: 0 20px 10px 20px;
             letter-spacing: 1px;
         }}
-
         aside ul {{
             list-style: none;
         }}
-
         aside ul li a {{
             display: block;
             padding: 12px 20px;
@@ -102,19 +91,16 @@ html_code = f"""
             font-size: 14px;
             transition: background 0.2s, color 0.2s;
         }}
-
         aside ul li a:hover, aside ul li a.active {{
             background-color: #2a2a2a;
             color: #ffffff;
             border-left: 4px solid #00ff66;
         }}
-
         .content-area {{
             flex: 1;
             padding: 30px;
             background-color: #121212;
         }}
-
         .section-title {{
             color: #00ff66;
             font-size: 18px;
@@ -123,7 +109,6 @@ html_code = f"""
             border-bottom: 1px solid #222;
             padding-bottom: 8px;
         }}
-
         .selector-box {{
             background-color: #181818;
             padding: 15px 20px;
@@ -134,12 +119,10 @@ html_code = f"""
             align-items: center;
             gap: 15px;
         }}
-
         .selector-box label {{
             font-size: 14px;
             color: #ddd;
         }}
-
         .selector-box select {{
             background-color: #111;
             color: #fff;
@@ -148,20 +131,17 @@ html_code = f"""
             border-radius: 4px;
             width: 250px;
         }}
-
         .code-container {{
             background-color: #181818;
             border: 1px solid #333;
             border-radius: 4px;
             padding: 20px;
         }}
-
         .code-container h3 {{
             font-size: 16px;
             margin-bottom: 15px;
             color: #fff;
         }}
-
         pre {{
             background-color: #0d0d0d;
             border: 1px solid #262626;
@@ -173,8 +153,9 @@ html_code = f"""
             color: #a6e22e;
             line-height: 1.5;
             margin-bottom: 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }}
-
         .btn-copiar {{
             background-color: #008040;
             color: white;
@@ -186,7 +167,6 @@ html_code = f"""
             font-size: 13px;
             transition: background 0.2s;
         }}
-
         .btn-copiar:hover {{
             background-color: #00a854;
         }}
@@ -194,7 +174,6 @@ html_code = f"""
 </head>
 <body>
 
-    <!-- Cabeçalho visual do painel com tag picture -->
     <header>
         <div class="logo-container">
             <picture>
@@ -205,7 +184,6 @@ html_code = f"""
         <div class="contrato-badge">Contrato: 389 / 500</div>
     </header>
 
-    <!-- Estrutura Principal -->
     <div class="main-container">
         <aside>
             <div class="menu-titulo">Campeonatos</div>
@@ -228,15 +206,15 @@ html_code = f"""
 
             <div class="selector-box">
                 <label for="rodada">Selecione a Rodada / Fase:</label>
-                <select id="rodada">
+                <select id="rodada" onchange="atualizarCodigo()">
                     <option value="final">Final</option>
+                    <option value="semifinal">Semifinal</option>
                 </select>
             </div>
 
             <div class="code-container">
-                <h3>FINAL</h3>
-                <!-- Injeta diretamente o HTML limpo e formatado com as variáveis exatas -->
-                <pre>&lt;!-- R7 Esportes Header Responsivo --&gt;
+                <h3 id="titulo-fase">FINAL</h3>
+                <pre id="bloco-codigo">&lt;!-- R7 Esportes Header Responsivo --&gt;
 &lt;header style="width: 100%; background-color: #006b3f;"&gt;
   &lt;picture&gt;
     &lt;source media="(max-width: 768px)" srcset="{url_mobile}"&gt;
@@ -249,14 +227,66 @@ html_code = f"""
   &lt;div id="iframe_brasileirão_feminino_final_8" style="width: 100%; max-height: 100%; height: 2000px"&gt;&lt;/div&gt;
   &lt;script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"&gt;&lt;/script&gt;
 &lt;/div&gt;</pre>
-                <button class="btn-copiar" onclick="alert('Código copiado para a área de transferência!')">Copiar</button>
+                <button class="btn-copiar" onclick="copiarTexto()">Copiar</button>
             </div>
         </div>
     </div>
 
+    <script>
+        const urlDesktop = "{url_desktop}";
+        const urlMobile = "{url_mobile}";
+
+        function atualizarCodigo() {{
+            const select = document.getElementById('rodada');
+            const valor = select.value;
+            const h3 = document.getElementById('titulo-fase');
+            const pre = document.getElementById('bloco-codigo');
+
+            if (valor === 'final') {{
+                h3.innerText = "FINAL";
+                pre.innerText = `<!-- R7 Esportes Header Responsivo -->
+<header style="width: 100%; background-color: #006b3f;">
+  <picture>
+    <source media="(max-width: 768px)" srcset="${{urlMobile}}">
+    <img src="${{urlDesktop}}" alt="R7 Esportes" style="width: 100%; height: auto; display: block; object-fit: contain;">
+  </picture>
+</header>
+
+<!-- Campeonato Brasileiro - 2026 - Feminino Série A1 - Final -->
+<div style="display: flex">
+  <div id="iframe_brasileirão_feminino_final_8" style="width: 100%; max-height: 100%; height: 2000px"></div>
+  <script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"><\/script>
+</div>`;
+            }} else if (valor === 'semifinal') {{
+                h3.innerText = "SEMIFINAL";
+                pre.innerText = `<!-- R7 Esportes Header Responsivo -->
+<header style="width: 100%; background-color: #006b3f;">
+  <picture>
+    <source media="(max-width: 768px)" srcset="${{urlMobile}}">
+    <img src="${{urlDesktop}}" alt="R7 Esportes" style="width: 100%; height: auto; display: block; object-fit: contain;">
+  </picture>
+</header>
+
+<!-- Campeonato Brasileiro - 2026 - Feminino Série A1 - Semifinal -->
+<div style="display: flex">
+  <div id="iframe_brasileirão_feminino_semifinal_8" style="width: 100%; max-height: 100%; height: 2000px"></div>
+  <script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_semifinal_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"><\/script>
+</div>`;
+            }}
+        }}
+
+        function copiarTexto() {{
+            const pre = document.getElementById('bloco-codigo');
+            navigator.clipboard.writeText(pre.innerText).then(() => {{
+                alert('Código copiado para a área de transferência!');
+            }});
+        }}
+    </script>
 </body>
 </html>
 """
 
-# Renderização do componente HTML no Streamlit
-components.html(html_code, height=800, scrolling=True)
+components.html(html_code, height=850, scrolling=True)
+```eof
+
+I've generated the complete `app.py` file above containing both the responsive image layout in the visual header and the synchronized code block generation logic. Let me know if you need any further refinements!
