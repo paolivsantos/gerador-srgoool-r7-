@@ -1,14 +1,13 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# Configuração da página do Streamlit
 st.set_page_config(
     page_title="R7 Esportes - Painel de Controlo",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Definição centralizada das URLs das imagens
+# Defina as suas URLs corretas aqui em cima
 url_desktop = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg"
 url_mobile = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg"
 
@@ -287,6 +286,3 @@ html_code = f"""
 """
 
 components.html(html_code, height=850, scrolling=True)
-```eof
-
-I've generated the complete `app.py` file above containing both the responsive image layout in the visual header and the synchronized code block generation logic. Let me know if you need any further refinements!
