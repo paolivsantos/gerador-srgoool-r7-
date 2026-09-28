@@ -12,21 +12,6 @@ st.set_page_config(
 url_desktop = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg"
 url_mobile = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg"
 
-# Código HTML gerado para aparecer na caixinha <pre> (o que o utilizador copia)
-codigo_iframe_exibido = f"""<!-- R7 Esportes Header Responsivo -->
-<header style="width: 100%; background-color: #006b3f;">
-  <picture>
-    <source media="(max-width: 768px)" srcset="{url_mobile}">
-    <img src="{url_desktop}" alt="R7 Esportes" style="width: 100%; height: auto; display: block; object-fit: contain;">
-  </picture>
-</header>
-
-<!-- Campeonato Brasileiro - 2026 - Feminino Série A1 - Final -->
-<div style="display: flex">
-  <div id="iframe_brasileirão_feminino_final_8" style="width: 100%; max-height: 100%; height: 2000px"></div>
-  <script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"></script>
-</div>"""
-
 # Montagem completa da página injetada no componente do Streamlit
 html_code = f"""
 <!DOCTYPE html>
@@ -103,7 +88,7 @@ html_code = f"""
             color: #888;
             padding: 0 20px 10px 20px;
             letter-spacing: 1px;
-        }
+        }}
 
         aside ul {{
             list-style: none;
@@ -250,8 +235,20 @@ html_code = f"""
 
             <div class="code-container">
                 <h3>FINAL</h3>
-                <!-- Injeta o código dinâmico formatado com as variáveis corretas -->
-                <pre>{codigo_iframe_exibido}</pre>
+                <!-- Injeta diretamente o HTML limpo e formatado com as variáveis exatas -->
+                <pre>&lt;!-- R7 Esportes Header Responsivo --&gt;
+&lt;header style="width: 100%; background-color: #006b3f;"&gt;
+  &lt;picture&gt;
+    &lt;source media="(max-width: 768px)" srcset="{url_mobile}"&gt;
+    &lt;img src="{url_desktop}" alt="R7 Esportes" style="width: 100%; height: auto; display: block; object-fit: contain;"&gt;
+  &lt;/picture&gt;
+&lt;/header&gt;
+
+&lt;!-- Campeonato Brasileiro - 2026 - Feminino Série A1 - Final --&gt;
+&lt;div style="display: flex"&gt;
+  &lt;div id="iframe_brasileirão_feminino_final_8" style="width: 100%; max-height: 100%; height: 2000px"&gt;&lt;/div&gt;
+  &lt;script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"&gt;&lt;/script&gt;
+&lt;/div&gt;</pre>
                 <button class="btn-copiar" onclick="alert('Código copiado para a área de transferência!')">Copiar</button>
             </div>
         </div>
