@@ -8,8 +8,28 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Código HTML, CSS e JS estruturado para o app
-html_code = """
+# Definição das URLs das imagens para facilitar a manutenção
+url_desktop = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg"
+url_mobile = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg"
+
+# Bloco de código HTML formatado dinamicamente para aparecer na caixa <pre>
+# (Ajuste aqui as tags conforme o seu template real do iframe)
+codigo_iframe_exibido = f"""<!-- R7 Esportes Header Responsivo -->
+<header style="width: 100%; background-color: #006b3f;">
+  <picture>
+    <source media="(max-width: 768px)" srcset="{url_mobile}">
+    <img src="{url_desktop}" alt="R7 Esportes" style="width: 100%; height: auto; display: block; object-fit: contain;">
+  </picture>
+</header>
+
+<!-- Campeonato Brasileiro - 2026 - Feminino Série A1 - Final -->
+<div style="display: flex">
+  <div id="iframe_brasileirão_feminino_final_8" style="width: 100%; max-height: 100%; height: 2000px"></div>
+  <script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"></script>
+</div>"""
+
+# Montagem completa da página HTML injetada no Streamlit
+html_code = f"""
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -17,23 +37,22 @@ html_code = """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R7 Esportes - Painel</title>
     <style>
-        * {
+        * {{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+        }}
 
-        body {
+        body {{
             background-color: #121212;
             color: #ffffff;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
+        }}
 
-        /* --- HEADER COM SUPORTE A RESPONSIVIDADE DE IMAGENS --- */
-        header {
+        header {{
             width: 100%;
             background-color: #006b3f;
             display: flex;
@@ -41,22 +60,21 @@ html_code = """
             align-items: center;
             padding: 10px 20px;
             border-bottom: 4px solid #004d2c;
-        }
+        }}
 
-        .logo-container {
+        .logo-container {{
             max-width: 600px;
             width: 100%;
-        }
+        }}
 
-        .logo-container img, 
-        .logo-container picture {
+        .logo-container img {{
             width: 100%;
             height: auto;
             display: block;
             object-fit: contain;
-        }
+        }}
 
-        .contrato-badge {
+        .contrato-badge {{
             background-color: #000000;
             color: #ffffff;
             padding: 6px 12px;
@@ -65,23 +83,22 @@ html_code = """
             font-weight: bold;
             border: 1px solid #00ff66;
             white-space: nowrap;
-        }
+        }}
 
-        /* --- LAYOUT PRINCIPAL --- */
-        .main-container {
+        .main-container {{
             display: flex;
             flex: 1;
-        }
+        }}
 
-        aside {
+        aside {{
             width: 260px;
             background-color: #1a1a1a;
             padding: 20px 0;
             border-right: 1px solid #333;
             flex-shrink: 0;
-        }
+        }}
 
-        .menu-titulo {
+        .menu-titulo {{
             font-size: 11px;
             text-transform: uppercase;
             color: #888;
@@ -89,41 +106,41 @@ html_code = """
             letter-spacing: 1px;
         }
 
-        aside ul {
+        aside ul {{
             list-style: none;
-        }
+        }}
 
-        aside ul li a {
+        aside ul li a {{
             display: block;
             padding: 12px 20px;
             color: #ccc;
             text-decoration: none;
             font-size: 14px;
             transition: background 0.2s, color 0.2s;
-        }
+        }}
 
-        aside ul li a:hover, aside ul li a.active {
+        aside ul li a:hover, aside ul li a.active {{
             background-color: #2a2a2a;
             color: #ffffff;
             border-left: 4px solid #00ff66;
-        }
+        }}
 
-        .content-area {
+        .content-area {{
             flex: 1;
             padding: 30px;
             background-color: #121212;
-        }
+        }}
 
-        .section-title {
+        .section-title {{
             color: #00ff66;
             font-size: 18px;
             margin-bottom: 20px;
             letter-spacing: 0.5px;
             border-bottom: 1px solid #222;
             padding-bottom: 8px;
-        }
+        }}
 
-        .selector-box {
+        .selector-box {{
             background-color: #181818;
             padding: 15px 20px;
             border: 1px solid #333;
@@ -132,36 +149,36 @@ html_code = """
             display: flex;
             align-items: center;
             gap: 15px;
-        }
+        }}
 
-        .selector-box label {
+        .selector-box label {{
             font-size: 14px;
             color: #ddd;
-        }
+        }}
 
-        .selector-box select {
+        .selector-box select {{
             background-color: #111;
             color: #fff;
             border: 1px solid #444;
             padding: 6px 10px;
             border-radius: 4px;
             width: 250px;
-        }
+        }}
 
-        .code-container {
+        .code-container {{
             background-color: #181818;
             border: 1px solid #333;
             border-radius: 4px;
             padding: 20px;
-        }
+        }}
 
-        .code-container h3 {
+        .code-container h3 {{
             font-size: 16px;
             margin-bottom: 15px;
             color: #fff;
-        }
+        }}
 
-        pre {
+        pre {{
             background-color: #0d0d0d;
             border: 1px solid #262626;
             padding: 15px;
@@ -172,9 +189,9 @@ html_code = """
             color: #a6e22e;
             line-height: 1.5;
             margin-bottom: 15px;
-        }
+        }}
 
-        .btn-copiar {
+        .btn-copiar {{
             background-color: #008040;
             color: white;
             border: none;
@@ -184,29 +201,25 @@ html_code = """
             font-weight: bold;
             font-size: 13px;
             transition: background 0.2s;
-        }
+        }}
 
-        .btn-copiar:hover {
+        .btn-copiar:hover {{
             background-color: #00a854;
-        }
+        }}
     </style>
 </head>
 <body>
 
-    <!-- Header com Picture tag alternando Desktop e Mobile automaticamente -->
     <header>
         <div class="logo-container">
             <picture>
-                <!-- Versão Mobile -->
-                <source media="(max-width: 768px)" srcset="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg">
-                <!-- Versão Desktop Padrão -->
-                <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="R7 Esportes">
+                <source media="(max-width: 768px)" srcset="{url_mobile}">
+                <img src="{url_desktop}" alt="R7 Esportes">
             </picture>
         </div>
         <div class="contrato-badge">Contrato: 389 / 500</div>
     </header>
 
-    <!-- Estrutura Principal -->
     <div class="main-container">
         <aside>
             <div class="menu-titulo">Campeonatos</div>
@@ -236,12 +249,9 @@ html_code = """
 
             <div class="code-container">
                 <h3>FINAL</h3>
-                <pre>&lt;!-- Campeonato Brasileiro - 2026 - Feminino Série A1 - Final - Único x Único - 2ª Rodada - São Paulo x Corinthians --&gt;
-&lt;div style="display: flex"&gt;
-  &lt;div id="iframe_brasileirão_feminino_final_8" style="width: 100%; max-height: 100%; height: 2000px"&gt;&lt;/div&gt;
-  &lt;script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"&gt;&lt;/script&gt;
-&lt;/div&gt;</pre>
-                <button class="btn-copiar" onclick="alert('Código copiado para a área de transferência!')">Copiar</button>
+                <!-- Aqui usamos as variáveis para que o código gerado traga as URLs corretas -->
+                <pre>{codigo_iframe_exibido}</pre>
+                <button class="btn-copiar" onclick="alert('Código copiado!')">Copiar</button>
             </div>
         </div>
     </div>
@@ -250,5 +260,4 @@ html_code = """
 </html>
 """
 
-# Renderizando o componente HTML dentro do Streamlit
-components.html(html_code, height=750, scrolling=True)
+components.html(html_code, height=800, scrolling=True)
