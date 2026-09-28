@@ -2182,6 +2182,12 @@
         ]
     },
     "Brasileirão Feminino": {
-        "Final": []
+        "Final": [
+            {
+                "nome": "São Paulo x Corinthians",
+                "key": "MC40Mjc5MTczOTYxMTY5MjQ4Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Feminino Série A1 - Final - Único x Único - 2ª Rodada - São Paulo x Corinthians"
+            }
+        ]
     }
 }
