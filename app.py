@@ -3,17 +3,16 @@ import streamlit.components.v1 as components
 
 # Configuração da página do Streamlit
 st.set_page_config(
-    page_title="R7 Esportes - Painel de Controle",
+    page_title="R7 Esportes - Painel de Controlo",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# Definição das URLs das imagens para facilitar a manutenção
+# Definição centralizada das URLs das imagens
 url_desktop = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg"
 url_mobile = "https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg"
 
-# Bloco de código HTML formatado dinamicamente para aparecer na caixa <pre>
-# (Ajuste aqui as tags conforme o seu template real do iframe)
+# Código HTML gerado para aparecer na caixinha <pre> (o que o utilizador copia)
 codigo_iframe_exibido = f"""<!-- R7 Esportes Header Responsivo -->
 <header style="width: 100%; background-color: #006b3f;">
   <picture>
@@ -28,7 +27,7 @@ codigo_iframe_exibido = f"""<!-- R7 Esportes Header Responsivo -->
   <script src="https://www.srsgoo.com.br/iframe.js?id=iframe_brasileirão_feminino_final_8key=NC4rmJc5hTCzOTYXTV5MJQ-ng"></script>
 </div>"""
 
-# Montagem completa da página HTML injetada no Streamlit
+# Montagem completa da página injetada no componente do Streamlit
 html_code = f"""
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -210,6 +209,7 @@ html_code = f"""
 </head>
 <body>
 
+    <!-- Cabeçalho visual do painel com tag picture -->
     <header>
         <div class="logo-container">
             <picture>
@@ -220,6 +220,7 @@ html_code = f"""
         <div class="contrato-badge">Contrato: 389 / 500</div>
     </header>
 
+    <!-- Estrutura Principal -->
     <div class="main-container">
         <aside>
             <div class="menu-titulo">Campeonatos</div>
@@ -249,9 +250,9 @@ html_code = f"""
 
             <div class="code-container">
                 <h3>FINAL</h3>
-                <!-- Aqui usamos as variáveis para que o código gerado traga as URLs corretas -->
+                <!-- Injeta o código dinâmico formatado com as variáveis corretas -->
                 <pre>{codigo_iframe_exibido}</pre>
-                <button class="btn-copiar" onclick="alert('Código copiado!')">Copiar</button>
+                <button class="btn-copiar" onclick="alert('Código copiado para a área de transferência!')">Copiar</button>
             </div>
         </div>
     </div>
@@ -260,4 +261,5 @@ html_code = f"""
 </html>
 """
 
+# Renderização do componente HTML no Streamlit
 components.html(html_code, height=800, scrolling=True)
