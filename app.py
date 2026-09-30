@@ -103,7 +103,17 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
         st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="🚀")
     st.rerun()
 
-# --- SIDEBAR: BACKUP E SINCRONIZAÇÃO ---
+# --- CÁLCULO DE CONTRATO ---
+# Definição dos limites do contrato
+CONTRATO_TOTAL = 500
+CONTRATO_USADO = 389  # Pode ajustar aqui o valor que já utilizou
+CONTRATO_DISPONIVEL = CONTRATO_TOTAL - CONTRATO_USADO
+
+# --- SIDEBAR: BACKUP, SINCRONIZAÇÃO E CONTROLO ---
+st.sidebar.subheader("📊 Controlo de Contrato")
+st.sidebar.info(f"✨ **{CONTRATO_DISPONIVEL}** ainda disponíveis de um total de {CONTRATO_TOTAL}.")
+
+st.sidebar.divider()
 st.sidebar.subheader("💾 Backup e Sincronização")
 st.sidebar.info("☁️ As alterações são salvas automaticamente no GitHub!")
 
