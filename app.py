@@ -103,15 +103,128 @@ def aplicar_e_sintonizar(novo_dict, ultimo_ativo=None):
         st.toast("Alteração salva e sincronizada no GitHub com sucesso!", icon="🚀")
     st.rerun()
 
-# --- CÁLCULO DE CONTRATO ---
-# Definição dos limites do contrato
-CONTRATO_TOTAL = 500
-CONTRATO_USADO = 389  # Pode ajustar aqui o valor que já utilizou
+# --- GERAÇÃO DO HTML FINAL E CÁLCULO DE CONTRATO ---
+menu_lateral_html = ""
+conteudo_paineis_html = ""
+dados_controle_json = {}
+total_geral_iframes = 0
+
+chaves_campeonatos = list(st.session_state["campeonatos_dados"].keys())
+if "ultimo_campeonato_ativo" in st.session_state and st.session_state["ultimo_campeonato_ativo"]:
+    campeonato_ativo_padrao = st.session_state["ultimo_campeonato_ativo"]
+elif chaves_campeonatos:
+    campeonato_ativo_padrao = chaves_campeonatos[-1]
+else:
+    campeonato_ativo_padrao = None
+
+for c_nome, r_dict in st.session_state["campeonatos_dados"].items():
+    qtd_c = sum(len(j_list) for j_list in r_dict.values())
+    total_geral_iframes += qtd_c
+    dados_controle_json[c_nome] = qtd_c
+
+    if st.session_state["campeonatos_visibilidade"].get(c_nome, True) and r_dict:
+        safe_camp_id = re.sub(r'[^a-zA-Z0-9]', '_', c_nome).lower()
+        
+        opts_html_exp = ""
+        blocos_html_exp = ""
+        r_keys = list(r_dict.keys())
+        for idx_r_exp, r_exp_name in enumerate(r_keys):
+            j_exp_list = r_dict[r_exp_name]
+            s_r_id = re.sub(r'[^a-zA-Z0-9]', '_', r_exp_name).lower()
+            s_c_id = re.sub(r'[^a-zA-Z0-9]', '_', c_nome).lower()
+            d_id = f"rodada_{s_c_id}_{s_r_id}"
+            
+            is_last_e = (idx_r_exp == len(r_keys) - 1)
+            sel_att = "selected" if is_last_e else ""
+            opts_html_exp += f'<option value="{d_id}" {sel_att}>{r_exp_name}</option>\n'
+            
+            disp_sty = "block" if is_last_e else "none"
+            cards_exp_str = ""
+            for i_e, j_e in enumerate(j_exp_list):
+                id_cont_e = f"iframe_{c_nome}_{r_exp_name}_{i_e}".lower().replace(" ", "_")
+                c_puro_e = f"""<!-- {j_e.get('comentario_original', j_e['nome'])} -->
+<div style="display: flex">
+    <div id="{id_cont_e}" style="width: 100%; max-height: 100%; height: 2000px"></div>
+    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_cont_e}&key={j_e['key']}"></script>
+</div>"""
+                c_esc_disp = html.escape(c_puro_e)
+                c_esc_cop = html.escape(c_puro_e, quote=True)
+                cards_exp_str += f"""
+        <div class="match-card">
+            <div class="code-box-wrapper">
+                <pre><code>{c_esc_disp}</code></pre>
+            </div>
+            <button class="copy-btn" data-code="{c_esc_cop}" onclick="copiarTexto(this)">Copiar</button>
+        </div>\n"""
+            
+            blocos_html_exp += f"""
+    <div id="{d_id}" class="rodada-content-panel" style="display: {disp_sty};">
+        <h2 class="round-title">{r_exp_name}</h2>
+        {cards_exp_str}
+    </div>\n"""
+
+        is_active_camp = (c_nome == campeonato_ativo_padrao)
+        active_menu_class = "active" if is_active_camp else ""
+        active_panel_class = "active" if is_active_camp else ""
+
+        menu_lateral_html += f"""
+        <button class="menu-item {active_menu_class}" onclick="mudarCampeonato(event, '{safe_camp_id}')">{c_nome}</button>"""
+
+        conteudo_paineis_html += f"""
+    <div id="{safe_camp_id}" class="championship-panel {active_panel_class}">
+        <h1 class="page-title">{c_nome}</h1>
+        <div class="round-selector-container">
+            <label for="select_{safe_camp_id}" class="select-label">Selecione a Rodada / Fase:</label>
+            <select id="select_{safe_camp_id}" class="round-select" onchange="mudarRodada(this, '{safe_camp_id}')">
+                {opts_html_exp}
+            </select>
+        </div>
+        <div class="rounds-container">
+            {blocos_html_exp}
+        </div>
+    </div>\n"""
+
+# Configuração dinâmica dos limites do contrato com base nos iframes contados
+LIMITE_CONTRATO = 500
+CONTRATO_TOTAL = LIMITE_CONTRATO
+CONTRATO_USADO = total_geral_iframes  
 CONTRATO_DISPONIVEL = CONTRATO_TOTAL - CONTRATO_USADO
+
+paineis_controle_linhas = ""
+for c_nome, qtd in dados_controle_json.items():
+    porcentagem = min(round((qtd / LIMITE_CONTRATO) * 100, 1), 100) if LIMITE_CONTRATO > 0 else 0
+    paineis_controle_linhas += f"""
+    <div class="control-item">
+        <div class="control-info">
+            <span class="control-camp-name">{c_nome}</span>
+            <span class="control-camp-count">{qtd} iframes</span>
+        </div>
+        <div class="control-bar-bg">
+            <div class="control-bar-fill" style="width: {porcentagem}%;"></div>
+        </div>
+    </div>\n"""
+
+if not paineis_controle_linhas:
+    paineis_controle_linhas = '<p style="color: #777;">Nenhum dado de campeonato cadastrado ainda.</p>'
+
+conteudo_paineis_html += f"""
+<div id="painel_controle" class="championship-panel">
+    <h1 class="page-title">Controle de Contrato (Iframes)</h1>
+    <div class="control-wrapper">
+        <p class="control-desc">Acompanhe abaixo o consumo detalhado por campeonato em relação ao limite estipulado em contrato.</p>
+        {paineis_controle_linhas}
+        <div class="control-footer-summary">
+            <span>Utilização Total do Contrato: <strong>{total_geral_iframes} / {LIMITE_CONTRATO}</strong></span>
+        </div>
+    </div>
+</div>\n"""
+
+menu_lateral_html += f"""
+    <button class="menu-item menu-control-btn" onclick="mudarCampeonato(event, 'painel_controle')">📊 Controle de Contrato</button>"""
 
 # --- SIDEBAR: BACKUP, SINCRONIZAÇÃO E CONTROLO ---
 st.sidebar.subheader("📊 Controlo de Contrato")
-st.sidebar.info(f"✨ **{CONTRATO_DISPONIVEL}** ainda disponíveis de um total de {CONTRATO_TOTAL}.")
+st.sidebar.info(f"✨ **{CONTRATO_DISPONIVEL}** ainda disponíveis de um total de {CONTRATO_TOTAL}[cite: 2].")
 
 st.sidebar.divider()
 st.sidebar.subheader("💾 Backup e Sincronização")
@@ -359,123 +472,7 @@ else:
                     for jogo in jogos_atuais:
                         st.caption(f"⚽ {jogo['nome']}")
 
-# --- GERAÇÃO DO HTML FINAL PARA O SERVIDOR ---
-menu_lateral_html = ""
-conteudo_paineis_html = ""
-dados_controle_json = {}
-total_geral_iframes = 0
-
-chaves_campeonatos = list(st.session_state["campeonatos_dados"].keys())
-if "ultimo_campeonato_ativo" in st.session_state and st.session_state["ultimo_campeonato_ativo"]:
-    campeonato_ativo_padrao = st.session_state["ultimo_campeonato_ativo"]
-elif chaves_campeonatos:
-    campeonato_ativo_padrao = chaves_campeonatos[-1]
-else:
-    campeonato_ativo_padrao = None
-
-for c_nome, r_dict in st.session_state["campeonatos_dados"].items():
-    qtd_c = sum(len(j_list) for j_list in r_dict.values())
-    total_geral_iframes += qtd_c
-    dados_controle_json[c_nome] = qtd_c
-
-    if st.session_state["campeonatos_visibilidade"].get(c_nome, True) and r_dict:
-        safe_camp_id = re.sub(r'[^a-zA-Z0-9]', '_', c_nome).lower()
-        
-        opts_html_exp = ""
-        blocos_html_exp = ""
-        r_keys = list(r_dict.keys())
-        for idx_r_exp, r_exp_name in enumerate(r_keys):
-            j_exp_list = r_dict[r_exp_name]
-            s_r_id = re.sub(r'[^a-zA-Z0-9]', '_', r_exp_name).lower()
-            s_c_id = re.sub(r'[^a-zA-Z0-9]', '_', c_nome).lower()
-            d_id = f"rodada_{s_c_id}_{s_r_id}"
-            
-            is_last_e = (idx_r_exp == len(r_keys) - 1)
-            sel_att = "selected" if is_last_e else ""
-            opts_html_exp += f'<option value="{d_id}" {sel_att}>{r_exp_name}</option>\n'
-            
-            disp_sty = "block" if is_last_e else "none"
-            cards_exp_str = ""
-            for i_e, j_e in enumerate(j_exp_list):
-                id_cont_e = f"iframe_{c_nome}_{r_exp_name}_{i_e}".lower().replace(" ", "_")
-                c_puro_e = f"""<!-- {j_e.get('comentario_original', j_e['nome'])} -->
-<div style="display: flex">
-    <div id="{id_cont_e}" style="width: 100%; max-height: 100%; height: 2000px"></div>
-    <script src="https://www.srgoool.com.br/iframe.js.php?id={id_cont_e}&key={j_e['key']}"></script>
-</div>"""
-                c_esc_disp = html.escape(c_puro_e)
-                c_esc_cop = html.escape(c_puro_e, quote=True)
-                cards_exp_str += f"""
-        <div class="match-card">
-            <div class="code-box-wrapper">
-                <pre><code>{c_esc_disp}</code></pre>
-            </div>
-            <button class="copy-btn" data-code="{c_esc_cop}" onclick="copiarTexto(this)">Copiar</button>
-        </div>\n"""
-            
-            blocos_html_exp += f"""
-    <div id="{d_id}" class="rodada-content-panel" style="display: {disp_sty};">
-        <h2 class="round-title">{r_exp_name}</h2>
-        {cards_exp_str}
-    </div>\n"""
-
-        is_active_camp = (c_nome == campeonato_ativo_padrao)
-        active_menu_class = "active" if is_active_camp else ""
-        active_panel_class = "active" if is_active_camp else ""
-
-        menu_lateral_html += f"""
-        <button class="menu-item {active_menu_class}" onclick="mudarCampeonato(event, '{safe_camp_id}')">{c_nome}</button>"""
-
-        conteudo_paineis_html += f"""
-    <div id="{safe_camp_id}" class="championship-panel {active_panel_class}">
-        <h1 class="page-title">{c_nome}</h1>
-        <div class="round-selector-container">
-            <label for="select_{safe_camp_id}" class="select-label">Selecione a Rodada / Fase:</label>
-            <select id="select_{safe_camp_id}" class="round-select" onchange="mudarRodada(this, '{safe_camp_id}')">
-                {opts_html_exp}
-            </select>
-        </div>
-        <div class="rounds-container">
-            {blocos_html_exp}
-        </div>
-    </div>\n"""
-
-LIMITE_CONTRATO = 500
-restantes_contrato = LIMITE_CONTRATO - total_geral_iframes
-
-paineis_controle_linhas = ""
-for c_nome, qtd in dados_controle_json.items():
-    porcentagem = min(round((qtd / LIMITE_CONTRATO) * 100, 1), 100) if LIMITE_CONTRATO > 0 else 0
-    paineis_controle_linhas += f"""
-    <div class="control-item">
-        <div class="control-info">
-            <span class="control-camp-name">{c_nome}</span>
-            <span class="control-camp-count">{qtd} iframes</span>
-        </div>
-        <div class="control-bar-bg">
-            <div class="control-bar-fill" style="width: {porcentagem}%;"></div>
-        </div>
-    </div>\n"""
-
-if not paineis_controle_linhas:
-    paineis_controle_linhas = '<p style="color: #777;">Nenhum dado de campeonato cadastrado ainda.</p>'
-
-conteudo_paineis_html += f"""
-<div id="painel_controle" class="championship-panel">
-    <h1 class="page-title">Controle de Contrato (Iframes)</h1>
-    <div class="control-wrapper">
-        <p class="control-desc">Acompanhe abaixo o consumo detalhado por campeonato em relação ao limite estipulado em contrato.</p>
-        {paineis_controle_linhas}
-        <div class="control-footer-summary">
-            <span>Utilização Total do Contrato: <strong>{total_geral_iframes} / {LIMITE_CONTRATO}</strong></span>
-        </div>
-    </div>
-</div>\n"""
-
-menu_lateral_html += f"""
-    <button class="menu-item menu-control-btn" onclick="mudarCampeonato(event, 'painel_controle')">📊 Controle de Contrato</button>"""
-
-# Montagem do HTML completo da página
+# --- GERAÇÃO DO HTML COMPLETO DA PÁGINA ---
 html_pagina_completa = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -791,7 +788,7 @@ html_pagina_completa = f"""<!DOCTYPE html>
 
     <div class="header-container">
         <div class="header-counter-badge">
-            Contrato: <span>{total_geral_iframes} / {LIMITE_CONTRATO}</span>
+            Contrato: <span>{CONTRATO_USADO} / {CONTRATO_TOTAL}</span>
         </div>
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/7XJNKPHSNRGB7K5DJFYFATVSKU.jpg" alt="Banner Desktop" class="header-desktop">
         <img src="https://cloudfront-us-east-1.images.arcpublishing.com/newr7/AXEMY2CIPFA4JJL57TICBSEXBM.jpg" alt="Banner Mobile" class="header-mobile">
