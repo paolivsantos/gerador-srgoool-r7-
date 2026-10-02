@@ -1072,7 +1072,38 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - São Paulo x Santos"
             }
         ],
-        "Rodada 29": []
+        "Rodada 29": [
+            {
+                "nome": "Internacional x Corinthians",
+                "key": "MC41MTUzMTEyNzIzNjM0Njgz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Internacional x Corinthians"
+            },
+            {
+                "nome": "Botafogo x Vasco",
+                "key": "MC41ODYzOTM0NTc0NTIyMDE3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Botafogo x Vasco"
+            },
+            {
+                "nome": "Cruzeiro x São Paulo",
+                "key": "MC41MDM2NzQ1MTY5MjM0MjI1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Cruzeiro x São Paulo"
+            },
+            {
+                "nome": "Santos x Flamengo",
+                "key": "MC4yOTIyNzQ5ODEwNzgwMTY1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Santos x Flamengo"
+            },
+            {
+                "nome": "Palmeiras x Bahia",
+                "key": "MC43NTI0NTY0Nzc2MTI2ODIx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Palmeiras x Bahia"
+            },
+            {
+                "nome": "Fluminense x Coritiba",
+                "key": "MC4wMjAxNTQyNjQ3NzQzMTcxNjg=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Fluminense x Coritiba"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
