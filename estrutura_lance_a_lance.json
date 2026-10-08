@@ -1104,7 +1104,43 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 29ª Rodada - Fluminense x Coritiba"
             }
         ],
-        "Rodada 30": []
+        "Rodada 30": [
+            {
+                "nome": "Vasco x Remo",
+                "key": "MC44NjY1MTQ4OTMxMjQzNTk2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Vasco x Remo"
+            },
+            {
+                "nome": "São Paulo x Vitória",
+                "key": "MC40NDczODM2NzUyMDk2MDM5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - São Paulo x Vitória"
+            },
+            {
+                "nome": "Atlético Mineiro x Santos",
+                "key": "MC43MDE2NTYwNjc0NjYwNDM=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Atlético Mineiro x Santos"
+            },
+            {
+                "nome": "Palmeiras x Corinthians",
+                "key": "MC4zODEyMTE1MDg0MjA0OTM=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Palmeiras x Corinthians"
+            },
+            {
+                "nome": "Grêmio x Internacional",
+                "key": "MC40ODAzMzI4MTkyNjA5NjY3Nw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Grêmio x Internacional"
+            },
+            {
+                "nome": "Flamengo x Fluminense",
+                "key": "MC4zMDUwMTI0ODE1NzExODY3Nw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Flamengo x Fluminense"
+            },
+            {
+                "nome": "Coritiba x Botafogo",
+                "key": "MC45MjAwMjM1NjMyNDM0NzA3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Coritiba x Botafogo"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
