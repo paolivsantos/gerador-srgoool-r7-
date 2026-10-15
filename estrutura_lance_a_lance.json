@@ -1141,7 +1141,43 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 30ª Rodada - Coritiba x Botafogo"
             }
         ],
-        "Rodada 31": []
+        "Rodada 31": [
+            {
+                "nome": "Botafogo x Chapecoense",
+                "key": "MC4xMDM4Njc1MjQ0MDAyMzAwNg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Botafogo x Chapecoense"
+            },
+            {
+                "nome": "Athletico Paranaense x Palmeiras",
+                "key": "MC40MDcxMzYzMjMzMDk2MzA0NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Athletico Paranaense x Palmeiras"
+            },
+            {
+                "nome": "São Paulo x Vasco",
+                "key": "MC44MDA3ODI2OTk4ODM3MTMx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - São Paulo x Vasco"
+            },
+            {
+                "nome": "Grêmio x Cruzeiro",
+                "key": "MC4yNTUyMDQ2MDUxNzYzMDQx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Grêmio x Cruzeiro"
+            },
+            {
+                "nome": "Fluminense x Santos",
+                "key": "MC41NTA2NDQ2NjQ2MDY2Nzk4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Fluminense x Santos"
+            },
+            {
+                "nome": "Bahia x Flamengo",
+                "key": "MC44OTMwODU3OTM0OTI0NjQy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Bahia x Flamengo"
+            },
+            {
+                "nome": "Corinthians x Vitória",
+                "key": "MC42NzE3ODg5MDYzNzI4ODc=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Corinthians x Vitória"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
