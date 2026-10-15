@@ -1334,7 +1334,18 @@
                 "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 2ª Rodada - Manchester City x PSG"
             }
         ],
-        "Rodada 3": []
+        "Rodada 3": [
+            {
+                "nome": "PSG x Barcelona",
+                "key": "MC43NTk1NTkwODgxNjI2Njcy",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 3ª Rodada - PSG x Barcelona"
+            },
+            {
+                "nome": "Real Madrid x RB Leipzig",
+                "key": "MC41MDM1MjY0NjI3MTA5NTI4",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 3ª Rodada - Real Madrid x RB Leipzig"
+            }
+        ]
     },
     "Copa do Brasil": {
         "Fase 5 - Jogos de Ida": [
