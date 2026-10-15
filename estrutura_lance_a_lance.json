@@ -1317,7 +1317,23 @@
                 "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 1ª Rodada - Barcelona x Feyenoord"
             }
         ],
-        "Rodada 2": [],
+        "Rodada 2": [
+            {
+                "nome": "Galatasaray x Barcelona",
+                "key": "MC45NzQ5Nzg5NDcwNTczNjkx",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 2ª Rodada - Galatasaray x Barcelona"
+            },
+            {
+                "nome": "Roma x Real Madrid",
+                "key": "MC41Mjc4NTc0Mjc5NzY4OTI3",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 2ª Rodada - Roma x Real Madrid"
+            },
+            {
+                "nome": "Manchester City x PSG",
+                "key": "MC4zMzE3MTkzNTEzMTAwMjE1Ng==",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 2ª Rodada - Manchester City x PSG"
+            }
+        ],
         "Rodada 3": []
     },
     "Copa do Brasil": {
