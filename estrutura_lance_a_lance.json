@@ -2096,7 +2096,18 @@
                 "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Flamengo x Independiente del Valle"
             }
         ],
-        "Semifinais - Jogos de Ida": []
+        "Semifinais - Jogos de Ida": [
+            {
+                "nome": "Fluminense x Palmeiras",
+                "key": "MC44ODUzODg2Mzk2NDg4MDY5",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Fluminense x Palmeiras"
+            },
+            {
+                "nome": "Estudiantes x Flamengo",
+                "key": "MC4xNTY2MDM5NzYyOTg2ODYwOA==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Estudiantes x Flamengo"
+            }
+        ]
     },
     "Mundial de Clubes": {},
     "Paulistão": {
