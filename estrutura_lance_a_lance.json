@@ -2108,7 +2108,18 @@
                 "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Estudiantes x Flamengo"
             }
         ],
-        "Semifinais - Jogos de Volta": []
+        "Semifinais - Jogos de Volta": [
+            {
+                "nome": "Palmeiras x Fluminense",
+                "key": "MC4xMjk5MzQ3NjczODIxNTg2Nw==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Palmeiras x Fluminense"
+            },
+            {
+                "nome": "Flamengo x Estudiantes",
+                "key": "MC40Njc0NzY4MDc5NzAwNjYzNQ==",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Flamengo x Estudiantes"
+            }
+        ]
     },
     "Mundial de Clubes": {},
     "Paulistão": {
