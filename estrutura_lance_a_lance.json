@@ -1766,7 +1766,18 @@
                 "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 1ª Rodada - Atlético Mineiro x Montevideo City Torque"
             }
         ],
-        "Semifinais - Jogos de Volta": []
+        "Semifinais - Jogos de Volta": [
+            {
+                "nome": "Vasco x Boca Juniors",
+                "key": "MC4zODEzNzQxMDQzMDM2NTYyNg==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Vasco x Boca Juniors"
+            },
+            {
+                "nome": "Montevideo City Torque x Atlético Mineiro",
+                "key": "MC4wNzEzMzM2ODMxNjIzMDcwNw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Montevideo City Torque x Atlético Mineiro"
+            }
+        ]
     },
     "Libertadores da América": {
         "Segunda Fase - Jogos de Ida": [
