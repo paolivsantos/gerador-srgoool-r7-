@@ -1215,7 +1215,48 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Flamengo x Atlético Mineiro"
             }
         ],
-        "Rodada 33": []
+        "Rodada 33": [
+            {
+                "nome": "Santos x Palmeiras",
+                "key": "MC4zMTE0NjU5OTAwODgzODI3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Santos x Palmeiras"
+            },
+            {
+                "nome": "Fluminense x Internacional",
+                "key": "MC40MTQxNzIyMzI1MzY3NTk0NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Fluminense x Internacional"
+            },
+            {
+                "nome": "Remo x Botafogo",
+                "key": "MC44MTI1ODIyNzkzODA5NTMy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Remo x Botafogo"
+            },
+            {
+                "nome": "Bahia x São Paulo",
+                "key": "MC4xOTAzMDM5OTU0NTEyNDE3MQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Bahia x São Paulo"
+            },
+            {
+                "nome": "Atlético Mineiro x Cruzeiro",
+                "key": "MC43MjYzMjc2MjU3Nzk3NDAy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Atlético Mineiro x Cruzeiro"
+            },
+            {
+                "nome": "Vasco x Flamengo",
+                "key": "MC40ODY5ODQ2NTE5ODkyODkyNQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Vasco x Flamengo"
+            },
+            {
+                "nome": "Grêmio x Athletico Paranaense",
+                "key": "MC43MTU3NjAwMzIzODE2Mzg5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Grêmio x Athletico Paranaense"
+            },
+            {
+                "nome": "Corinthians x Mirassol",
+                "key": "MC4yMTY1NzkwMjM5NTAzNDExOA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Corinthians x Mirassol"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
