@@ -1178,7 +1178,43 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 31ª Rodada - Corinthians x Vitória"
             }
         ],
-        "Rodada 32": [],
+        "Rodada 32": [
+            {
+                "nome": "Mirassol x São Paulo",
+                "key": "MC4zMDcwNDk0NjI4NTc3MDIyNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Mirassol x São Paulo"
+            },
+            {
+                "nome": "Internacional x Botafogo",
+                "key": "MC43MDgzNzk2ODA5NTA1NDgy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Internacional x Botafogo"
+            },
+            {
+                "nome": "Vasco x Corinthians",
+                "key": "MC45NDg0OTEwMTU0MjM1NDY1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Vasco x Corinthians"
+            },
+            {
+                "nome": "Palmeiras x Bragantino",
+                "key": "MC40NTg1MjI5NDIzNDQyMTM3Ng==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Palmeiras x Bragantino"
+            },
+            {
+                "nome": "Chapecoense x Fluminense",
+                "key": "MC44OTQ2MjMwODg1NTIyNjU1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Chapecoense x Fluminense"
+            },
+            {
+                "nome": "Santos x Bahia",
+                "key": "MC40NjE0MTk4MjAyODM5MzA2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Santos x Bahia"
+            },
+            {
+                "nome": "Flamengo x Atlético Mineiro",
+                "key": "MC43MTUzNjkwNjUwMjcwOTY0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 32ª Rodada - Flamengo x Atlético Mineiro"
+            }
+        ],
         "Rodada 33": []
     },
     "Champions League 2025/2026": {
