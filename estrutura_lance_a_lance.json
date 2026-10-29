@@ -1257,7 +1257,48 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 33ª Rodada - Corinthians x Mirassol"
             }
         ],
-        "Rodada 34": []
+        "Rodada 34": [
+            {
+                "nome": "Bragantino x Santos",
+                "key": "MC45MTQ2NzM1Njc2NzAwOTM0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Bragantino x Santos"
+            },
+            {
+                "nome": "Internacional x Coritiba",
+                "key": "MC41ODk4ODU2NDA1MDc0NTc0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Internacional x Coritiba"
+            },
+            {
+                "nome": "Flamengo x Grêmio",
+                "key": "MC4yMzA1NzA5MTkwOTUxMzg5NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Flamengo x Grêmio"
+            },
+            {
+                "nome": "Athletico Paranaense x Vasco",
+                "key": "MC45NzU3NjUzMzcyMTM2NTUz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Athletico Paranaense x Vasco"
+            },
+            {
+                "nome": "São Paulo x Corinthians",
+                "key": "MC41OTg5NTk3MDQ0ODc1NDc=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - São Paulo x Corinthians"
+            },
+            {
+                "nome": "Palmeiras x Remo",
+                "key": "MC4zMDUwOTYzOTAwMDk5NDc1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Palmeiras x Remo"
+            },
+            {
+                "nome": "Cruzeiro x Bahia",
+                "key": "MC40MDYxOTQzNDY0MDM4ODQx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Cruzeiro x Bahia"
+            },
+            {
+                "nome": "Vitória x Fluminense",
+                "key": "MC45NzE4MjUzNDgxODcwNzUz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Vitória x Fluminense"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
