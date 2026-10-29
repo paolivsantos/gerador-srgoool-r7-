@@ -1746,6 +1746,22 @@
             }
         ]
     },
+    "Copa dos Campeões Feminina": {
+        "Semifinal": [
+            {
+                "nome": "Gotham x Corinthians",
+                "key": "MC44MTgwMDU2OTg1NjM1MzYz",
+                "comentario_original": "Copa dos Campeões Feminina da FIFA - 2026/2025 - Única - Semifinal - Único x Único - 1ª Rodada - Gotham x Corinthians"
+            }
+        ],
+        "Final": [
+            {
+                "nome": "Arsenal x Corinthians",
+                "key": "MC41NTI0MTA4Mjc1MzI3OTMy",
+                "comentario_original": "Copa dos Campeões Feminina da FIFA - 2026/2025 - Única - Final - Final x Final - 1ª Rodada - Arsenal x Corinthians"
+            }
+        ]
+    },
     "Libertadores da América": {
         "Segunda Fase - Jogos de Ida": [
             {
@@ -2097,22 +2113,6 @@
                 "nome": "Flamengo x Estudiantes",
                 "key": "MC40Njc0NzY4MDc5NzAwNjYzNQ==",
                 "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Flamengo x Estudiantes"
-            }
-        ]
-    },
-    "Copa dos Campeões Feminina": {
-        "Semifinal": [
-            {
-                "nome": "Gotham x Corinthians",
-                "key": "MC44MTgwMDU2OTg1NjM1MzYz",
-                "comentario_original": "Copa dos Campeões Feminina da FIFA - 2026/2025 - Única - Semifinal - Único x Único - 1ª Rodada - Gotham x Corinthians"
-            }
-        ],
-        "Final": [
-            {
-                "nome": "Arsenal x Corinthians",
-                "key": "MC41NTI0MTA4Mjc1MzI3OTMy",
-                "comentario_original": "Copa dos Campeões Feminina da FIFA - 2026/2025 - Única - Final - Final x Final - 1ª Rodada - Arsenal x Corinthians"
             }
         ]
     },
