@@ -1763,6 +1763,172 @@
         ]
     },
     "Copa Intercontinental": {},
+    "Copa Sulamericana": {
+        "Rodada 1": [
+            {
+                "nome": "Boston River x São Paulo",
+                "key": "MC4yMzU3MzAyNDIyMDM2Njk4NA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 1ª Rodada - Boston River x São Paulo"
+            },
+            {
+                "nome": "Deportivo Cuenca x Santos",
+                "key": "MC4xMjA2Mjg2NzM2OTU2MTMzMg==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 1ª Rodada - Deportivo Cuenca x Santos"
+            },
+            {
+                "nome": "Botafogo x Caracas",
+                "key": "MC4xNzAzNzI4OTY5ODY0Mjk1",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo E x Grupo E - 1ª Rodada - Botafogo x Caracas"
+            },
+            {
+                "nome": "Barracas Central x Vasco",
+                "key": "MC44ODc2ODgwNzk3NDQyODY5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo G x Grupo G - 1ª Rodada - Barracas Central x Vasco"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "São Paulo x O'Higgins",
+                "key": "MC4wOTA3MjQ0NDAzNzYwMTc2NQ==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 2ª Rodada - São Paulo x O'Higgins"
+            },
+            {
+                "nome": "Vasco x Audax Italiano",
+                "key": "MC44MzE5OTMyMTA5MDQyOTM5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo G x Grupo G - 2ª Rodada - Vasco x Audax Italiano"
+            },
+            {
+                "nome": "Santos x Recoleta",
+                "key": "MC45OTEzNTEzMjA0MDAyMw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 2ª Rodada - Santos x Recoleta"
+            },
+            {
+                "nome": "Racing x Botafogo",
+                "key": "MC4zNDc3MzY0NjYwNjg1MjkwNA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo E x Grupo E - 2ª Rodada - Racing x Botafogo"
+            }
+        ],
+        "Rodada 5": [
+            {
+                "nome": "São Paulo x Millonarios",
+                "key": "MC40NDA3MDk2Nzg4NjY2MzAx",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 5ª Rodada - São Paulo x Millonarios"
+            },
+            {
+                "nome": "Santos x San Lorenzo",
+                "key": "MC4zNTQ3MTU0NTkzNzkxMDI1NA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 5ª Rodada - Santos x San Lorenzo"
+            }
+        ],
+        "Rodada 6": [
+            {
+                "nome": "São Paulo x Boston River",
+                "key": "MC4xNjMwMzU1OTMxNDc0MjI3NQ==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 6ª Rodada - São Paulo x Boston River"
+            },
+            {
+                "nome": "Santos x Deportivo Cuenca",
+                "key": "MC44NjMwODUyMjMyMzQzMzg=",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 6ª Rodada - Santos x Deportivo Cuenca"
+            }
+        ],
+        "Playoffs - Jogos de Ida": [
+            {
+                "nome": "Universidad Central x Santos",
+                "key": "MC4wNzc0MTY3NjQ2NDQzNjI3NA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Playoff - Único x Único - 1ª Rodada - Universidad Central x Santos"
+            }
+        ],
+        "Playoffs - Jogos de Volta": [
+            {
+                "nome": "Santos x Universidad Central",
+                "key": "MC4wOTA3MTU4MTYzMjg5Njg2OA==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Playoff - Único x Único - 2ª Rodada - Santos x Universidad Central"
+            }
+        ],
+        "Oitavas de Final - Jogos de Ida": [
+            {
+                "nome": "Bolívar x São Paulo",
+                "key": "MC4yMTM4ODc4MTkyODgxOTQ=",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 1ª Rodada - Bolívar x São Paulo"
+            },
+            {
+                "nome": "Santos x Macará",
+                "key": "MC42NzI3NDQ1ODk1NTI5NzY4",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 1ª Rodada - Santos x Macará"
+            }
+        ],
+        "Oitavas de Final - Jogos de Volta": [
+            {
+                "nome": "São Paulo x Bolívar",
+                "key": "MC45MjE3NDg4NDY2OTY0NTU4",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 2ª Rodada - São Paulo x Bolívar"
+            },
+            {
+                "nome": "Macará x Santos",
+                "key": "MC4zNTU0MDUzOTk5MDY4MjY1Nw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 2ª Rodada - Macará x Santos"
+            }
+        ],
+        "Quartas de Final - Jogos de Ida": [
+            {
+                "nome": "Santa Fe x Vasco",
+                "key": "MC42Njg5MTYyMDA5MTA2MTY5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Santa Fe x Vasco"
+            },
+            {
+                "nome": "Boca Juniors x São Paulo",
+                "key": "MC45Mzg3NzczMDY5OTE0MjE5",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Boca Juniors x São Paulo"
+            },
+            {
+                "nome": "Santos x Atlético Mineiro",
+                "key": "MC44MTY1MjMzMDEyNDQyNjk0",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Santos x Atlético Mineiro"
+            }
+        ],
+        "Quartas de Final - Jogos de Volta": [
+            {
+                "nome": "Vasco x Santa Fe",
+                "key": "MC44NDU3NjkzNzcyODE2NzQ2",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - Vasco x Santa Fe"
+            },
+            {
+                "nome": "São Paulo x Boca Juniors",
+                "key": "MC44MTYyNjk3MzAwNDY2NDI3",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - São Paulo x Boca Juniors"
+            },
+            {
+                "nome": "Atlético Mineiro x Santos",
+                "key": "MC44OTcyMDA3NTE5NTM5NDUy",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - Atlético Mineiro x Santos"
+            }
+        ],
+        "Semifinais - Jogos de Ida": [
+            {
+                "nome": "Boca Juniors x Vasco",
+                "key": "MC4zMDc0MzQ3NjU5MDgzNDA3",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 1ª Rodada - Boca Juniors x Vasco"
+            },
+            {
+                "nome": "Atlético Mineiro x Montevideo City Torque",
+                "key": "MC4wNzc5MDQ1Njk5ODg5ODE0Mg==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 1ª Rodada - Atlético Mineiro x Montevideo City Torque"
+            }
+        ],
+        "Semifinais - Jogos de Volta": [
+            {
+                "nome": "Vasco x Boca Juniors",
+                "key": "MC4zODEzNzQxMDQzMDM2NTYyNg==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Vasco x Boca Juniors"
+            },
+            {
+                "nome": "Montevideo City Torque x Atlético Mineiro",
+                "key": "MC4wNzEzMzM2ODMxNjIzMDcwNw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Montevideo City Torque x Atlético Mineiro"
+            }
+        ]
+    },
     "Libertadores da América": {
         "Segunda Fase - Jogos de Ida": [
             {
@@ -2114,172 +2280,6 @@
                 "nome": "Flamengo x Estudiantes",
                 "key": "MC40Njc0NzY4MDc5NzAwNjYzNQ==",
                 "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Flamengo x Estudiantes"
-            }
-        ]
-    },
-    "Copa Sulamericana": {
-        "Rodada 1": [
-            {
-                "nome": "Boston River x São Paulo",
-                "key": "MC4yMzU3MzAyNDIyMDM2Njk4NA==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 1ª Rodada - Boston River x São Paulo"
-            },
-            {
-                "nome": "Deportivo Cuenca x Santos",
-                "key": "MC4xMjA2Mjg2NzM2OTU2MTMzMg==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 1ª Rodada - Deportivo Cuenca x Santos"
-            },
-            {
-                "nome": "Botafogo x Caracas",
-                "key": "MC4xNzAzNzI4OTY5ODY0Mjk1",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo E x Grupo E - 1ª Rodada - Botafogo x Caracas"
-            },
-            {
-                "nome": "Barracas Central x Vasco",
-                "key": "MC44ODc2ODgwNzk3NDQyODY5",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo G x Grupo G - 1ª Rodada - Barracas Central x Vasco"
-            }
-        ],
-        "Rodada 2": [
-            {
-                "nome": "São Paulo x O'Higgins",
-                "key": "MC4wOTA3MjQ0NDAzNzYwMTc2NQ==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 2ª Rodada - São Paulo x O'Higgins"
-            },
-            {
-                "nome": "Vasco x Audax Italiano",
-                "key": "MC44MzE5OTMyMTA5MDQyOTM5",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo G x Grupo G - 2ª Rodada - Vasco x Audax Italiano"
-            },
-            {
-                "nome": "Santos x Recoleta",
-                "key": "MC45OTEzNTEzMjA0MDAyMw==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 2ª Rodada - Santos x Recoleta"
-            },
-            {
-                "nome": "Racing x Botafogo",
-                "key": "MC4zNDc3MzY0NjYwNjg1MjkwNA==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo E x Grupo E - 2ª Rodada - Racing x Botafogo"
-            }
-        ],
-        "Rodada 5": [
-            {
-                "nome": "São Paulo x Millonarios",
-                "key": "MC40NDA3MDk2Nzg4NjY2MzAx",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 5ª Rodada - São Paulo x Millonarios"
-            },
-            {
-                "nome": "Santos x San Lorenzo",
-                "key": "MC4zNTQ3MTU0NTkzNzkxMDI1NA==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 5ª Rodada - Santos x San Lorenzo"
-            }
-        ],
-        "Rodada 6": [
-            {
-                "nome": "São Paulo x Boston River",
-                "key": "MC4xNjMwMzU1OTMxNDc0MjI3NQ==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo C x Grupo C - 6ª Rodada - São Paulo x Boston River"
-            },
-            {
-                "nome": "Santos x Deportivo Cuenca",
-                "key": "MC44NjMwODUyMjMyMzQzMzg=",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Fase de Grupos - Grupo D x Grupo D - 6ª Rodada - Santos x Deportivo Cuenca"
-            }
-        ],
-        "Playoffs - Jogos de Ida": [
-            {
-                "nome": "Universidad Central x Santos",
-                "key": "MC4wNzc0MTY3NjQ2NDQzNjI3NA==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Playoff - Único x Único - 1ª Rodada - Universidad Central x Santos"
-            }
-        ],
-        "Playoffs - Jogos de Volta": [
-            {
-                "nome": "Santos x Universidad Central",
-                "key": "MC4wOTA3MTU4MTYzMjg5Njg2OA==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Playoff - Único x Único - 2ª Rodada - Santos x Universidad Central"
-            }
-        ],
-        "Oitavas de Final - Jogos de Ida": [
-            {
-                "nome": "Bolívar x São Paulo",
-                "key": "MC4yMTM4ODc4MTkyODgxOTQ=",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 1ª Rodada - Bolívar x São Paulo"
-            },
-            {
-                "nome": "Santos x Macará",
-                "key": "MC42NzI3NDQ1ODk1NTI5NzY4",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 1ª Rodada - Santos x Macará"
-            }
-        ],
-        "Oitavas de Final - Jogos de Volta": [
-            {
-                "nome": "São Paulo x Bolívar",
-                "key": "MC45MjE3NDg4NDY2OTY0NTU4",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 2ª Rodada - São Paulo x Bolívar"
-            },
-            {
-                "nome": "Macará x Santos",
-                "key": "MC4zNTU0MDUzOTk5MDY4MjY1Nw==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Oitavas de final - Único x Único - 2ª Rodada - Macará x Santos"
-            }
-        ],
-        "Quartas de Final - Jogos de Ida": [
-            {
-                "nome": "Santa Fe x Vasco",
-                "key": "MC42Njg5MTYyMDA5MTA2MTY5",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Santa Fe x Vasco"
-            },
-            {
-                "nome": "Boca Juniors x São Paulo",
-                "key": "MC45Mzg3NzczMDY5OTE0MjE5",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Boca Juniors x São Paulo"
-            },
-            {
-                "nome": "Santos x Atlético Mineiro",
-                "key": "MC44MTY1MjMzMDEyNDQyNjk0",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 1ª Rodada - Santos x Atlético Mineiro"
-            }
-        ],
-        "Quartas de Final - Jogos de Volta": [
-            {
-                "nome": "Vasco x Santa Fe",
-                "key": "MC44NDU3NjkzNzcyODE2NzQ2",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - Vasco x Santa Fe"
-            },
-            {
-                "nome": "São Paulo x Boca Juniors",
-                "key": "MC44MTYyNjk3MzAwNDY2NDI3",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - São Paulo x Boca Juniors"
-            },
-            {
-                "nome": "Atlético Mineiro x Santos",
-                "key": "MC44OTcyMDA3NTE5NTM5NDUy",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Quartas de final - Único x Único - 2ª Rodada - Atlético Mineiro x Santos"
-            }
-        ],
-        "Semifinais - Jogos de Ida": [
-            {
-                "nome": "Boca Juniors x Vasco",
-                "key": "MC4zMDc0MzQ3NjU5MDgzNDA3",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 1ª Rodada - Boca Juniors x Vasco"
-            },
-            {
-                "nome": "Atlético Mineiro x Montevideo City Torque",
-                "key": "MC4wNzc5MDQ1Njk5ODg5ODE0Mg==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 1ª Rodada - Atlético Mineiro x Montevideo City Torque"
-            }
-        ],
-        "Semifinais - Jogos de Volta": [
-            {
-                "nome": "Vasco x Boca Juniors",
-                "key": "MC4zODEzNzQxMDQzMDM2NTYyNg==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Vasco x Boca Juniors"
-            },
-            {
-                "nome": "Montevideo City Torque x Atlético Mineiro",
-                "key": "MC4wNzEzMzM2ODMxNjIzMDcwNw==",
-                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Montevideo City Torque x Atlético Mineiro"
             }
         ]
     },
