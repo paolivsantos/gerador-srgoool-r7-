@@ -1648,7 +1648,18 @@
                 "comentario_original": "Copa do Brasil - 2026 - Masculino - Quartas de final - Único x Único - 2ª Rodada - Grêmio x Internacional"
             }
         ],
-        "Semifinais - Jogos de Ida": []
+        "Semifinais - Jogos de Ida": [
+            {
+                "nome": "Palmeiras x Vasco",
+                "key": "MC4yNTExMzQwODEwNDYyMjE4Nw==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Palmeiras x Vasco"
+            },
+            {
+                "nome": "Grêmio x Atlético Mineiro",
+                "key": "MC44ODIyMDQ3MDQ4MDgyNjE5",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Grêmio x Atlético Mineiro"
+            }
+        ]
     },
     "Copa do Mundo": {
         "Rodada 1": [
