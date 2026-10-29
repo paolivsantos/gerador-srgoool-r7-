@@ -2284,7 +2284,13 @@
         ]
     },
     "Libertadores da América Feminina": {
-        "Final": []
+        "Final": [
+            {
+                "nome": "Corinthians x Cruzeiro",
+                "key": "MC44Nzg3NTUyOTQ2MDQ5MzA0",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Feminino - Final - Final x Final - 1ª Rodada - Corinthians x Cruzeiro"
+            }
+        ]
     },
     "Mundial de Clubes": {},
     "Paulistão": {
