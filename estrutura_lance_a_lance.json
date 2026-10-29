@@ -1425,7 +1425,23 @@
                 "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 3ª Rodada - Real Madrid x RB Leipzig"
             }
         ],
-        "Rodada 4": []
+        "Rodada 4": [
+            {
+                "nome": "Barcelona x Aston Villa",
+                "key": "MC44OTE2NDM2MjA5MjY1NTQ5",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 4ª Rodada - Barcelona x Aston Villa"
+            },
+            {
+                "nome": "Atlético de Madrid x Bayern de Munique",
+                "key": "MC41NDk1Mzg4MjQyODc3NDU=",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 4ª Rodada - Atlético de Madrid x Bayern de Munique"
+            },
+            {
+                "nome": "AEK Athens x Real Madrid",
+                "key": "MC45OTUzNzk2NTU2MTc2NDI5",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 4ª Rodada - AEK Athens x Real Madrid"
+            }
+        ]
     },
     "Copa do Brasil": {
         "Fase 5 - Jogos de Ida": [
