@@ -1661,6 +1661,91 @@
             }
         ]
     },
+    "Copa do Mundo": {
+        "Rodada 1": [
+            {
+                "nome": "Brasil x Marrocos",
+                "key": "MC44OTA0MjU1MzIwMjI4ODc0",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 1ª Rodada - Brasil x Marrocos"
+            }
+        ],
+        "Rodada 2": [
+            {
+                "nome": "Brasil x Haiti",
+                "key": "MC42MDQ0ODk0MDk5Mjc3MzQ2",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 2ª Rodada - Brasil x Haiti"
+            }
+        ],
+        "Rodada 3": [
+            {
+                "nome": "Escócia x Brasil",
+                "key": "MC4yNzgzOTgyNjUzOTAwOTY1",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 3ª Rodada - Escócia x Brasil"
+            }
+        ],
+        "Segunda Fase": [
+            {
+                "nome": "Brasil x Japão",
+                "key": "MC4yNjA1MzkwMTUwNjYzODA2",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Segunda Fase - Único x Único - 1ª Rodada - Brasil x Japão"
+            }
+        ],
+        "Oitavas de Final": [
+            {
+                "nome": "Brasil x Noruega",
+                "key": "MC43NzA1NjY4MTM0MzQwNzA3",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Brasil x Noruega"
+            }
+        ],
+        "Quartas de Final": [
+            {
+                "nome": "França x Marrocos",
+                "key": "MC45Nzg4MjIxNDgzODUyOTI=",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - França x Marrocos"
+            },
+            {
+                "nome": "Espanha x Bélgica",
+                "key": "MC45NTIwMTgxMDQ0NDg5MzE0",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Espanha x Bélgica"
+            },
+            {
+                "nome": "Noruega x Inglaterra",
+                "key": "MC4yNzg5NDQ5MjU2NjQ4NzI4",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Noruega x Inglaterra"
+            },
+            {
+                "nome": "Argentina x Suíça",
+                "key": "MC43MzE3OTA5MjQxOTUwMDU1",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Argentina x Suíça"
+            }
+        ],
+        "Semifinal": [
+            {
+                "nome": "França x Espanha",
+                "key": "MC43MzM0NDUyMzYyMTExMjY=",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - França x Espanha"
+            },
+            {
+                "nome": "Inglaterra x Argentina",
+                "key": "MC45Nzg1ODYwMDU5NTgzNDI5",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Inglaterra x Argentina"
+            }
+        ],
+        "Terceiro Lugar": [
+            {
+                "nome": "França x Inglaterra",
+                "key": "MC40NzM1NTAwOTkzODkyMDg1Ng==",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Final - Disputa do 3º lugar x Disputa do 3º lugar - 1ª Rodada - França x Inglaterra"
+            }
+        ],
+        "Final": [
+            {
+                "nome": "Espanha x Argentina",
+                "key": "MC4xOTg1OTg0Mjg4MTQyOTc5Mw==",
+                "comentario_original": "Copa do Mundo - 2026 - Masculino - Final - Final x Final - 1ª Rodada - Espanha x Argentina"
+            }
+        ]
+    },
     "Libertadores da América": {
         "Segunda Fase - Jogos de Ida": [
             {
@@ -2012,91 +2097,6 @@
                 "nome": "Flamengo x Estudiantes",
                 "key": "MC40Njc0NzY4MDc5NzAwNjYzNQ==",
                 "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Flamengo x Estudiantes"
-            }
-        ]
-    },
-    "Copa do Mundo": {
-        "Rodada 1": [
-            {
-                "nome": "Brasil x Marrocos",
-                "key": "MC44OTA0MjU1MzIwMjI4ODc0",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 1ª Rodada - Brasil x Marrocos"
-            }
-        ],
-        "Rodada 2": [
-            {
-                "nome": "Brasil x Haiti",
-                "key": "MC42MDQ0ODk0MDk5Mjc3MzQ2",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 2ª Rodada - Brasil x Haiti"
-            }
-        ],
-        "Rodada 3": [
-            {
-                "nome": "Escócia x Brasil",
-                "key": "MC4yNzgzOTgyNjUzOTAwOTY1",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Primeira Fase - Grupo C x Grupo C - 3ª Rodada - Escócia x Brasil"
-            }
-        ],
-        "Segunda Fase": [
-            {
-                "nome": "Brasil x Japão",
-                "key": "MC4yNjA1MzkwMTUwNjYzODA2",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Segunda Fase - Único x Único - 1ª Rodada - Brasil x Japão"
-            }
-        ],
-        "Oitavas de Final": [
-            {
-                "nome": "Brasil x Noruega",
-                "key": "MC43NzA1NjY4MTM0MzQwNzA3",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Oitavas de final - Único x Único - 1ª Rodada - Brasil x Noruega"
-            }
-        ],
-        "Quartas de Final": [
-            {
-                "nome": "França x Marrocos",
-                "key": "MC45Nzg4MjIxNDgzODUyOTI=",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - França x Marrocos"
-            },
-            {
-                "nome": "Espanha x Bélgica",
-                "key": "MC45NTIwMTgxMDQ0NDg5MzE0",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Espanha x Bélgica"
-            },
-            {
-                "nome": "Noruega x Inglaterra",
-                "key": "MC4yNzg5NDQ5MjU2NjQ4NzI4",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Noruega x Inglaterra"
-            },
-            {
-                "nome": "Argentina x Suíça",
-                "key": "MC43MzE3OTA5MjQxOTUwMDU1",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Quartas de final - Único x Único - 1ª Rodada - Argentina x Suíça"
-            }
-        ],
-        "Semifinal": [
-            {
-                "nome": "França x Espanha",
-                "key": "MC43MzM0NDUyMzYyMTExMjY=",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - França x Espanha"
-            },
-            {
-                "nome": "Inglaterra x Argentina",
-                "key": "MC45Nzg1ODYwMDU5NTgzNDI5",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Inglaterra x Argentina"
-            }
-        ],
-        "Terceiro Lugar": [
-            {
-                "nome": "França x Inglaterra",
-                "key": "MC40NzM1NTAwOTkzODkyMDg1Ng==",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Final - Disputa do 3º lugar x Disputa do 3º lugar - 1ª Rodada - França x Inglaterra"
-            }
-        ],
-        "Final": [
-            {
-                "nome": "Espanha x Argentina",
-                "key": "MC4xOTg1OTg0Mjg4MTQyOTc5Mw==",
-                "comentario_original": "Copa do Mundo - 2026 - Masculino - Final - Final x Final - 1ª Rodada - Espanha x Argentina"
             }
         ]
     },
