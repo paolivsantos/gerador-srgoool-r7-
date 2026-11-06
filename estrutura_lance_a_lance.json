@@ -1660,7 +1660,18 @@
                 "comentario_original": "Copa do Brasil - 2026 - Masculino - Semifinal - Único x Único - 1ª Rodada - Grêmio x Atlético Mineiro"
             }
         ],
-        "Semifinais - Jogos de Volta": []
+        "Semifinais - Jogos de Volta": [
+            {
+                "nome": "Atlético Mineiro x Grêmio",
+                "key": "MC4zMzM0MjU2ODcwMDUyMDg1",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Atlético Mineiro x Grêmio"
+            },
+            {
+                "nome": "Vasco x Palmeiras",
+                "key": "MC4xMDk1Mjk3NjQ0OTM0ODk0Mg==",
+                "comentario_original": "Copa do Brasil - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Vasco x Palmeiras"
+            }
+        ]
     },
     "Copa do Mundo": {
         "Rodada 1": [
