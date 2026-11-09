@@ -1313,7 +1313,13 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 34ª Rodada - Vitória x Fluminense"
             }
         ],
-        "Rodada 21 - Chapecoense x Vasco (Atrasado)": []
+        "Rodada 21 - Chapecoense x Vasco (Atrasado)": [
+            {
+                "nome": "Chapecoense x Vasco",
+                "key": "MC4wNjY5NTcxNjY0ODA3OTE5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Chapecoense x Vasco"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
