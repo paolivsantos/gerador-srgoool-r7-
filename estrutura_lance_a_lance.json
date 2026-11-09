@@ -1320,7 +1320,13 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 21ª Rodada - Chapecoense x Vasco"
             }
         ],
-        "Rodada 35 - Mirassol x Atlético Mineiro (Antecipado)": []
+        "Rodada 35 - Mirassol x Atlético Mineiro (Antecipado)": [
+            {
+                "nome": "Mirassol x Atlético Mineiro",
+                "key": "MC4xMjIyNDY5NzMzMzAzODUwMw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Mirassol x Atlético Mineiro"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
