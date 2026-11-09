@@ -2574,6 +2574,12 @@
         ]
     },
     "Copa do Brasil Feminino": {
-        "FINAL": []
+        "FINAL": [
+            {
+                "nome": "Internacional x Flamengo",
+                "key": "MC40MTUwMjI2NTI5ODI3NTUyNg==",
+                "comentario_original": "Copa do Brasil - 2026 - Feminino - Final - Único x Único - 2ª Rodada - Internacional x Flamengo"
+            }
+        ]
     }
 }
