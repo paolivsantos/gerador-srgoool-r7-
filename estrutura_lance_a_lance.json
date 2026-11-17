@@ -1359,7 +1359,43 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - São Paulo x Fluminense"
             }
         ],
-        "Rodada 36": []
+        "Rodada 36": [
+            {
+                "nome": "Palmeiras x Flamengo",
+                "key": "MC4zNzI2OTY1MDUyNzUyNzIz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Palmeiras x Flamengo"
+            },
+            {
+                "nome": "Chapecoense x Cruzeiro",
+                "key": "MC43ODAzNjczOTAwNDgxMDE=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Chapecoense x Cruzeiro"
+            },
+            {
+                "nome": "Fluminense x Mirassol",
+                "key": "MC40NzI3MTIxNDAwMzkyNzI3NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Fluminense x Mirassol"
+            },
+            {
+                "nome": "Internacional x Vitória",
+                "key": "MC45NTgyMjQ0MjY5MTYwNzgx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Internacional x Vitória"
+            },
+            {
+                "nome": "Botafogo x São Paulo",
+                "key": "MC45NTE4NTUxMjc2NTQ4MzQ4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Botafogo x São Paulo"
+            },
+            {
+                "nome": "Santos x Grêmio",
+                "key": "MC40NjEyMjc4NTk3OTk5NjIzNA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Santos x Grêmio"
+            },
+            {
+                "nome": "Atlético Mineiro x Corinthians",
+                "key": "MC4xOTY2MzM0NjM5MDg1NzY4Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Atlético Mineiro x Corinthians"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
