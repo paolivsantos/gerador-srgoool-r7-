@@ -2038,7 +2038,13 @@
                 "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Semifinal - Único x Único - 2ª Rodada - Montevideo City Torque x Atlético Mineiro"
             }
         ],
-        "FINAL": []
+        "FINAL": [
+            {
+                "nome": "Atlético Mineiro x Boca Juniors",
+                "key": "MC4yNzQ3ODY4MzM5Mjk2MzA3Nw==",
+                "comentario_original": "CONMEBOL Sul-Americana - 2026 - Única - Final - Único x Único - 1ª Rodada - Atlético Mineiro x Boca Juniors"
+            }
+        ]
     },
     "Libertadores da América": {
         "Segunda Fase - Jogos de Ida": [
