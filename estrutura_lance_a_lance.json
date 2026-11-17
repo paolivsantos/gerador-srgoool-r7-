@@ -1327,7 +1327,38 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Mirassol x Atlético Mineiro"
             }
         ],
-        "Rodada 35": [],
+        "Rodada 35": [
+            {
+                "nome": "Coritiba x Santos",
+                "key": "MC40NDk1NDE3NjEwMjcyMjIyNg==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Coritiba x Santos"
+            },
+            {
+                "nome": "Flamengo x Athletico Paranaense",
+                "key": "MC4wMjE2Mzk1MTAwNzgwMTk5NA==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Flamengo x Athletico Paranaense"
+            },
+            {
+                "nome": "Cruzeiro x Palmeiras",
+                "key": "MC4wNTYxODUwMDQzNTM2OTU1NTY=",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Cruzeiro x Palmeiras"
+            },
+            {
+                "nome": "Corinthians x Botafogo",
+                "key": "MC45MDU0ODU5Mjg5MDE5MjM4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Corinthians x Botafogo"
+            },
+            {
+                "nome": "Vasco x Internacional",
+                "key": "MC4wMDk0NzczMzUwMzcxNzY4MQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - Vasco x Internacional"
+            },
+            {
+                "nome": "São Paulo x Fluminense",
+                "key": "MC4wMzA2OTYyODIxOTE4NTA1MQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 35ª Rodada - São Paulo x Fluminense"
+            }
+        ],
         "Rodada 36": []
     },
     "Champions League 2025/2026": {
