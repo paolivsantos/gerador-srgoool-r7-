@@ -1579,7 +1579,18 @@
                 "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 4ª Rodada - AEK Athens x Real Madrid"
             }
         ],
-        "Rodada 5": []
+        "Rodada 5": [
+            {
+                "nome": "Real Madrid x PSV",
+                "key": "MC45MDAxOTU3NDAwNzAzNzYz",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 5ª Rodada - Real Madrid x PSV"
+            },
+            {
+                "nome": "PSG x Roma",
+                "key": "MC43ODEyMjE2NDg0NzQ0MzAz",
+                "comentario_original": "UEFA Champions League - 2027/2026 - Masculino - Primeira Fase - Único x Único - 5ª Rodada - PSG x Roma"
+            }
+        ]
     },
     "Copa do Brasil": {
         "Fase 5 - Jogos de Ida": [
