@@ -2461,7 +2461,13 @@
                 "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Semifinal - Único x Único - 2ª Rodada - Flamengo x Estudiantes"
             }
         ],
-        "FINAL": []
+        "FINAL": [
+            {
+                "nome": "Palmeiras x Estudiantes",
+                "key": "MC43OTA4ODYxMTIyOTQwNTM4",
+                "comentario_original": "CONMEBOL Libertadores da América - 2026 - Masculino - Final - Único x Único - 1ª Rodada - Palmeiras x Estudiantes"
+            }
+        ]
     },
     "Libertadores da América Feminina": {
         "Final": [
