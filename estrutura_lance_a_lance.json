@@ -2728,6 +2728,17 @@
         ]
     },
     "Brasileirão B": {
-        "Acesso": []
+        "Acesso": [
+            {
+                "nome": "Vila Nova x Atlético Goianiense",
+                "key": "MC41NDgzMjMxMTIxMTkyOTAy",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série B - Playoff - Único x Único - 2ª Rodada - Vila Nova x Atlético Goianiense"
+            },
+            {
+                "nome": "Fortaleza x Criciúma",
+                "key": "MC43MTE3MTU0MDY0Njk3MzU3",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série B - Playoff - Único x Único - 2ª Rodada - Fortaleza x Criciúma"
+            }
+        ]
     }
 }
