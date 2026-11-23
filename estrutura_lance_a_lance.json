@@ -1394,7 +1394,58 @@
                 "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 36ª Rodada - Atlético Mineiro x Corinthians"
             }
         ],
-        "Rodada 37": []
+        "Rodada 37": [
+            {
+                "nome": "Chapecoense x Palmeiras",
+                "key": "MC4zMzEyNDMyNzAzODUzMDU2NQ==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Chapecoense x Palmeiras"
+            },
+            {
+                "nome": "São Paulo x Remo",
+                "key": "MC42MTI0MjUxOTI4Mjk2MTc1",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - São Paulo x Remo"
+            },
+            {
+                "nome": "Fluminense x Cruzeiro",
+                "key": "MC42NTQ4ODk1MDY4OTc3ODYx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Fluminense x Cruzeiro"
+            },
+            {
+                "nome": "Botafogo x Bahia",
+                "key": "MC45MzEwNzQxNzIxOTQxODQ5",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Botafogo x Bahia"
+            },
+            {
+                "nome": "Vitória x Santos",
+                "key": "MC43NTIwMDg0NjQ4ODc3NDYx",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Vitória x Santos"
+            },
+            {
+                "nome": "Coritiba x Flamengo",
+                "key": "MC43OTY0MDM5ODYyMTIyNDI0",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Coritiba x Flamengo"
+            },
+            {
+                "nome": "Mirassol x Athletico Paranaense",
+                "key": "MC44MzE0NDAyNDkzMDA5NzE4",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Mirassol x Athletico Paranaense"
+            },
+            {
+                "nome": "Internacional x Bragantino",
+                "key": "MC41MjE5MDM1MzAyNDkyODIz",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Internacional x Bragantino"
+            },
+            {
+                "nome": "Corinthians x Grêmio",
+                "key": "MC4xMjA1MjUyMzM1NTk3OTk2",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Corinthians x Grêmio"
+            },
+            {
+                "nome": "Atlético Mineiro x Vasco",
+                "key": "MC4xMDAyMzMyNDEwNzc3Mjk3Mw==",
+                "comentario_original": "Campeonato Brasileiro - 2026 - Série A - Única - Único x Único - 37ª Rodada - Atlético Mineiro x Vasco"
+            }
+        ]
     },
     "Champions League 2025/2026": {
         "Playoffs - Jogos de Ida": [
